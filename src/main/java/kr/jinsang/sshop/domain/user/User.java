@@ -1,10 +1,13 @@
 package kr.jinsang.sshop.domain.user;
 
 import jakarta.persistence.*;
+import kr.jinsang.sshop.domain.order.Order;
 import kr.jinsang.sshop.service.user.UserJoinDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -27,6 +30,9 @@ public class User {
     private LocalDateTime createdDate;
 
     private LocalDateTime updatedDate;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
 
     @Embedded
     private Address address;

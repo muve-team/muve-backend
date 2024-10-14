@@ -33,14 +33,19 @@ class OrderTest {
 
         System.out.println(order);
 
-        em.flush(); // insert
+        em.flush(); // insert 쿼리 나감
         em.clear();
 
-        // 쿼리 나감
-
+        // 오더만 가져오기
         Order foundOrder = em.find(Order.class, 1L);
-        System.out.println(foundOrder.getUser());
+        System.out.println(foundOrder.getUser().getClass());
+        
+        em.flush();
+        em.clear();
 
+        // 패치 조인 (Order 가져올 때 User 가져오기)
+        Order foundOrder2 = em.createQuery("select o from Order o join fetch o.user u where o.id = 1", Order.class).getSingleResult();
+        System.out.println(foundOrder2);
 
     }
 
