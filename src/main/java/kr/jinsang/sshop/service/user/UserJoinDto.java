@@ -17,7 +17,7 @@ public class UserJoinDto {
     private String street;
     private String zipcode;
 
-
+    private UserJoinDto() {}
 
     public static UserJoinDto from(UserForm form) {
         return new UserJoinDto(form.getName(), form.getEmail(), form.getPassword(), form.getPhoneNumber(),

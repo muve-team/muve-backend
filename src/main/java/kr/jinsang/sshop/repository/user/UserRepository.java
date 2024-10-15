@@ -2,7 +2,6 @@ package kr.jinsang.sshop.repository.user;
 
 import jakarta.persistence.EntityManager;
 import kr.jinsang.sshop.domain.user.User;
-import kr.jinsang.sshop.service.user.UserJoinDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
