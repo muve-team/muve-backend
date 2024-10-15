@@ -14,7 +14,7 @@ public class ProductRepository {
     private final EntityManager em;
 
     public void save(Product product) {
-        if (product == null) {
+        if (product.getId() == null) {
             em.persist(product);
             return;
         }
