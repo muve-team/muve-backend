@@ -1,6 +1,7 @@
 package kr.jinsang.sshop.domain.product;
 
 import jakarta.persistence.*;
+import kr.jinsang.sshop.exception.NotEnoughStockException;
 import kr.jinsang.sshop.service.product.ProductDto;
 import lombok.Getter;
 
@@ -32,6 +33,7 @@ public class Product {
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
+
     public static Product createProduct(String name, Long price, Integer stockQuantity) {
         return new Product(name, price, stockQuantity);
     }
@@ -40,6 +42,14 @@ public class Product {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
+    }
+
+    public void removeStock(Integer count) {
+        Integer restStock = this.stockQuantity - count;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("재고가 부족합니다");
+        }
+        this.stockQuantity = restStock;
     }
 
 
