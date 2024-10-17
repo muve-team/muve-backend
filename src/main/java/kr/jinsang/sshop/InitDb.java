@@ -9,6 +9,7 @@ import kr.jinsang.sshop.domain.user.Address;
 import kr.jinsang.sshop.domain.user.User;
 import kr.jinsang.sshop.service.user.UserJoinDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import static kr.jinsang.sshop.domain.user.User.createUser;
 
 @Component
 @RequiredArgsConstructor
+@Profile("!test")
 public class InitDb {
 
     private final InitService initService;
