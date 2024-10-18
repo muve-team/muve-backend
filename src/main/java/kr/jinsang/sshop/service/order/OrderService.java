@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -39,11 +40,15 @@ public class OrderService {
         return order.getId();
     }
 
-    // 주문조회
+    // 주문 목록 조회
     public List<Order> findOrders(OrderSearch orderSearch) {
         return orderRepository.findAll(orderSearch);
     }
 
-    // todo : 주문취소
+    @Transactional
+    public void cancelOrder(Long id) {
+        Order order = orderRepository.findOne(id);
+        orderRepository.delete(order);
+    }
 
 }

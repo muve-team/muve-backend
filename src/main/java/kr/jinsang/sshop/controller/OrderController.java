@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,6 +51,14 @@ public class OrderController {
         model.addAttribute("orders", orderService.findOrders(orderSearch));
         return "order/orderList";
     }
+
+    @PostMapping(value = "/orders/{id}/cancel")
+    public String cancelOrder(@PathVariable Long id) {
+        orderService.cancelOrder(id);
+        return "redirect:/orders";
+    }
+
+
 
 
 

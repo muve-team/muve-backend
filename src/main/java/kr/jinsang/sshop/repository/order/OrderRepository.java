@@ -50,4 +50,12 @@ public class OrderRepository {
         return user.name.like(userName);
     }
 
+    public Order findOne(Long id) {
+        return em.find(Order.class, id);
+    }
+
+    public void delete(Order order) {
+        em.remove(order);
+    }
+
 }
