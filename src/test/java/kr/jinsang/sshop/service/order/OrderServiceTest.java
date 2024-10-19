@@ -1,6 +1,7 @@
 package kr.jinsang.sshop.service.order;
 
 import jakarta.persistence.EntityManager;
+import kr.jinsang.sshop.domain.category.Category;
 import kr.jinsang.sshop.domain.order.Order;
 import kr.jinsang.sshop.domain.orderproduct.OrderProduct;
 import kr.jinsang.sshop.domain.product.Product;
@@ -43,7 +44,10 @@ public class OrderServiceTest {
         userService.join(userDto);
         User foundUser = em.find(User.class, 1L);
 
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10);
+        Category category = Category.createCategory("전자기기");
+        em.persist(category);
+
+        ProductDto productDto = new ProductDto(null, "1", 1000L, 10, category.getId(), category.getName());
         productService.create(productDto);
         Product foundProduct = em.find(Product.class, 1L);
 
@@ -66,7 +70,10 @@ public class OrderServiceTest {
         userService.join(userDto);
         User foundUser = em.find(User.class, 1L);
 
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10);
+        Category category = Category.createCategory("책");
+        em.persist(category);
+
+        ProductDto productDto = new ProductDto(null, "1", 1000L, 10, category.getId(), category.getName());
         productService.create(productDto);
         Product foundProduct = em.find(Product.class, 1L);
 
