@@ -2,6 +2,7 @@ package kr.jinsang.sshop.controller;
 
 import jakarta.validation.Valid;
 import kr.jinsang.sshop.domain.product.Product;
+import kr.jinsang.sshop.service.category.CategoryService;
 import kr.jinsang.sshop.service.product.ProductDto;
 import kr.jinsang.sshop.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,12 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final CategoryService categoryService;
+
     @GetMapping(value = "/products/new")
     public String createProductForm(Model model) {
         model.addAttribute("productForm", new ProductForm());
+        model.addAttribute("categories", categoryService.findCategories());
         return "products/createProductForm";
     }
 
@@ -45,6 +49,7 @@ public class ProductController {
         Product product = productService.findOne(productId);
         ProductForm form = ProductForm.from(product);
         model.addAttribute("form", form);
+        model.addAttribute("categories", categoryService.findCategories());
         return "products/updateProductForm";
     }
 

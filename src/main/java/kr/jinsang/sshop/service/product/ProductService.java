@@ -1,6 +1,8 @@
 package kr.jinsang.sshop.service.product;
 
+import kr.jinsang.sshop.domain.category.Category;
 import kr.jinsang.sshop.domain.product.Product;
+import kr.jinsang.sshop.repository.category.CategoryRepository;
 import kr.jinsang.sshop.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,17 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final CategoryRepository categoryRepository;
+
 
     // 상품 등록
     @Transactional
     public Long create(ProductDto dto) {
-        Product product = Product.createProduct(dto.getName(), dto.getPrice(), dto.getStockQuantity());
+        Long categoryId = dto.getCategoryId();
+        Category category = categoryRepository.findOne(categoryId);
+
+        Product product = Product.createProduct(dto.getName(), dto.getPrice(),
+                dto.getStockQuantity(), category);
         productRepository.save(product);
 
         return product.getId();
@@ -39,7 +47,8 @@ public class ProductService {
     @Transactional
     public void update(ProductDto dto) {
         Product product = findOne(dto.getId());
-        product.update(dto);
+        Category category = categoryRepository.findOne(dto.getCategoryId());
+        product.update(dto, category);
     }
 
 

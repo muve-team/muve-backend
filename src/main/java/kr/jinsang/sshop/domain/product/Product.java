@@ -1,6 +1,7 @@
 package kr.jinsang.sshop.domain.product;
 
 import jakarta.persistence.*;
+import kr.jinsang.sshop.domain.category.Category;
 import kr.jinsang.sshop.exception.NotEnoughStockException;
 import kr.jinsang.sshop.service.product.ProductDto;
 import lombok.Getter;
@@ -26,22 +27,29 @@ public class Product {
 
     private LocalDateTime updatedDate;
 
-    protected Product() {}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    private Product(String name, Long price, Integer stockQuantity) {
+    protected Product() {
+    }
+
+    private Product(String name, Long price, Integer stockQuantity, Category category) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.category = category;
     }
 
-    public static Product createProduct(String name, Long price, Integer stockQuantity) {
-        return new Product(name, price, stockQuantity);
+    public static Product createProduct(String name, Long price, Integer stockQuantity, Category category) {
+        return new Product(name, price, stockQuantity, category);
     }
 
-    public void update(ProductDto dto) {
+    public void update(ProductDto dto, Category category) {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
+        this.category = category;
     }
 
     public void removeStock(Integer count) {
@@ -52,8 +60,8 @@ public class Product {
         this.stockQuantity = restStock;
     }
 
-
     public Long getId() {
         return id;
     }
+
 }
