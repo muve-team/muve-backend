@@ -21,10 +21,16 @@ public class ProductForm {
     @NotNull(message = "상품의 갯수를 작성해주세요")
     @PositiveOrZero(message = "갯수는 음수일 수 없습니다")
     private Integer stockQuantity;
+    @NotNull(message = "카테고리를 선택해주세요")
+    private Long categoryId;
+
+    private String categoryName;
 
     public ProductForm() {}
 
     public static ProductForm from(Product product) {
-        return new ProductForm(product.getId(), product.getName(), product.getPrice(), product.getStockQuantity());
+        return new ProductForm(product.getId(), product.getName(),
+                product.getPrice(), product.getStockQuantity(), product.getCategory().getId(),
+                product.getCategory().getName());
     }
 }

@@ -1,6 +1,8 @@
 package kr.muve.admin.service.product;
 
+import kr.muve.common.domain.category.Category;
 import kr.muve.common.domain.product.Product;
+import kr.muve.common.repository.category.CategoryRepository;
 import kr.muve.common.repository.product.ProductRepository;
 import kr.muve.common.service.product.ProductDto;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +18,17 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    private final CategoryRepository categoryRepository;
+
 
     // 상품 등록
     @Transactional
     public Long create(ProductDto dto) {
-        Product product = Product.createProduct(dto.getName(), dto.getPrice(), dto.getStockQuantity());
+        Long categoryId = dto.getCategoryId();
+        Category category = categoryRepository.findOne(categoryId);
+
+        Product product = Product.createProduct(dto.getName(), dto.getPrice(),
+                dto.getStockQuantity(), category);
         productRepository.save(product);
 
         return product.getId();
@@ -40,10 +48,7 @@ public class ProductService {
     @Transactional
     public void update(ProductDto dto) {
         Product product = findOne(dto.getId());
-        product.update(dto);
+        Category category = categoryRepository.findOne(dto.getCategoryId());
+        product.update(dto, category);
     }
-
-
-
-
 }

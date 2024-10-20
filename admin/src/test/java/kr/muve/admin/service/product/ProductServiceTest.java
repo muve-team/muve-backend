@@ -1,6 +1,7 @@
 package kr.muve.admin.service.product;
 
 import jakarta.persistence.EntityManager;
+import kr.muve.common.domain.category.Category;
 import kr.muve.common.domain.product.Product;
 import kr.muve.common.service.product.ProductDto;
 import org.junit.jupiter.api.Test;
@@ -25,27 +26,15 @@ class ProductServiceTest {
     EntityManager em;
 
     @Test
-    void 상품등록() {
+    void 상품_수정() {
         // given
-        ProductDto dto = new ProductDto(null, "1", 1000L, 1000);
-
-        // when
-        Long id = productService.create(dto);
-        Product foundProduct = em.find(Product.class, 1L);
-
-        // then
-        assertThat(foundProduct.getId()).isEqualTo(id);
-    }
-
-    @Test
-    void 상품수정() {
-        // given
-        Product product = Product.createProduct("1", 1000L, 1000);
+        Category category = Category.createCategory("책");
+        em.persist(category);
+        Product product = Product.createProduct("1", 1000L, 1000, category);
         em.persist(product);
 
-        List<Product> products = em.createQuery("select p from Product p", Product.class).getResultList();
-
-        ProductDto update = new ProductDto(1L, "2", 2000L, 2000);
+        Long categoryId = category.getId();
+        ProductDto update = new ProductDto(1L, "2", 2000L, 2000, categoryId, "책");
 
         // when
         productService.update(update);
@@ -55,6 +44,7 @@ class ProductServiceTest {
         assertThat(foundProduct.getName()).isEqualTo(update.getName());
         assertThat(foundProduct.getPrice()).isEqualTo(update.getPrice());
         assertThat(foundProduct.getStockQuantity()).isEqualTo(update.getStockQuantity());
+        assertThat(foundProduct.getCategory().getName()).isEqualTo(update.getCategoryName());
     }
 
 }
