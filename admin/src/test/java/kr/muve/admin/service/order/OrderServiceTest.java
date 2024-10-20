@@ -6,6 +6,7 @@ import kr.muve.admin.service.ProductService;
 import kr.muve.admin.service.UserService;
 import kr.muve.common.domain.category.Category;
 import kr.muve.common.domain.order.Order;
+import kr.muve.common.domain.order.OrderStatus;
 import kr.muve.common.domain.orderproduct.OrderProduct;
 import kr.muve.common.domain.product.Product;
 import kr.muve.common.domain.user.User;
@@ -41,19 +42,9 @@ public class OrderServiceTest {
     @Test
     void 주문_등록() {
         // given
-        UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
-                "a동", "3001호", "2345");
-        userService.join(userDto);
-        User foundUser = em.find(User.class, 1L);
-
-        Category category = Category.createCategory("전자기기", "electric");
-        em.persist(category);
-
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
-                category.getId(), category.getKoreanName(), category.getEnglishName());
-        productService.create(productDto);
-        Product foundProduct = em.find(Product.class, 1L);
-
+        User foundUser = createUser();
+        Category category = createCategory();
+        Product foundProduct = createProduct(category);
         OrderDto orderDto = new OrderDto(foundUser.getId(), foundProduct.getId(), 1);
 
         // when
@@ -68,30 +59,50 @@ public class OrderServiceTest {
     @Test
     void 주문_취소() {
         // given
-        UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
-                "a동", "3001호", "2345");
-        userService.join(userDto);
-        User foundUser = em.find(User.class, 1L);
-
-        Category category = Category.createCategory("책", "book");
-        em.persist(category);
-
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
-                category.getId(), category.getKoreanName(), category.getEnglishName());
-        productService.create(productDto);
-        Product foundProduct = em.find(Product.class, 1L);
-
-        OrderProduct orderProduct = OrderProduct.createOrderProduct(foundProduct, 1);
-        Order order = Order.createOrder(foundUser, orderProduct);
-        em.persist(order);
+        Order order = createOrder();
         Long orderId = order.getId();
-
 
         // when
         orderService.cancelOrder(orderId);
         Order foundOrder = em.find(Order.class, orderId);
+        Product product = foundOrder.getOrderProducts().get(0).getProduct();
 
         // then
-        assertNull(foundOrder, "test success");
+        assertThat(foundOrder.getStatus()).isEqualTo(OrderStatus.CANCEL);
+        assertThat(product.getStockQuantity()).isEqualTo(10);
+    }
+
+    Order createOrder() {
+        User foundUser = createUser();
+        Category category = createCategory();
+        Product foundProduct = createProduct(category);
+        OrderProduct orderProduct = OrderProduct.createOrderProduct(foundProduct, 1);
+
+        Order order = Order.createOrder(foundUser, orderProduct);
+        em.persist(order);
+
+        return order;
+    }
+
+    private User createUser() {
+        UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
+                "a동", "3001호", "2345");
+        userService.join(userDto);
+        User user = em.find(User.class, 1L);
+        return user;
+    }
+
+    private Category createCategory() {
+        Category category = Category.createCategory("책", "book");
+        em.persist(category);
+        return category;
+    }
+
+    private Product createProduct(Category category) {
+        ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
+                category.getId(), category.getKoreanName(), category.getEnglishName());
+        productService.create(productDto);
+        Product foundProduct = em.find(Product.class, 1L);
+        return foundProduct;
     }
 }
