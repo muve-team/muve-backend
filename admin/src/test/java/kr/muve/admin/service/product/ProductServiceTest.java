@@ -1,13 +1,16 @@
-package kr.jinsang.sshop.service.product;
+package kr.muve.admin.service.product;
 
 import jakarta.persistence.EntityManager;
-import kr.jinsang.sshop.domain.category.Category;
-import kr.jinsang.sshop.domain.product.Product;
+import kr.muve.admin.service.ProductService;
+import kr.muve.common.domain.category.Category;
+import kr.muve.common.domain.product.Product;
+import kr.muve.common.service.product.ProductDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -23,28 +26,15 @@ class ProductServiceTest {
     EntityManager em;
 
     @Test
-    void 상품등록() {
+    void 상품_수정() {
         // given
-        ProductDto dto = new ProductDto(null, "1", 1000L, 1000, 1L, "책");
-
-        // when
-        Long id = productService.create(dto);
-        Product foundProduct = em.find(Product.class, 1L);
-
-        // then
-        assertThat(foundProduct.getId()).isEqualTo(id);
-    }
-
-    @Test
-    void 상품수정() {
-        // given
-        Category category = Category.createCategory("책");
+        Category category = Category.createCategory("책", "book");
         em.persist(category);
         Product product = Product.createProduct("1", 1000L, 1000, category);
         em.persist(product);
 
         Long categoryId = category.getId();
-        ProductDto update = new ProductDto(1L, "2", 2000L, 2000, categoryId, "책");
+        ProductDto update = new ProductDto(1L, "2", 2000L, 2000, categoryId, "책", "book");
 
         // when
         productService.update(update);
@@ -54,7 +44,8 @@ class ProductServiceTest {
         assertThat(foundProduct.getName()).isEqualTo(update.getName());
         assertThat(foundProduct.getPrice()).isEqualTo(update.getPrice());
         assertThat(foundProduct.getStockQuantity()).isEqualTo(update.getStockQuantity());
-        assertThat(foundProduct.getCategory().getName()).isEqualTo(update.getCategoryName());
+        assertThat(foundProduct.getCategory().getKoreanName()).isEqualTo(update.getCategoryKoreanName());
+        assertThat(foundProduct.getCategory().getEnglishName()).isEqualTo(update.getCategoryEnglishName());
     }
 
 }
