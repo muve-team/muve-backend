@@ -1,6 +1,7 @@
 package kr.muve.admin.service.user;
 
 import jakarta.persistence.EntityManager;
+import kr.muve.admin.service.UserService;
 import kr.muve.common.domain.user.User;
 import kr.muve.common.service.user.UserJoinDto;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
 package kr.muve.admin.service.category;
 
 import jakarta.persistence.EntityManager;
+import kr.muve.admin.service.CategoryService;
 import kr.muve.common.controller.CategoryForm;
 import kr.muve.common.domain.category.Category;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -26,28 +26,31 @@ class CategoryServiceTest {
     @Test
     void 카테고리_등록() {
         // given
-        String categoryName = "전자기기";
+        String koreanName = "전자기기";
+        String englishName = "electric";
 
         // when
-        categoryService.create(categoryName);
+        categoryService.create(koreanName, englishName);
         Category foundCategory = em.find(Category.class, 1L);
 
         //then
-        assertThat(foundCategory.getName()).isEqualTo(categoryName);
+        assertThat(foundCategory.getKoreanName()).isEqualTo(koreanName);
+        assertThat(foundCategory.getEnglishName()).isEqualTo(englishName);
 
     }
 
     @Test
     void 카테고리_수정() {
         //given
-        categoryService.create("책");
-        CategoryForm form = new CategoryForm(1L, "신발");
+        categoryService.create("책", "book");
+        CategoryForm form = new CategoryForm(1L, "신발", "shoes");
 
         //when
         categoryService.update(form);
         Category foundCategory = em.find(Category.class, 1L);
 
         //then
-        assertThat(foundCategory.getName()).isEqualTo(form.getName());
+        assertThat(foundCategory.getKoreanName()).isEqualTo(form.getKoreanName());
+        assertThat(foundCategory.getEnglishName()).isEqualTo(form.getEnglishName());
     }
 }

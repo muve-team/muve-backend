@@ -1,15 +1,15 @@
-package kr.jinsang.sshop.service.order;
+package kr.muve.admin.service.order;
 
 import jakarta.persistence.EntityManager;
-import kr.muve.admin.service.order.OrderDto;
-import kr.muve.admin.service.order.OrderService;
-import kr.muve.admin.service.product.ProductService;
-import kr.muve.admin.service.user.UserService;
+import kr.muve.admin.service.OrderService;
+import kr.muve.admin.service.ProductService;
+import kr.muve.admin.service.UserService;
 import kr.muve.common.domain.category.Category;
 import kr.muve.common.domain.order.Order;
 import kr.muve.common.domain.orderproduct.OrderProduct;
 import kr.muve.common.domain.product.Product;
 import kr.muve.common.domain.user.User;
+import kr.muve.common.service.order.OrderDto;
 import kr.muve.common.service.product.ProductDto;
 import kr.muve.common.service.user.UserJoinDto;
 import org.junit.jupiter.api.Test;
@@ -39,17 +39,18 @@ public class OrderServiceTest {
     EntityManager em;
 
     @Test
-    void 주문등록() {
+    void 주문_등록() {
         // given
         UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
                 "a동", "3001호", "2345");
         userService.join(userDto);
         User foundUser = em.find(User.class, 1L);
 
-        Category category = Category.createCategory("전자기기");
+        Category category = Category.createCategory("전자기기", "electric");
         em.persist(category);
 
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10, category.getId(), category.getName());
+        ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
+                category.getId(), category.getKoreanName(), category.getEnglishName());
         productService.create(productDto);
         Product foundProduct = em.find(Product.class, 1L);
 
@@ -65,17 +66,18 @@ public class OrderServiceTest {
     }
 
     @Test
-    void 주문취소() {
+    void 주문_취소() {
         // given
         UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
                 "a동", "3001호", "2345");
         userService.join(userDto);
         User foundUser = em.find(User.class, 1L);
 
-        Category category = Category.createCategory("책");
+        Category category = Category.createCategory("책", "book");
         em.persist(category);
 
-        ProductDto productDto = new ProductDto(null, "1", 1000L, 10, category.getId(), category.getName());
+        ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
+                category.getId(), category.getKoreanName(), category.getEnglishName());
         productService.create(productDto);
         Product foundProduct = em.find(Product.class, 1L);
 
