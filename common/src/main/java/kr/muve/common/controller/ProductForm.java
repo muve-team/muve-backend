@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import kr.muve.common.domain.product.Product;
+import kr.muve.common.domain.product.ProductJpaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -29,9 +29,9 @@ public class ProductForm {
 
     public ProductForm() {}
 
-    public static ProductForm from(Product product) {
-        return new ProductForm(product.getId(), product.getName(),
-                product.getPrice(), product.getStockQuantity(), product.getCategory().getId(),
-                product.getCategory().getKoreanName(), product.getCategory().getEnglishName());
+    public static ProductForm from(ProductJpaEntity productJpaEntity) {
+        return new ProductForm(productJpaEntity.getId(), productJpaEntity.getName(),
+                productJpaEntity.getPrice(), productJpaEntity.getStockQuantity(), productJpaEntity.getCategoryJpaEntity().getId(),
+                productJpaEntity.getCategoryJpaEntity().getKoreanName(), productJpaEntity.getCategoryJpaEntity().getEnglishName());
     }
 }

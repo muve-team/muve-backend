@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Users")
 @Getter
-public class User {
+public class UserJpaEntity {
 
     @Id
     @GeneratedValue
@@ -31,9 +31,9 @@ public class User {
     @Embedded
     private Address address;
     
-    protected User() {}
+    protected UserJpaEntity() {}
 
-    private User(String name, String email, String password, String phoneNumber, Address address) {
+    private UserJpaEntity(String name, String email, String password, String phoneNumber, Address address) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -41,8 +41,8 @@ public class User {
         this.address = address;
     }
 
-    public static User createUser(UserJoinDto dto) {
+    public static UserJpaEntity createUser(UserJoinDto dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
-        return new User(dto.getName(), dto.getEmail(), dto.getPassword(), dto.getPhoneNumber(), address);
+        return new UserJpaEntity(dto.getName(), dto.getEmail(), dto.getPassword(), dto.getPhoneNumber(), address);
     }
 }

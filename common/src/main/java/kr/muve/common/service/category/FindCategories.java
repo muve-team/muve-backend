@@ -1,12 +1,13 @@
 package kr.muve.common.service.category;
 
-import kr.muve.common.domain.category.Category;
+import kr.muve.common.domain.category.CategoryJpaEntity;
+import kr.muve.common.domain.category.CategoryJpaEntity;
 
 import java.util.List;
 
 public interface FindCategories {
 
-    Category findOne(Long id);
+    CategoryJpaEntity findById(Long id);
 
-    List<Category> findCategories();
+    List<CategoryJpaEntity> findCategories();
 }

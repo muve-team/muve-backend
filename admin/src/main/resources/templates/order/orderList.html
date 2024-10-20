@@ -16,7 +16,7 @@
                 <div class="form-group mx-sm-1 mb-2">
                     <select th:field="*{orderStatus}" class="form-control">
                         <option value="">주문상태</option>
-                        <option th:each="status : ${T(kr.muve.common.domain.order.OrderStatus).values()}"
+                        <option th:each="status : ${T(kr.muve.common.domain.orderJpaEntity.OrderStatus).values()}"
                                 th:value="${status}"
                                 th:text="${status}">option
                         </option>
@@ -38,14 +38,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="product : ${orders}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.user.name}"></td>
-                <td th:text="${product.getTotalPrice()}"></td>
-                <td th:text="${product.status}"></td>
-                <td th:text="${product.orderDate}"></td>
+            <tr th:each="productJpaEntity : ${orders}">
+                <td th:text="${productJpaEntity.id}"></td>
+                <td th:text="${productJpaEntity.user.name}"></td>
+                <td th:text="${productJpaEntity.getTotalPrice()}"></td>
+                <td th:text="${productJpaEntity.status}"></td>
+                <td th:text="${productJpaEntity.orderDate}"></td>
                 <td>
-                    <a th:if="${product.status.name() == 'ORDER'}" href="#" th:href="'javascript:cancel('+${product.id}+')'"
+                    <a th:if="${productJpaEntity.status.name() == 'ORDER'}" href="#" th:href="'javascript:cancel('+${productJpaEntity.id}+')'"
                        class="btn btn-danger">CANCEL</a>
                 </td>
             </tr>

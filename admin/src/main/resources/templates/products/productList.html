@@ -19,14 +19,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.stockQuantity}"></td>
-                <td th:text="|${product.category.koreanName} (${product.category.englishName})|"></td>
+            <tr th:each="productJpaEntity : ${products}">
+                <td th:text="${productJpaEntity.id}"></td>
+                <td th:text="${productJpaEntity.name}"></td>
+                <td th:text="${productJpaEntity.price}"></td>
+                <td th:text="${productJpaEntity.stockQuantity}"></td>
+                <td th:text="|${productJpaEntity.category.koreanName} (${productJpaEntity.category.englishName})|"></td>
                 <td>
-                    <a href="#" th:href="@{/products/{id}/edit (id=${product.id})}" class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:href="@{/products/{id}/edit (id=${productJpaEntity.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>
             </tr>
             </tbody>

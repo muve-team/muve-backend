@@ -5,7 +5,7 @@ import kr.muve.common.domain.user.Address;
 import java.time.LocalDateTime;
 
 @Entity
-public class Delivery {
+public class DeliveryJpaEntity {
 
     @Id
     @GeneratedValue

@@ -1,7 +1,7 @@
 package kr.muve.common.domain.category;
 
 import jakarta.persistence.*;
-import kr.muve.common.domain.product.Product;
+import kr.muve.common.domain.product.ProductJpaEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Category {
+public class CategoryJpaEntity {
 
     @Id
     @GeneratedValue
@@ -23,18 +23,18 @@ public class Category {
 
     private LocalDateTime createdDate;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "categoryJpaEntity")
+    private List<ProductJpaEntity> productJpaEntities = new ArrayList<>();
 
-    protected Category() {}
+    protected CategoryJpaEntity() {}
 
-    private Category(String koreanName, String englishName) {
+    private CategoryJpaEntity(String koreanName, String englishName) {
         this.koreanName = koreanName;
         this.englishName = englishName;
     }
 
-    public static Category createCategory(String koreanName, String englishName) {
-        return new Category(koreanName,englishName);
+    public static CategoryJpaEntity createCategory(String koreanName, String englishName) {
+        return new CategoryJpaEntity(koreanName,englishName);
     }
 
     public void update(String koreanName, String englishName) {

@@ -2,7 +2,8 @@ package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
 import kr.muve.common.controller.CategoryForm;
-import kr.muve.common.domain.category.Category;
+import kr.muve.common.domain.category.CategoryJpaEntity;
+import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.service.category.CreateCategory;
 import kr.muve.common.service.category.FindCategories;
 import kr.muve.common.service.category.UpdateCategory;
@@ -47,8 +48,8 @@ public class CategoryController {
 
     @GetMapping(value = "/category/{categoryId}/edit")
     public String updateCategoryForm(@PathVariable("categoryId") Long categoryId, Model model) {
-        Category category = findCategories.findOne(categoryId);
-        CategoryForm categoryForm = CategoryForm.from(category.getId(), category.getKoreanName(), category.getEnglishName());
+        CategoryJpaEntity categoryJpaEntity = findCategories.findById(categoryId);
+        CategoryForm categoryForm = CategoryForm.from(categoryJpaEntity.getId(), categoryJpaEntity.getKoreanName(), categoryJpaEntity.getEnglishName());
         model.addAttribute("form", categoryForm);
         return "categories/updateCategoryForm";
     }

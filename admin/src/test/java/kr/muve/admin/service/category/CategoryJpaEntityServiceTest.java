@@ -1,12 +1,17 @@
 package kr.muve.admin.service.category;
 
 import jakarta.persistence.EntityManager;
+import kr.muve.AdminApplication;
 import kr.muve.admin.service.CategoryService;
 import kr.muve.common.controller.CategoryForm;
-import kr.muve.common.domain.category.Category;
+import kr.muve.common.domain.category.CategoryJpaEntity;
+import kr.muve.common.domain.category.CategoryJpaEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class CategoryServiceTest {
+class CategoryJpaEntityServiceTest {
 
     @Autowired
     CategoryService categoryService;
@@ -31,11 +35,11 @@ class CategoryServiceTest {
 
         // when
         categoryService.create(koreanName, englishName);
-        Category foundCategory = em.find(Category.class, 1L);
+        CategoryJpaEntity foundCategoryJpaEntity = em.find(CategoryJpaEntity.class, 1L);
 
         //then
-        assertThat(foundCategory.getKoreanName()).isEqualTo(koreanName);
-        assertThat(foundCategory.getEnglishName()).isEqualTo(englishName);
+        assertThat(foundCategoryJpaEntity.getKoreanName()).isEqualTo(koreanName);
+        assertThat(foundCategoryJpaEntity.getEnglishName()).isEqualTo(englishName);
 
     }
 
@@ -47,10 +51,10 @@ class CategoryServiceTest {
 
         //when
         categoryService.update(form);
-        Category foundCategory = em.find(Category.class, 1L);
+        CategoryJpaEntity foundCategoryJpaEntity = em.find(CategoryJpaEntity.class, 1L);
 
         //then
-        assertThat(foundCategory.getKoreanName()).isEqualTo(form.getKoreanName());
-        assertThat(foundCategory.getEnglishName()).isEqualTo(form.getEnglishName());
+        assertThat(foundCategoryJpaEntity.getKoreanName()).isEqualTo(form.getKoreanName());
+        assertThat(foundCategoryJpaEntity.getEnglishName()).isEqualTo(form.getEnglishName());
     }
 }

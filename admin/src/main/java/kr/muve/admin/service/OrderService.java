@@ -1,13 +1,12 @@
 package kr.muve.admin.service;
 
-import kr.muve.common.domain.order.Order;
-import kr.muve.common.domain.orderproduct.OrderProduct;
-import kr.muve.common.domain.product.Product;
-import kr.muve.common.domain.user.User;
-import kr.muve.common.repository.order.OrderRepository;
+import kr.muve.common.domain.order.OrderJpaEntity;
+import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
+import kr.muve.common.domain.product.ProductJpaEntity;
+import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.exception.OrderNotFoundException;
 import kr.muve.common.repository.order.OrderSearch;
-import kr.muve.common.repository.product.ProductRepository;
-import kr.muve.common.repository.user.UserRepository;
+import kr.muve.common.repository.order.SpringDataOrderRepositoryCustom;
 import kr.muve.common.service.order.CancelOrder;
 import kr.muve.common.service.order.CreateOrder;
 import kr.muve.common.service.order.FindOrders;
@@ -23,9 +22,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class OrderService implements CreateOrder, CancelOrder, FindOrders {
 
-    private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
-    private final ProductRepository productRepository;
+    private final SpringDataOrderRepositoryCustom orderRepository;
+    private final UserService userService;
+    private final ProductService productService;
 
     @Override
     @Transactional
@@ -34,33 +33,38 @@ public class OrderService implements CreateOrder, CancelOrder, FindOrders {
         Long userId = dto.getUserId();
         Long productId = dto.getProductId();
 
-        User user = userRepository.findOne(userId);
-        Product product = productRepository.findOne(productId);
+        UserJpaEntity userJpaEntity = userService.findById(userId);
+        ProductJpaEntity productJpaEntity = productService.findById(productId);
 
-        OrderProduct orderProduct = OrderProduct.createOrderProduct(product, dto.getCount());
+        OrderProductJpaEntity orderProductJpaEntity = OrderProductJpaEntity.createOrderProduct(productJpaEntity, dto.getCount());
 
-        Order order = Order.createOrder(user, orderProduct);
-        orderRepository.save(order);
+        OrderJpaEntity orderJpaEntity = OrderJpaEntity.createOrder(userJpaEntity, orderProductJpaEntity);
+        orderRepository.save(orderJpaEntity);
 
-        return order.getId();
+        return orderJpaEntity.getId();
     }
 
     // 주문 목록 조회
     @Override
-    public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+    public List<OrderJpaEntity> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findDynamicOrders(orderSearch);
+    }
+
+    public OrderJpaEntity findById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException("주문을 찾을 수 없습니다."));
     }
 
     @Override
     @Transactional
     public void cancelOrder(Long id) {
         // order status 변경
-        Order order = orderRepository.findOne(id);
-        order.cancelOrder();
+        OrderJpaEntity orderJpaEntity = findById(id);
+        orderJpaEntity.cancelOrder();
 
         // product count 원복
-        List<OrderProduct> orderProducts = order.getOrderProducts();
-        orderProducts.stream().forEach(op -> op.getProduct().addStock(op.getCount()));
+        List<OrderProductJpaEntity> orderProductJpaEntities = orderJpaEntity.getOrderProductJpaEntities();
+        orderProductJpaEntities.forEach(op -> op.getProductJpaEntity().addStock(op.getCount()));
     }
 
 }

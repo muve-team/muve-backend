@@ -2,7 +2,7 @@ package kr.muve.admin.service.user;
 
 import jakarta.persistence.EntityManager;
 import kr.muve.admin.service.UserService;
-import kr.muve.common.domain.user.User;
+import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.service.user.UserJoinDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-class UserServiceTest {
+class UserJpaEntityServiceTest {
 
     @Autowired
     UserService userService;
@@ -31,10 +31,10 @@ class UserServiceTest {
 
         // 테스트 수행
         Long userId = userService.join(dto);
-        User foundUser = em.find(User.class, 1L);
+        UserJpaEntity foundUserJpaEntity = em.find(UserJpaEntity.class, 1L);
 
         // 테스트 검증
-        assertThat(userId).isEqualTo(foundUser.getId());
+        assertThat(userId).isEqualTo(foundUserJpaEntity.getId());
 
     }
 

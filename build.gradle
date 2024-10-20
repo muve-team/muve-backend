@@ -89,6 +89,7 @@ project(":admin") {
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
         implementation project(":common")
+//        testImplementation project(':common')
     }
 }
 

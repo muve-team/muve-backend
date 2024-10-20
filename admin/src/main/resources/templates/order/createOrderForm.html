@@ -11,7 +11,7 @@
 <div class="container">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
 
-    <form role="form" action="/order" method="post">
+    <form role="form" action="/orderJpaEntity" method="post">
 
         <div class="form-group">
             <label for="user">주문회원</label>
@@ -24,12 +24,12 @@
         </div>
 
         <div class="form-group">
-            <label for="product">상품명</label>
-            <select name="productId" id="product" class="form-control">
+            <label for="productJpaEntity">상품명</label>
+            <select name="productId" id="productJpaEntity" class="form-control">
                 <option value="">상품선택</option>
-                <option th:each="product : ${products}"
-                        th:value="${product.id}"
-                        th:text="${product.name}" />
+                <option th:each="productJpaEntity : ${products}"
+                        th:value="${productJpaEntity.id}"
+                        th:text="${productJpaEntity.name}" />
             </select>
         </div>
 

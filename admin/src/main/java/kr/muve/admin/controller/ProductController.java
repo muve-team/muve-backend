@@ -1,7 +1,7 @@
 package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
-import kr.muve.common.domain.product.Product;
+import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.service.category.FindCategories;
 import kr.muve.common.service.product.CreateProduct;
 import kr.muve.common.service.product.FindProducts;
@@ -53,8 +53,8 @@ public class ProductController {
 
     @GetMapping(value = "/products/{productId}/edit")
     public String updateProductForm(@PathVariable("productId") Long productId, Model model) {
-        Product product = findProducts.findOne(productId);
-        ProductForm form = ProductForm.from(product);
+        ProductJpaEntity productJpaEntity = findProducts.findById(productId);
+        ProductForm form = ProductForm.from(productJpaEntity);
         model.addAttribute("form", form);
         model.addAttribute("categories", findCategories.findCategories());
         return "products/updateProductForm";

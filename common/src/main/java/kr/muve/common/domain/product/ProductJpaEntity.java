@@ -1,7 +1,7 @@
 package kr.muve.common.domain.product;
 
 import jakarta.persistence.*;
-import kr.muve.common.domain.category.Category;
+import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class Product {
+public class ProductJpaEntity {
 
     @Id
     @GeneratedValue
@@ -29,27 +29,27 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryJpaEntity categoryJpaEntity;
 
-    protected Product() {
+    protected ProductJpaEntity() {
     }
 
-    private Product(String name, Long price, Integer stockQuantity, Category category) {
+    private ProductJpaEntity(String name, Long price, Integer stockQuantity, CategoryJpaEntity categoryJpaEntity) {
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
-        this.category = category;
+        this.categoryJpaEntity = categoryJpaEntity;
     }
 
-    public static Product createProduct(String name, Long price, Integer stockQuantity, Category category) {
-        return new Product(name, price, stockQuantity, category);
+    public static ProductJpaEntity createProduct(String name, Long price, Integer stockQuantity, CategoryJpaEntity categoryJpaEntity) {
+        return new ProductJpaEntity(name, price, stockQuantity, categoryJpaEntity);
     }
 
-    public void update(ProductDto dto, Category category) {
+    public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity) {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
-        this.category = category;
+        this.categoryJpaEntity = categoryJpaEntity;
     }
 
     public void removeStock(Integer count) {
