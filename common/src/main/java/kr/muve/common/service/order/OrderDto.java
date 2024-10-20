@@ -1,4 +1,4 @@
-package kr.muve.admin.service.order;
+package kr.muve.common.service.order;
 
 import kr.muve.common.controller.OrderForm;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package kr.muve.admin.service.admin;
+package kr.muve.admin.service;
 
 import org.springframework.stereotype.Service;
 

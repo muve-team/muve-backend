@@ -2,9 +2,12 @@ package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
 import kr.muve.common.domain.product.Product;
+import kr.muve.common.service.category.FindCategories;
+import kr.muve.common.service.product.CreateProduct;
+import kr.muve.common.service.product.FindProducts;
 import kr.muve.common.service.product.ProductDto;
-import kr.muve.admin.service.product.ProductService;
 import kr.muve.common.controller.ProductForm;
+import kr.muve.common.service.product.UpdateProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +20,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService productService;
+    private final CreateProduct createProduct;
+
+    private final UpdateProduct updateProduct;
+
+    private final FindProducts findProducts;
+
+    private final FindCategories findCategories;
 
     @GetMapping(value = "/products/new")
     public String createProductForm(Model model) {
         model.addAttribute("productForm", new ProductForm());
+        model.addAttribute("categories", findCategories.findCategories());
         return "products/createProductForm";
     }
 
@@ -31,23 +41,25 @@ public class ProductController {
             return "products/createProductForm";
         }
         ProductDto dto = ProductDto.from(form);
-        productService.create(dto);
+        createProduct.create(dto);
         return "redirect:/";
     }
 
     @GetMapping(value = "/products")
     public String getProducts(Model model) {
-        model.addAttribute("products", productService.findProducts());
+        model.addAttribute("products", findProducts.findProducts());
         return "products/productList";
     }
 
     @GetMapping(value = "/products/{productId}/edit")
-    public String updateProductForm(@PathVariable Long productId, Model model) {
-        Product product = productService.findOne(productId);
+    public String updateProductForm(@PathVariable("productId") Long productId, Model model) {
+        Product product = findProducts.findOne(productId);
         ProductForm form = ProductForm.from(product);
         model.addAttribute("form", form);
+        model.addAttribute("categories", findCategories.findCategories());
         return "products/updateProductForm";
     }
+
 
     @PostMapping(value = "/products/{productId}/edit")
     public String updateProduct(@Valid ProductForm form, BindingResult result) {
@@ -56,7 +68,7 @@ public class ProductController {
         }
 
         ProductDto dto = ProductDto.from(form);
-        productService.update(dto);
+        updateProduct.update(dto);
         return "redirect:/products";
     }
 }

@@ -1,8 +1,9 @@
 package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
-import kr.muve.admin.service.user.UserService;
 import kr.muve.common.controller.UserForm;
+import kr.muve.common.service.user.FindUsers;
+import kr.muve.common.service.user.JoinUser;
 import kr.muve.common.service.user.UserJoinDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final JoinUser joinUser;
+    private final FindUsers findUsers;
 
     @GetMapping("/users/join")
     public String joinForm(Model model) {
@@ -31,13 +33,13 @@ public class UserController {
         }
 
         UserJoinDto dto = UserJoinDto.from(userForm);
-        userService.join(dto);
+        joinUser.join(dto);
         return "redirect:/";
     }
 
     @GetMapping("/users")
     public String getUsers(Model model) {
-        model.addAttribute("users", userService.findUsers());
+        model.addAttribute("users", findUsers.findUsers());
         return "users/userList";
     }
 }

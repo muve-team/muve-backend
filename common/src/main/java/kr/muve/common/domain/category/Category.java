@@ -17,7 +17,9 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
-    private String name;
+    private String koreanName;
+
+    private String englishName;
 
     private LocalDateTime createdDate;
 
@@ -26,19 +28,17 @@ public class Category {
 
     protected Category() {}
 
-    private Category(String name) {
-        this.name = name;
+    private Category(String koreanName, String englishName) {
+        this.koreanName = koreanName;
+        this.englishName = englishName;
     }
 
-    public static Category createCategory(String name) {
-        return new Category(name);
+    public static Category createCategory(String koreanName, String englishName) {
+        return new Category(koreanName,englishName);
     }
 
-    public void update(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
+    public void update(String koreanName, String englishName) {
+        this.koreanName = koreanName;
+        this.englishName = englishName;
     }
 }

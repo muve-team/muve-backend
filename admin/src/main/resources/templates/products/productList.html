@@ -14,6 +14,7 @@
                 <th>상품명</th>
                 <th>가격</th>
                 <th>재고수량</th>
+                <th>카테고리</th>
                 <th></th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.stockQuantity}"></td>
+                <td th:text="|${product.category.koreanName} (${product.category.englishName})|"></td>
                 <td>
                     <a href="#" th:href="@{/products/{id}/edit (id=${product.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>

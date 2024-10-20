@@ -13,13 +13,15 @@ public class ProductDto {
     private Long price;
     private Integer stockQuantity;
     private Long categoryId;
-    private String categoryName;
+    private String categoryKoreanName;
+    private String categoryEnglishName;
 
     private ProductDto() {}
 
     public static ProductDto from(ProductForm productForm) {
         return new ProductDto(productForm.getId(), productForm.getName(),
                 productForm.getPrice(), productForm.getStockQuantity(),
-                productForm.getCategoryId(),productForm.getCategoryName());
+                productForm.getCategoryId(), productForm.getCategoryKoreanName(),
+                productForm.getCategoryEnglishName());
     }
 }

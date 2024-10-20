@@ -3,10 +3,12 @@ package kr.muve.admin.controller;
 import jakarta.validation.Valid;
 import kr.muve.common.controller.OrderForm;
 import kr.muve.common.repository.order.OrderSearch;
-import kr.muve.admin.service.order.OrderDto;
-import kr.muve.admin.service.order.OrderService;
-import kr.muve.admin.service.product.ProductService;
-import kr.muve.admin.service.user.UserService;
+import kr.muve.common.service.order.CancelOrder;
+import kr.muve.common.service.order.CreateOrder;
+import kr.muve.common.service.order.FindOrders;
+import kr.muve.common.service.order.OrderDto;
+import kr.muve.common.service.product.FindProducts;
+import kr.muve.common.service.user.FindUsers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +22,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+    private final CreateOrder createOrder;
 
-    private final UserService userService;
+    private final FindOrders findOrders;
 
-    private final ProductService productService;
+    private final CancelOrder cancelOrder;
+
+    private final FindUsers findUsers;
+
+    private final FindProducts findProducts;
 
     @GetMapping(value = "/order")
     public String createOrderForm(Model model) {
         model.addAttribute("form", new OrderForm());
-        model.addAttribute("users", userService.findUsers());
-        model.addAttribute("products", productService.findProducts());
+        model.addAttribute("users", findUsers.findUsers());
+        model.addAttribute("products", findProducts.findProducts());
         return "order/createOrderForm";
     }
 
@@ -40,20 +46,20 @@ public class OrderController {
             return "order/createOrderForm";
         }
         OrderDto dto = OrderDto.from(form);
-        orderService.create(dto);
+        createOrder.create(dto);
 
         return "redirect:/";
     }
 
     @GetMapping(value = "/orders")
     public String getOrders(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-        model.addAttribute("orders", orderService.findOrders(orderSearch));
+        model.addAttribute("orders", findOrders.findOrders(orderSearch));
         return "order/orderList";
     }
 
     @PostMapping(value = "/orders/{id}/cancel")
-    public String cancelOrder(@PathVariable Long id) {
-        orderService.cancelOrder(id);
+    public String cancelOrder(@PathVariable("id") Long id) {
+        cancelOrder.cancelOrder(id);
         return "redirect:/orders";
     }
 
