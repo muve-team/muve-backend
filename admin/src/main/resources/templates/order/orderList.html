@@ -16,7 +16,7 @@
                 <div class="form-group mx-sm-1 mb-2">
                     <select th:field="*{orderStatus}" class="form-control">
                         <option value="">주문상태</option>
-                        <option th:each="status : ${T(kr.muve.common.domain.orderJpaEntity.OrderStatus).values()}"
+                        <option th:each="status : ${T(kr.muve.common.domain.order.OrderStatus).values()}"
                                 th:value="${status}"
                                 th:text="${status}">option
                         </option>
@@ -40,7 +40,7 @@
             <tbody>
             <tr th:each="productJpaEntity : ${orders}">
                 <td th:text="${productJpaEntity.id}"></td>
-                <td th:text="${productJpaEntity.user.name}"></td>
+                <td th:text="${productJpaEntity.userJpaEntity.name}"></td>
                 <td th:text="${productJpaEntity.getTotalPrice()}"></td>
                 <td th:text="${productJpaEntity.status}"></td>
                 <td th:text="${productJpaEntity.orderDate}"></td>
