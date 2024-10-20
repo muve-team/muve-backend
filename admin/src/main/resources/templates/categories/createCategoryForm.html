@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}" />
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"/>
+
+    <form th:action="@{/category/new}" th:object="${categoryForm}" method="post">
+        <div class="form-group">
+            <label th:for="koreanName">카테고리 한글명</label>
+            <input type="text" th:field="*{koreanName}" class="form-control" placeholder="카테고리 한글명을 입력하세요"
+                   th:class="${#fields.hasErrors('koreanName')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('koreanName')}" th:errors="*{koreanName}">Incorrect date</p>
+        </div>
+        <div class="form-group">
+            <label th:for="englishName">카테고리 영어명</label>
+            <input type="text" th:field="*{englishName}" class="form-control" placeholder="카테고리 영어명을 입력하세요"
+                   th:class="${#fields.hasErrors('englishName')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('englishName')}" th:errors="*{englishName}">Incorrect date</p>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}" />
+
+</div> <!-- /container -->
+
+
+</body>
+</html>
