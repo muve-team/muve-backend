@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
 <body>
 
 <div class="container">
@@ -31,7 +36,7 @@
                 <option value="">카테고리선택</option>
                 <option th:each="category : ${categories}"
                         th:value="${category.id}"
-                        th:text="${category.koreanName}" />
+                        th:text="|${category.koreanName} (${category.englishName})|" />
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -47,16 +48,17 @@ public class CategoryController {
     @GetMapping(value = "/category/{categoryId}/edit")
     public String updateCategoryForm(@PathVariable("categoryId") Long categoryId, Model model) {
         Category category = findCategories.findOne(categoryId);
-        CategoryForm categoryForm = CategoryForm.categoryForm(category.getId(), category.getKoreanName(), category.getEnglishName());
+        CategoryForm categoryForm = CategoryForm.from(category.getId(), category.getKoreanName(), category.getEnglishName());
         model.addAttribute("form", categoryForm);
         return "categories/updateCategoryForm";
     }
 
     @PostMapping(value = "/category/{categoryId}/edit")
-    public String updateCategory(@Valid CategoryForm form, BindingResult result) {
+    public String updateCategory(@Valid @ModelAttribute("form") CategoryForm form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/categories/updateCategoryForm";
+            return "categories/updateCategoryForm";
         }
+
         updateCategory.update(form);
         return "redirect:/categories";
     }

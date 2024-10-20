@@ -20,7 +20,7 @@ public class CategoryForm {
     public CategoryForm() {
     }
 
-    public static CategoryForm categoryForm(Long id, String koreanName, String englishName ) {
+    public static CategoryForm from(Long id, String koreanName, String englishName ) {
         return new CategoryForm(id, koreanName, englishName);
     }
 }

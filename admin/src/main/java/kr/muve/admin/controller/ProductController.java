@@ -28,8 +28,6 @@ public class ProductController {
 
     private final FindCategories findCategories;
 
-    private final CategoryService categoryService;
-
     @GetMapping(value = "/products/new")
     public String createProductForm(Model model) {
         model.addAttribute("productForm", new ProductForm());
@@ -61,7 +59,6 @@ public class ProductController {
         model.addAttribute("categories", findCategories.findCategories());
         return "products/updateProductForm";
     }
-
 
     @PostMapping(value = "/products/{productId}/edit")
     public String updateProduct(@Valid ProductForm form, BindingResult result) {
