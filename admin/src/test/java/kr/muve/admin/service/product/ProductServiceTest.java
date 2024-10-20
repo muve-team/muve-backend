@@ -1,7 +1,7 @@
 package kr.muve.admin.service.product;
 
 import jakarta.persistence.EntityManager;
-import kr.muve.admin.domain.product.Product;
+import kr.muve.common.domain.product.Product;
 import kr.muve.common.service.product.ProductDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package kr.muve.admin.service.user;
 
 import jakarta.persistence.EntityManager;
-import kr.muve.admin.domain.user.User;
+import kr.muve.common.domain.user.User;
+import kr.muve.common.service.user.UserJoinDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
