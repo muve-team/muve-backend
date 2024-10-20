@@ -1,0 +1,5 @@
+rootProject.name = 'muve-server'
+
+include 'common'
+include 'api'
+include 'admin'

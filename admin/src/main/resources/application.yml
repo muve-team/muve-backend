@@ -1,0 +1,19 @@
+spring:
+  application:
+    names: shop
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 실무에서 조심 > db 날라갈 수 있음
+    properties:
+      hibernate:
+        format_sql: true # 실무에서 사용하지 않기
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    org.hibernate.SQL: debug
