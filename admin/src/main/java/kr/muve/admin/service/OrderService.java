@@ -54,8 +54,13 @@ public class OrderService implements CreateOrder, CancelOrder, FindOrders {
     @Override
     @Transactional
     public void cancelOrder(Long id) {
+        // order status 변경
         Order order = orderRepository.findOne(id);
-        orderRepository.delete(order);
+        order.cancelOrder();
+
+        // product count 원복
+        List<OrderProduct> orderProducts = order.getOrderProducts();
+        orderProducts.stream().forEach(op -> op.getProduct().addStock(op.getCount()));
     }
 
 }

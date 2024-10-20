@@ -53,6 +53,10 @@ public class Order {
     }
 
     public Long getTotalPrice() {
-        return orderProducts.stream().mapToLong(OrderProduct::getPrice).sum();
+        return orderProducts.stream().mapToLong(o -> o.getPrice() * o.getCount()).sum();
+    }
+
+    public void cancelOrder() {
+        this.status = OrderStatus.CANCEL;
     }
 }

@@ -59,4 +59,8 @@ public class Product {
         }
         this.stockQuantity = restStock;
     }
+
+    public void addStock(Integer count) {
+        this.stockQuantity += count;
+    }
 }
