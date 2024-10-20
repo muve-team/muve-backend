@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @EntityScan(basePackages = "kr.muve.common")
 @EnableJpaRepositories(basePackages = "kr.muve.common")
-@ComponentScan(basePackages = "kr.muve.common")
 @SpringBootApplication
 public class AdminApplication {
 
