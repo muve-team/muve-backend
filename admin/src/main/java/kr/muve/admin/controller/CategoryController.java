@@ -36,7 +36,7 @@ public class CategoryController {
         if (result.hasErrors()) {
             return "categories/createCategoryForm";
         }
-        createCategory.create(categoryForm.getName(), categoryForm.getSlug());
+        createCategory.create(categoryForm.getName(), categoryForm.getSlug(), categoryForm.getImageUrl());
         return "redirect:/";
     }
 
@@ -49,7 +49,8 @@ public class CategoryController {
     @GetMapping(value = "/category/{categoryId}/edit")
     public String updateCategoryForm(@PathVariable("categoryId") Long categoryId, Model model) {
         CategoryJpaEntity categoryJpaEntity = findCategories.findById(categoryId);
-        CategoryForm categoryForm = CategoryForm.from(categoryJpaEntity.getId(), categoryJpaEntity.getName(), categoryJpaEntity.getName());
+        CategoryForm categoryForm = CategoryForm.from(categoryJpaEntity.getId(), categoryJpaEntity.getName(),
+                categoryJpaEntity.getSlug(), categoryJpaEntity.getImageUrl());
         model.addAttribute("form", categoryForm);
         return "categories/updateCategoryForm";
     }

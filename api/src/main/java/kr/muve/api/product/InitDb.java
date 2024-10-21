@@ -43,10 +43,10 @@ public class InitDb {
             em.persist(userJpaEntity);
 
             // 카테고리
-            CategoryJpaEntity categoryJpaEntity1 = CategoryJpaEntity.createCategory("전자기기", "electronic");
+            CategoryJpaEntity categoryJpaEntity1 = CategoryJpaEntity.createCategory("전자기기", "electronic", "1.jpg");
             em.persist(categoryJpaEntity1);
 
-            CategoryJpaEntity categoryJpaEntity2 = CategoryJpaEntity.createCategory("책", "book");
+            CategoryJpaEntity categoryJpaEntity2 = CategoryJpaEntity.createCategory("책", "book", "1.jpg");
             em.persist(categoryJpaEntity2);
 
             // 상품

@@ -22,6 +22,8 @@ public class CategoryJpaEntity {
 
     private String slug;
 
+    private String imageUrl;
+
     private LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "categoryJpaEntity")
@@ -29,13 +31,14 @@ public class CategoryJpaEntity {
 
     protected CategoryJpaEntity() {}
 
-    private CategoryJpaEntity(String name, String slug) {
+    private CategoryJpaEntity(String name, String slug, String imageUrl) {
         this.name = name;
         this.slug = slug;
+        this.imageUrl = imageUrl;
     }
 
-    public static CategoryJpaEntity createCategory(String name, String slug) {
-        return new CategoryJpaEntity(name,slug);
+    public static CategoryJpaEntity createCategory(String name, String slug, String imageUrl) {
+        return new CategoryJpaEntity(name,slug,imageUrl);
     }
 
     public void update(String name, String slug) {
