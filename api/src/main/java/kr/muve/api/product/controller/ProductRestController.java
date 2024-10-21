@@ -1,5 +1,7 @@
 package kr.muve.api.product.controller;
 
+import kr.muve.common.service.product.ProductDetail;
+import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
 import kr.muve.common.service.product.RandomProductsRes;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +19,15 @@ public class ProductRestController {
 
     private final RandomProducts randomProducts;
 
+    private final ProductDetail detail;
+
     @GetMapping("/random")
     public List<RandomProductsRes> getRandomProducts() {
         return randomProducts.random();
     }
 
     @GetMapping("/{productId}")
-    public void getProductDetail(@PathVariable("productId") Long productId) {
-
+    public ProductDetailRes getProductDetail(@PathVariable("productId") Long productId) {
+        return detail.getProductDetail(productId);
     }
 }

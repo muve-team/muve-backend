@@ -1,7 +1,8 @@
 package kr.muve.api.product.service;
 
-import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.repository.product.SpringDataProductRepository;
+import kr.muve.common.service.product.ProductDetail;
+import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
 import kr.muve.common.service.product.RandomProductsRes;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ProductQueryService implements RandomProducts {
+public class ProductQueryService implements RandomProducts, ProductDetail {
 
     private final SpringDataProductRepository productRepository;
 
@@ -24,4 +25,10 @@ public class ProductQueryService implements RandomProducts {
         Pageable pageable = PageRequest.of(0, 10);
         return RandomProductsRes.from(productRepository.findRandomProducts(pageable));
     }
+
+    @Override
+    public ProductDetailRes getProductDetail(Long id) {
+        return ProductDetailRes.from(productRepository.findById(id));
+    }
+
 }
