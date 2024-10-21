@@ -28,7 +28,7 @@ class ProductJpaEntityServiceTest {
     @Test
     void 상품_수정() {
         // given
-        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory("책", "book");
+        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory("책", "book", "1.jpg");
         em.persist(categoryJpaEntity);
         ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct("1", 1000L, 1000, categoryJpaEntity);
         em.persist(productJpaEntity);

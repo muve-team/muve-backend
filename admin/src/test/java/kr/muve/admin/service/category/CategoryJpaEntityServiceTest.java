@@ -33,22 +33,24 @@ class CategoryJpaEntityServiceTest {
         // given
         String name = "전자기기";
         String slug = "electric";
+        String imageUrl = "1.jpg";
 
         // when
-        categoryService.create(name, slug);
+        categoryService.create(name, slug, imageUrl);
         CategoryJpaEntity foundCategoryJpaEntity = em.find(CategoryJpaEntity.class, 1L);
 
         //then
         assertThat(foundCategoryJpaEntity.getName()).isEqualTo(name);
         assertThat(foundCategoryJpaEntity.getSlug()).isEqualTo(slug);
+        assertThat(foundCategoryJpaEntity.getImageUrl()).isEqualTo(imageUrl);
 
     }
 
     @Test
     void 카테고리_수정() {
         //given
-        categoryService.create("책", "book");
-        CategoryForm form = new CategoryForm(1L, "신발", "shoes");
+        categoryService.create("책", "book", "1.jpg");
+        CategoryForm form = new CategoryForm(1L, "신발", "shoes", "2.jpg");
 
         //when
         categoryService.update(form);

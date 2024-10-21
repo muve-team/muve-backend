@@ -94,7 +94,7 @@ public class OrderJpaEntityServiceTest {
     }
 
     private CategoryJpaEntity createCategory() {
-        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory("책", "book");
+        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory("책", "book", "1.jpg");
         em.persist(categoryJpaEntity);
         return categoryJpaEntity;
     }
