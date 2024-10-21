@@ -3,7 +3,7 @@ package kr.muve.api.product.service;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.repository.product.SpringDataProductRepository;
-import kr.muve.common.service.product.ProductDetail;
+import kr.muve.common.service.product.DetailProduct;
 import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
 import kr.muve.common.service.product.ProductsRandomRes;
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ProductQueryService implements RandomProducts, ProductDetail {
+public class ProductQueryService implements RandomProducts, DetailProduct {
 
     private final SpringDataProductRepository productRepository;
 
