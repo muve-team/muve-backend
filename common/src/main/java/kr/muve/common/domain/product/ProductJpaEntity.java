@@ -7,6 +7,7 @@ import kr.muve.common.service.product.ProductDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -22,6 +23,8 @@ public class ProductJpaEntity {
     private Long price;
 
     private Integer stockQuantity;
+
+    private String imageUrl;
 
     private LocalDateTime createdDate;
 
@@ -62,5 +65,18 @@ public class ProductJpaEntity {
 
     public void addStock(Integer count) {
         this.stockQuantity += count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductJpaEntity that = (ProductJpaEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

@@ -5,6 +5,8 @@ import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 public class OrderProductJpaEntity {
@@ -44,6 +46,19 @@ public class OrderProductJpaEntity {
 
     public void updateOrder(OrderJpaEntity orderJpaEntity) {
         this.orderJpaEntity = orderJpaEntity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderProductJpaEntity that = (OrderProductJpaEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
 }

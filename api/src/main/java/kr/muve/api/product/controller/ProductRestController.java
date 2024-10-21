@@ -1,7 +1,9 @@
 package kr.muve.api.product.controller;
 
+import kr.muve.common.service.product.ProductDetail;
+import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
-import kr.muve.common.service.product.RandomProductsRes;
+import kr.muve.common.service.product.ProductsRandomRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +18,15 @@ import java.util.List;
 public class ProductRestController {
 
     private final RandomProducts randomProducts;
+    private final ProductDetail detailDetail;
 
     @GetMapping("/random")
-    public List<RandomProductsRes> getRandomProducts() {
+    public List<ProductsRandomRes> getRandomProducts() {
         return randomProducts.random();
     }
 
     @GetMapping("/{productId}")
-    public void getProductDetail(@PathVariable("productId") Long productId) {
-
+    public ProductDetailRes getProductDetail(@PathVariable("productId") Long productId) {
+        return detailDetail.getProductDetail(productId);
     }
 }

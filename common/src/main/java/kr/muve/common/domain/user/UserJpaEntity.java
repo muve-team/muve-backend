@@ -5,6 +5,7 @@ import kr.muve.common.service.user.UserJoinDto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Users")
@@ -44,5 +45,18 @@ public class UserJpaEntity {
     public static UserJpaEntity createUser(UserJoinDto dto) {
         Address address = new Address(dto.getCity(), dto.getStreet(), dto.getZipcode());
         return new UserJpaEntity(dto.getName(), dto.getEmail(), dto.getPassword(), dto.getPhoneNumber(), address);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserJpaEntity that = (UserJpaEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
