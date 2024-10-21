@@ -31,16 +31,16 @@ class CategoryJpaEntityServiceTest {
     @Test
     void 카테고리_등록() {
         // given
-        String koreanName = "전자기기";
-        String englishName = "electric";
+        String name = "전자기기";
+        String slug = "electric";
 
         // when
-        categoryService.create(koreanName, englishName);
+        categoryService.create(name, slug);
         CategoryJpaEntity foundCategoryJpaEntity = em.find(CategoryJpaEntity.class, 1L);
 
         //then
-        assertThat(foundCategoryJpaEntity.getKoreanName()).isEqualTo(koreanName);
-        assertThat(foundCategoryJpaEntity.getEnglishName()).isEqualTo(englishName);
+        assertThat(foundCategoryJpaEntity.getName()).isEqualTo(name);
+        assertThat(foundCategoryJpaEntity.getSlug()).isEqualTo(slug);
 
     }
 
@@ -55,7 +55,7 @@ class CategoryJpaEntityServiceTest {
         CategoryJpaEntity foundCategoryJpaEntity = em.find(CategoryJpaEntity.class, 1L);
 
         //then
-        assertThat(foundCategoryJpaEntity.getKoreanName()).isEqualTo(form.getKoreanName());
-        assertThat(foundCategoryJpaEntity.getEnglishName()).isEqualTo(form.getEnglishName());
+        assertThat(foundCategoryJpaEntity.getName()).isEqualTo(form.getName());
+        assertThat(foundCategoryJpaEntity.getSlug()).isEqualTo(form.getSlug());
     }
 }

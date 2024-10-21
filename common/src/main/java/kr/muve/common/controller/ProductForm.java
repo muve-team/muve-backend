@@ -24,14 +24,14 @@ public class ProductForm {
     @NotNull(message = "카테고리를 선택해주세요")
     private Long categoryId;
 
-    private String categoryKoreanName;
-    private String categoryEnglishName;
+    private String categoryname;
+    private String categoryslug;
 
     public ProductForm() {}
 
     public static ProductForm from(ProductJpaEntity productJpaEntity) {
         return new ProductForm(productJpaEntity.getId(), productJpaEntity.getName(),
                 productJpaEntity.getPrice(), productJpaEntity.getStockQuantity(), productJpaEntity.getCategoryJpaEntity().getId(),
-                productJpaEntity.getCategoryJpaEntity().getKoreanName(), productJpaEntity.getCategoryJpaEntity().getEnglishName());
+                productJpaEntity.getCategoryJpaEntity().getName(), productJpaEntity.getCategoryJpaEntity().getSlug());
     }
 }

@@ -23,8 +23,8 @@ public class CategoryService implements CreateCategory, FindCategories, UpdateCa
     // 카테고리 등록
     @Override
     @Transactional
-    public void create(String koreanName, String englishName) {
-        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory(koreanName,englishName);
+    public void create(String name, String slug) {
+        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory(name,slug);
         categoryRepository.save(categoryJpaEntity);
     }
 
@@ -45,7 +45,7 @@ public class CategoryService implements CreateCategory, FindCategories, UpdateCa
     @Transactional
     public void update(CategoryForm form) {
         CategoryJpaEntity categoryJpaEntity = findById(form.getId());
-        categoryJpaEntity.update(form.getKoreanName(), form.getEnglishName());
+        categoryJpaEntity.update(form.getName(), form.getSlug());
     }
 
 }

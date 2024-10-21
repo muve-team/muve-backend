@@ -24,7 +24,7 @@
                 <td th:text="${productJpaEntity.name}"></td>
                 <td th:text="${productJpaEntity.price}"></td>
                 <td th:text="${productJpaEntity.stockQuantity}"></td>
-                <td th:text="|${productJpaEntity.categoryJpaEntity.koreanName} (${productJpaEntity.categoryJpaEntity.englishName})|"></td>
+                <td th:text="|${productJpaEntity.categoryJpaEntity.name} (${productJpaEntity.categoryJpaEntity.slug})|"></td>
                 <td>
                     <a href="#" th:href="@{/products/{id}/edit (id=${productJpaEntity.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>

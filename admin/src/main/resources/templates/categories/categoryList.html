@@ -19,8 +19,8 @@
             <tbody>
             <tr th:each="category : ${categories}">
                 <td th:text="${category.id}"></td>
-                <td th:text="${category.koreanName}"></td>
-                <td th:text="${category.englishName}"></td>
+                <td th:text="${category.name}"></td>
+                <td th:text="${category.slug}"></td>
                 <td>
                     <a href="#" th:href="@{/category/{id}/edit (id=${category.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>

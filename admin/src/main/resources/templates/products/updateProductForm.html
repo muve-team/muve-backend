@@ -33,7 +33,7 @@
                 <option value="" disabled="disabled">카테고리를 선택하세요</option>
                 <option th:each="category : ${categories}"
                         th:value="${category.id}"
-                        th:text="|${category.koreanName} (${category.englishName})|"
+                        th:text="|${category.name} (${category.slug})|"
                         th:selected="${category.id} == *{categoryId}">
                 </option>
             </select>

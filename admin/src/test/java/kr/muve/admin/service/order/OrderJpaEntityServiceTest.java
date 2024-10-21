@@ -101,7 +101,7 @@ public class OrderJpaEntityServiceTest {
 
     private ProductJpaEntity createProduct(CategoryJpaEntity categoryJpaEntity) {
         ProductDto productDto = new ProductDto(null, "1", 1000L, 10,
-                categoryJpaEntity.getId(), categoryJpaEntity.getKoreanName(), categoryJpaEntity.getEnglishName());
+                categoryJpaEntity.getId(), categoryJpaEntity.getName(), categoryJpaEntity.getSlug());
         productService.create(productDto);
         ProductJpaEntity foundProductJpaEntity = em.find(ProductJpaEntity.class, 1L);
         return foundProductJpaEntity;

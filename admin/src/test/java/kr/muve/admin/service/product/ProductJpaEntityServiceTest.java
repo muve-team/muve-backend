@@ -44,8 +44,8 @@ class ProductJpaEntityServiceTest {
         assertThat(foundProductJpaEntity.getName()).isEqualTo(update.getName());
         assertThat(foundProductJpaEntity.getPrice()).isEqualTo(update.getPrice());
         assertThat(foundProductJpaEntity.getStockQuantity()).isEqualTo(update.getStockQuantity());
-        assertThat(foundProductJpaEntity.getCategoryJpaEntity().getKoreanName()).isEqualTo(update.getCategoryKoreanName());
-        assertThat(foundProductJpaEntity.getCategoryJpaEntity().getEnglishName()).isEqualTo(update.getCategoryEnglishName());
+        assertThat(foundProductJpaEntity.getCategoryJpaEntity().getName()).isEqualTo(update.getCategoryName());
+        assertThat(foundProductJpaEntity.getCategoryJpaEntity().getSlug()).isEqualTo(update.getCategorySlug());
     }
 
 }

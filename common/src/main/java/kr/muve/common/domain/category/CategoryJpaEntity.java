@@ -18,9 +18,9 @@ public class CategoryJpaEntity {
     @Column(name = "category_id")
     private Long id;
 
-    private String koreanName;
+    private String name;
 
-    private String englishName;
+    private String slug;
 
     private LocalDateTime createdDate;
 
@@ -29,18 +29,18 @@ public class CategoryJpaEntity {
 
     protected CategoryJpaEntity() {}
 
-    private CategoryJpaEntity(String koreanName, String englishName) {
-        this.koreanName = koreanName;
-        this.englishName = englishName;
+    private CategoryJpaEntity(String name, String slug) {
+        this.name = name;
+        this.slug = slug;
     }
 
-    public static CategoryJpaEntity createCategory(String koreanName, String englishName) {
-        return new CategoryJpaEntity(koreanName,englishName);
+    public static CategoryJpaEntity createCategory(String name, String slug) {
+        return new CategoryJpaEntity(name,slug);
     }
 
-    public void update(String koreanName, String englishName) {
-        this.koreanName = koreanName;
-        this.englishName = englishName;
+    public void update(String name, String slug) {
+        this.name = name;
+        this.slug = slug;
     }
 
     @Override

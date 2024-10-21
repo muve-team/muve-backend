@@ -11,8 +11,8 @@ public class ProductDetailRes {
     private String name;
     private Long price;
     private Integer stockQuantity;
-    private String categoryKoreanName;
-    private String categoryEnglishName;
+    private String categoryname;
+    private String categoryslug;
 
     public static ProductDetailRes from(ProductJpaEntity product) {
         return new ProductDetailRes(
@@ -20,8 +20,8 @@ public class ProductDetailRes {
                 product.getName(),
                 product.getPrice(),
                 product.getStockQuantity(),
-                product.getCategoryJpaEntity().getKoreanName(),
-                product.getCategoryJpaEntity().getEnglishName()
+                product.getCategoryJpaEntity().getName(),
+                product.getCategoryJpaEntity().getSlug()
         );
     }
 }

@@ -36,7 +36,7 @@
                 <option value="">카테고리선택</option>
                 <option th:each="category : ${categories}"
                         th:value="${category.id}"
-                        th:text="|${category.koreanName} (${category.englishName})|" />
+                        th:text="|${category.name} (${category.slug})|" />
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
