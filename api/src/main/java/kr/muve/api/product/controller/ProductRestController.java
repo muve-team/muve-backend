@@ -1,6 +1,6 @@
 package kr.muve.api.product.controller;
 
-import kr.muve.common.service.product.ProductDetail;
+import kr.muve.common.service.product.DetailProduct;
 import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
 import kr.muve.common.service.product.ProductsRandomRes;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductRestController {
 
     private final RandomProducts randomProducts;
-    private final ProductDetail detailDetail;
+    private final DetailProduct detailDetail;
 
     @GetMapping("/random")
     public List<ProductsRandomRes> getRandomProducts() {
