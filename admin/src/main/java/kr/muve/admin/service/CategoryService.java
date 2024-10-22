@@ -24,7 +24,7 @@ public class CategoryService implements CreateCategory, FindCategories, UpdateCa
     @Override
     @Transactional
     public void create(String name, String slug, String imageUrl) {
-        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory(name,slug,imageUrl);
+        CategoryJpaEntity categoryJpaEntity = CategoryJpaEntity.createCategory(name, slug, imageUrl);
         categoryRepository.save(categoryJpaEntity);
     }
 
