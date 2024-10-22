@@ -3,7 +3,7 @@ package kr.muve.api.category.controller;
 import kr.muve.common.service.category.AllCategory;
 import kr.muve.common.service.category.CategoryAllRes;
 import kr.muve.common.service.category.CategoryProductsRes;
-import kr.muve.common.service.category.ProuductsCategory;
+import kr.muve.common.service.category.ProductsCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoryRestController {
 
     private final AllCategory allCategory;
-    private final ProuductsCategory prouductsCategory;
+    private final ProductsCategory productsCategory;
 
     @GetMapping
     public List<CategoryAllRes> getCategoryList() {
@@ -29,6 +29,6 @@ public class CategoryRestController {
         if (page == null) page = 0;
         if (size == null) size = 10;
 
-        return prouductsCategory.getCategoryProducts(categoryId, page, size);
+        return productsCategory.getCategoryProducts(categoryId, page, size);
     }
 }

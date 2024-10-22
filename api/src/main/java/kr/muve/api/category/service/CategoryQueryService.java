@@ -8,7 +8,7 @@ import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.category.AllCategory;
 import kr.muve.common.service.category.CategoryAllRes;
 import kr.muve.common.service.category.CategoryProductsRes;
-import kr.muve.common.service.category.ProuductsCategory;
+import kr.muve.common.service.category.ProductsCategory;
 import kr.muve.common.service.product.ProductListRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class CategoryQueryService implements AllCategory, ProuductsCategory {
+public class CategoryQueryService implements AllCategory, ProductsCategory {
 
     private final SpringDataCategoryRepository categoryRepository;
     private final SpringDataProductRepository productRepository;
