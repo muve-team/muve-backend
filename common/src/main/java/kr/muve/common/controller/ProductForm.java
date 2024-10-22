@@ -24,8 +24,8 @@ public class ProductForm {
     @NotNull(message = "카테고리를 선택해주세요")
     private Long categoryId;
 
-    private String categoryname;
-    private String categoryslug;
+    private String categoryName;
+    private String categorySlug;
 
     public ProductForm() {}
 

@@ -11,8 +11,8 @@ public class ProductDetailRes {
     private String name;
     private Long price;
     private Integer stockQuantity;
-    private String categoryname;
-    private String categoryslug;
+    private String categoryName;
+    private String categorySlug;
 
     public static ProductDetailRes from(ProductJpaEntity product) {
         return new ProductDetailRes(
