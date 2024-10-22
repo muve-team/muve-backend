@@ -21,7 +21,7 @@ public class ProductDto {
     public static ProductDto from(ProductForm productForm) {
         return new ProductDto(productForm.getId(), productForm.getName(),
                 productForm.getPrice(), productForm.getStockQuantity(),
-                productForm.getCategoryId(), productForm.getCategoryname(),
-                productForm.getCategoryslug());
+                productForm.getCategoryId(), productForm.getCategoryName(),
+                productForm.getCategorySlug());
     }
 }
