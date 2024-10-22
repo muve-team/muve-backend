@@ -24,7 +24,11 @@ public class CategoryRestController {
 
     @GetMapping("/{categoryId}")
     public CategoryProductsRes getCategoryProducts(@PathVariable("categoryId") Long categoryId,
-                                                         @RequestParam int page, @RequestParam int size) {
+                                                   @RequestParam(value = "page", required = false) Integer page,
+                                                   @RequestParam(value = "size", required = false) Integer size) {
+        if (page == null) page = 0;
+        if (size == null) size = 10;
+
         return prouductsCategory.getCategoryProducts(categoryId, page, size);
     }
 }
