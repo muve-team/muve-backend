@@ -5,10 +5,13 @@ import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.CategoryNotFoundException;
 import kr.muve.common.repository.category.SpringDataCategoryRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
+import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.category.AllCategory;
 import kr.muve.common.service.category.CategoryAllRes;
 import kr.muve.common.service.category.CategoryProductsRes;
 import kr.muve.common.service.category.ProductsCategory;
+import kr.muve.common.service.my.FindMyProfiles;
+import kr.muve.common.service.my.MyprofileRes;
 import kr.muve.common.service.product.ProductRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -44,3 +47,5 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
 
     }
 }
+
+
