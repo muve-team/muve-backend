@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SpringDataProductRepository extends JpaRepository<ProductJpaEntity, Long> {
-    @Query(value = "SELECT p FROM ProductJpaEntity p ORDER BY RANDOM()")
+    @Query(value = "select p from ProductJpaEntity p order by RANDOM()")
     List<ProductJpaEntity> findRandomProducts(Pageable pageable);
 
-    @Query(value = "SELECT p FROM ProductJpaEntity p WHERE p.categoryJpaEntity.id = :categoryId")
-    List<ProductJpaEntity> findAllByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
+    @Query(value = "select p from ProductJpaEntity p where p.categoryJpaEntity.id = :categoryId")
+    List<ProductJpaEntity> findByCategoryIdWithPage(@Param("categoryId") Long categoryId, Pageable pageable);
 }
