@@ -6,6 +6,8 @@ import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
+import kr.muve.common.domain.saved.SavedJpaEntity;
+import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.service.user.UserJoinDto;
 import lombok.RequiredArgsConstructor;
@@ -170,6 +172,18 @@ public class InitDb {
             // 주문
             OrderJpaEntity orderJpaEntity = OrderJpaEntity.createOrder(userJpaEntity, orderProductJpaEntity1, orderProductJpaEntity2);
             em.persist(orderJpaEntity);
+
+            // 찜 목록
+            SavedJpaEntity saved1 = SavedJpaEntity.createSaved(userJpaEntity);
+
+            SavedProductJpaEntity savedProductJpaEntity1 = SavedProductJpaEntity.createSavedProduct(pro1);
+            SavedProductJpaEntity savedProductJpaEntity2 = SavedProductJpaEntity.createSavedProduct(pro2);
+
+            saved1.addSavedProduct(savedProductJpaEntity1);
+            saved1.addSavedProduct(savedProductJpaEntity2);
+
+            em.persist(saved1);
+
         }
 
     }

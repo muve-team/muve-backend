@@ -6,7 +6,7 @@ import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.OrderNotFoundException;
 import kr.muve.common.repository.order.OrderSearch;
-import kr.muve.common.repository.order.SpringDataOrderRepositoryCustom;
+import kr.muve.common.repository.order.SpringDataOrderRepository;
 import kr.muve.common.service.order.CancelOrder;
 import kr.muve.common.service.order.CreateOrder;
 import kr.muve.common.service.order.FindOrders;
@@ -22,7 +22,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class OrderService implements CreateOrder, CancelOrder, FindOrders {
 
-    private final SpringDataOrderRepositoryCustom orderRepository;
+    private final SpringDataOrderRepository orderRepository;
     private final UserService userService;
     private final ProductService productService;
 

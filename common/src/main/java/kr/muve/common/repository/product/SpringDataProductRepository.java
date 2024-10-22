@@ -14,4 +14,5 @@ public interface SpringDataProductRepository extends JpaRepository<ProductJpaEnt
 
     @Query(value = "select p from ProductJpaEntity p where p.categoryJpaEntity.id = :categoryId")
     List<ProductJpaEntity> findByCategoryIdWithPage(@Param("categoryId") Long categoryId, Pageable pageable);
+
 }

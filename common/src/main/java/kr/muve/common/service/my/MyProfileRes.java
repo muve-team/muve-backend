@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MyprofileRes {
+public class MyProfileRes {
 
     private Long myId;
     private String name;
@@ -15,8 +15,8 @@ public class MyprofileRes {
     private String phoneNumber;
     private Address address;
 
-    public static MyprofileRes from(UserJpaEntity user) {
-        return new MyprofileRes(user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
+    public static MyProfileRes from(UserJpaEntity user) {
+        return new MyProfileRes(user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber(), user.getAddress());
     }
 
 }
