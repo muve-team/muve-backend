@@ -9,7 +9,7 @@ import kr.muve.common.service.category.AllCategory;
 import kr.muve.common.service.category.CategoryAllRes;
 import kr.muve.common.service.category.CategoryProductsRes;
 import kr.muve.common.service.category.ProductsCategory;
-import kr.muve.common.service.product.ProductListRes;
+import kr.muve.common.service.product.ProductRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,13 +32,13 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
     }
 
     @Override
-    public CategoryProductsRes getCategoryProducts(Long id, int page, int size) {
+    public CategoryProductsRes getCategoryProducts(Long id, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         CategoryJpaEntity category = categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException("카테고리를 찾을 수 없습니다."));
 
-        List<ProductJpaEntity> products = productRepository.findAllByCategoryId(id, pageable);
-        List<ProductListRes> productList = ProductListRes.from(products);
+        List<ProductJpaEntity> products = productRepository.findByCategoryIdWithPage(id, pageable);
+        List<ProductRes> productList = ProductRes.from(products);
 
         return CategoryProductsRes.from(category, productList);
 
