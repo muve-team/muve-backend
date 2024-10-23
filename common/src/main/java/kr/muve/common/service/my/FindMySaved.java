@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface FindMySaved {
 
-    List<MySavedProductRes> findMySaved(Long id);
+    List<MySavedProductRes> findMySaved(Long id, Integer page, Integer size);
 }

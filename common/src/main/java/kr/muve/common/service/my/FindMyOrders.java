@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface FindMyOrders {
 
-    List<MyOrderRes> findMyAllOrders(Long id);
+    List<MyOrderRes> findMyAllOrders(Long id, Integer page, Integer size);
 }

@@ -23,12 +23,16 @@ public class MyRestController {
 
     // 주문 전체 조회 (주문, 취소, 환불 나눌 예정)
     @GetMapping(value = "/orders")
-    public List<MyOrderRes> getMyOrders(@RequestParam("userId") Long userId)  {
-        return findMyOrders.findMyAllOrders(userId);
+    public List<MyOrderRes> getMyOrders(@RequestParam("userId") Long userId,
+                                        @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                        @RequestParam(name = "size", required = false, defaultValue = "10") Integer size)  {
+        return findMyOrders.findMyAllOrders(userId, page, size);
     }
 
     @GetMapping(value = "/saved")
-    public List<MySavedProductRes> getMySaved(@RequestParam("userId") Long userId) {
-        return findMySaved.findMySaved(userId);
+    public List<MySavedProductRes> getMySaved(@RequestParam("userId") Long userId,
+                                              @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                              @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
+        return findMySaved.findMySaved(userId, page, size);
     }
 }

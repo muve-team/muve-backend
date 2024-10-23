@@ -1,17 +1,21 @@
 package kr.muve.api.my.service;
 
+import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.saved.SavedJpaEntity;
+import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.order.SpringDataOrderRepository;
 import kr.muve.common.repository.saved.SpringDataSavedRepository;
 import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.my.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,13 +34,25 @@ public class MyQueryService implements FindMyProfiles, FindMyOrders, FindMySaved
     }
 
     @Override
-    public List<MyOrderRes> findMyAllOrders(Long id) {
-        return MyOrderRes.from(orderRepository.findAllById(Arrays.asList(id)));
+    public List<MyOrderRes> findMyAllOrders(Long id, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return MyOrderRes.from(orderRepository.findAllByUserId(id, pageable).getContent());
     }
 
     @Override
-    public List<MySavedProductRes> findMySaved(Long userId) {
+    public List<MySavedProductRes> findMySaved(Long userId, Integer page, Integer size) {
+        // SavedJpaEntity 가져오기 (나의 찜)
         SavedJpaEntity savedJpaEntity = savedRepository.findByUserId(userId);
-        return MySavedProductRes.from(savedJpaEntity.getSavedProductJpaEntities());
+
+        // savedProductJpaEntities만 꺼내서 리스트를 페이징 처리
+        List<SavedProductJpaEntity> savedProducts = savedJpaEntity.getSavedProductJpaEntities();
+        Pageable pageable = PageRequest.of(page, size);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), savedProducts.size());
+
+        // 리스트가 페이징 범위 안에 있을 때만 잘라서 반환
+        List<SavedProductJpaEntity> pagedSavedProducts = savedProducts.subList(start, end);
+
+        return MySavedProductRes.from(pagedSavedProducts);
     }
 }
