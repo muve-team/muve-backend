@@ -1,6 +1,7 @@
 spring:
   application:
-    names: shop
+    names: admin
+
   profiles:
     default: test
     active: test

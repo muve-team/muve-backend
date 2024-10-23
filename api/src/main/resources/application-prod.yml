@@ -1,0 +1,43 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: api
+
+  jpa:
+    hibernate:
+      ddl-auto: none                # 실무에서 create-drop을 사용하지 않도록 수정
+    properties:
+      hibernate:
+        format_sql: false           # 실무에서는 SQL 포맷팅 비활성화
+        default_batch_fetch_size: 100    # Lazy Loading 시 한 번에 가져올 데이터 수
+        jdbc:
+          batch_size: 100                # 벌크 작업 시 배치 크기
+        use_sql_comments: false          # 실무에서는 주석 사용 비활성화 (성능 고려)
+
+    open-in-view: false  # OSIV 비활성화 (성능 최적화)
+
+  datasource:
+    url: ${DB_URL}           # AWS Secrets Manager에서 가져옴
+    username: ${DB_USERNAME}  # Secrets Manager에서 가져옴
+    password: ${DB_PASSWORD}  # Secrets Manager에서 가져옴
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+cloud:
+  aws:
+    s3:
+      bucket: muve-bucket
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    # credentials 섹션 제거 (Secrets Manager에서 불러옴)
+
+secretsmanager:
+  name: muve-environment-keys-0  # AWS Secrets Manager에서 자격 증명을 가져오는 경로
+  enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: warn  # 실무에서는 debug 대신 warn로 설정 (로그 부하 줄임)

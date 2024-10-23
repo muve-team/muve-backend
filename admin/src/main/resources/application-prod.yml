@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: false
+
+  datasource:
+    url: ${DB_URL}           # Secrets Manager에서 데이터베이스 URL을 가져옴
+    username: ${DB_USERNAME}  # 데이터베이스 사용자명 환경 변수로 설정
+    password: ${DB_PASSWORD}  # 데이터베이스 비밀번호 환경 변수로 설정
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+cloud:
+  aws:
+    s3:
+      bucket: muve-bucket
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    # credentials 섹션 불필요, Secrets Manager에서 자격 증명을 불러옵니다
+
+secretsmanager:
+  name: muve-environment-keys-0  # AWS Secrets Manager에서 자격 증명을 가져오는 경로
+  enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: warn
