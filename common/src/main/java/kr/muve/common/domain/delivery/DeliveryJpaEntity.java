@@ -2,10 +2,13 @@ package kr.muve.common.domain.delivery;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.user.Address;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Getter
 public class DeliveryJpaEntity {
 
     @Id
