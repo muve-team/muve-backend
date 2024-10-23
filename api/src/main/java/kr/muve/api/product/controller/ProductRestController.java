@@ -5,10 +5,7 @@ import kr.muve.common.service.product.ProductDetailRes;
 import kr.muve.common.service.product.RandomProducts;
 import kr.muve.common.service.product.ProductsRandomRes;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +22,8 @@ public class ProductRestController {
         return randomProducts.random();
     }
 
-    @GetMapping("/{productId}")
-    public ProductDetailRes getProductDetail(@PathVariable("productId") Long productId) {
+    @GetMapping("/detail")
+    public ProductDetailRes getProductDetail(@RequestParam("productId") Long productId) {
         return detailProduct.getProductDetail(productId);
     }
 }
