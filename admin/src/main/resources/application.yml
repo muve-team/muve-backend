@@ -2,6 +2,10 @@ server:
   port: 8081
 
 spring:
+  profiles:
+    active: local
+    default: local
+
   application:
     names: admin
 

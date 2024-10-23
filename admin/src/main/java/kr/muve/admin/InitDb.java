@@ -19,7 +19,7 @@ import static kr.muve.common.domain.user.UserJpaEntity.createUser;
 
 @Component
 @RequiredArgsConstructor
-@Profile("!test")
+@Profile("local")
 public class InitDb {
 
     private final InitService initService;
