@@ -14,6 +14,7 @@
                 <th>상품명</th>
                 <th>가격</th>
                 <th>재고수량</th>
+                <th>이미지 경로</th>
                 <th>카테고리</th>
                 <th></th>
             </tr>
@@ -24,6 +25,9 @@
                 <td th:text="${productJpaEntity.name}"></td>
                 <td th:text="${productJpaEntity.price}"></td>
                 <td th:text="${productJpaEntity.stockQuantity}"></td>
+                <td>
+                    <a th:href="${productJpaEntity.imageUrl}" th:text="이미지" />
+                </td>
                 <td th:text="|${productJpaEntity.categoryJpaEntity.name} (${productJpaEntity.categoryJpaEntity.slug})|"></td>
                 <td>
                     <a href="#" th:href="@{/products/{id}/edit (id=${productJpaEntity.id})}" class="btn btn-primary" role="button">수정</a>

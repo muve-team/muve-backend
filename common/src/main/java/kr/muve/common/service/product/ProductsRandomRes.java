@@ -12,10 +12,11 @@ public class ProductsRandomRes {
     private Long productId;
     private String name;
     private Long price;
+    private String imageUrl;
 
     public static List<ProductsRandomRes> from(List<ProductJpaEntity> products) {
         return products.stream()
-                .map(p -> new ProductsRandomRes(p.getId(), p.getName(), p.getPrice()))
+                .map(p -> new ProductsRandomRes(p.getId(), p.getName(), p.getPrice(), p.getImageUrl()))
                 .toList();
     }
 }

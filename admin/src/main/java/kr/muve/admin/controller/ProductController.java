@@ -1,6 +1,7 @@
 package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
+import kr.muve.common.controller.ImageFileValidator;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.service.category.FindCategories;
 import kr.muve.common.service.product.CreateProduct;
@@ -12,9 +13,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +32,8 @@ public class ProductController {
 
     private final FindCategories findCategories;
 
+    private final ImageFileValidator imageFileValidator;
+
     @GetMapping(value = "/products/new")
     public String createProductForm(Model model) {
         model.addAttribute("productForm", new ProductForm());
@@ -35,11 +41,16 @@ public class ProductController {
         return "products/createProductForm";
     }
 
-    @PostMapping(value = "/products/new")
-    public String create(@Valid ProductForm form, BindingResult result) {
-        if (result.hasErrors()) {
+    @PostMapping(value = "/products/new", consumes = { "multipart/form-data" })
+    public String create(@Valid ProductForm form, BindingResult result, @RequestParam("image") MultipartFile image, Errors errors, Model model) {
+        // 이미지 검증
+        imageFileValidator.validate(image, errors);
+
+        if (result.hasErrors() || errors.hasErrors()) {
+            model.addAttribute("categories", findCategories.findCategories());
             return "products/createProductForm";
         }
+
         ProductDto dto = ProductDto.from(form);
         createProduct.create(dto);
         return "redirect:/";

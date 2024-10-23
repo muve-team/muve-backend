@@ -3,6 +3,7 @@ package kr.muve.common.service.product;
 import kr.muve.common.controller.ProductForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -15,6 +16,7 @@ public class ProductDto {
     private Long categoryId;
     private String categoryName;
     private String categorySlug;
+    private MultipartFile image;
 
     private ProductDto() {}
 
@@ -22,6 +24,6 @@ public class ProductDto {
         return new ProductDto(productForm.getId(), productForm.getName(),
                 productForm.getPrice(), productForm.getStockQuantity(),
                 productForm.getCategoryId(), productForm.getCategoryName(),
-                productForm.getCategorySlug());
+                productForm.getCategorySlug(), productForm.getImage());
     }
 }

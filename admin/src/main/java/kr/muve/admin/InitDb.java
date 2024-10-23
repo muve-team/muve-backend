@@ -51,10 +51,10 @@ public class InitDb {
             em.persist(categoryJpaEntity2);
 
             // 상품
-            ProductJpaEntity pro1 = createProduct("JPA1 BOOK", 10000L, 100, categoryJpaEntity1);
+            ProductJpaEntity pro1 = createProduct("JPA1 BOOK", 10000L, 100, "url", categoryJpaEntity1);
             em.persist(pro1);
 
-            ProductJpaEntity pro2 = createProduct("JPA2 BOOK", 20000L, 200, categoryJpaEntity2);
+            ProductJpaEntity pro2 = createProduct("JPA2 BOOK", 20000L, 200, "url", categoryJpaEntity2);
             em.persist(pro2);
 
             // 주문 상품
