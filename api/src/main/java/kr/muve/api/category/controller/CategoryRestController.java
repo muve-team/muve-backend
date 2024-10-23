@@ -11,20 +11,21 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/category")
 public class CategoryRestController {
 
     private final AllCategory allCategory;
     private final ProductsCategory productsCategory;
 
-    @GetMapping
+    @GetMapping()
     public List<CategoryAllRes> getCategoryList() {
         return allCategory.getCategoryList();
     }
 
-    @GetMapping("/category")
+    @GetMapping("/products")
     public CategoryProductsRes getCategoryProducts(@RequestParam("categoryId") Long categoryId,
-                                                   @RequestParam(required = false, defaultValue = "0") Integer page,
-                                                   @RequestParam(required = false, defaultValue = "10") Integer size) {
+                                                   @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                   @RequestParam(name = "size",required = false, defaultValue = "10") Integer size) {
 
         return productsCategory.getCategoryProducts(categoryId, page, size);
     }
