@@ -14,9 +14,9 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
   datasource:
-    url: ${DB_URL}           # Secrets Manager에서 데이터베이스 URL을 가져옴
-    username: ${DB_USERNAME}  # 데이터베이스 사용자명 환경 변수로 설정
-    password: ${DB_PASSWORD}  # 데이터베이스 비밀번호 환경 변수로 설정
+    url: ${spring.datasource.url}           # AWS Secrets Manager에서 가져옴
+    username: ${spring.datasource.username}  # Secrets Manager에서 가져옴
+    password: ${spring.datasource.password}  # Secrets Manager에서 가져옴
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 cloud:

@@ -20,9 +20,9 @@ spring:
     open-in-view: false  # OSIV 비활성화 (성능 최적화)
 
   datasource:
-    url: ${DB_URL}           # AWS Secrets Manager에서 가져옴
-    username: ${DB_USERNAME}  # Secrets Manager에서 가져옴
-    password: ${DB_PASSWORD}  # Secrets Manager에서 가져옴
+    url: ${spring.datasource.url}           # AWS Secrets Manager에서 가져옴
+    username: ${spring.datasource.username}  # Secrets Manager에서 가져옴
+    password: ${spring.datasource.password}  # Secrets Manager에서 가져옴
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 cloud:
