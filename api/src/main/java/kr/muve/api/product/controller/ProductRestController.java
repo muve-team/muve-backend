@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductRestController {
 
     private final RandomProducts randomProducts;
-    private final DetailProduct detailDetail;
+    private final DetailProduct detailProduct;
 
     @GetMapping("/random")
     public List<ProductsRandomRes> getRandomProducts() {
@@ -27,6 +27,6 @@ public class ProductRestController {
 
     @GetMapping("/{productId}")
     public ProductDetailRes getProductDetail(@PathVariable("productId") Long productId) {
-        return detailDetail.getProductDetail(productId);
+        return detailProduct.getProductDetail(productId);
     }
 }
