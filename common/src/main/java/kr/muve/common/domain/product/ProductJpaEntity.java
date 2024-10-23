@@ -1,8 +1,8 @@
 package kr.muve.common.domain.product;
 
 import jakarta.persistence.*;
+import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
-import kr.muve.common.domain.saved.SavedJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;
@@ -40,6 +40,10 @@ public class ProductJpaEntity {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "saved_id")
     private List<SavedProductJpaEntity> savedProductJpaEntities;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "cart_id")
+    private CartJpaEntity cartJpaEntity;
 
     protected ProductJpaEntity() {}
 
