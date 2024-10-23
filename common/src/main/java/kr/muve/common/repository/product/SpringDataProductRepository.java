@@ -1,6 +1,7 @@
 package kr.muve.common.repository.product;
 
 import kr.muve.common.domain.product.ProductJpaEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,8 @@ public interface SpringDataProductRepository extends JpaRepository<ProductJpaEnt
 
     @Query(value = "select p from ProductJpaEntity p where p.categoryJpaEntity.id = :categoryId")
     List<ProductJpaEntity> findByCategoryIdWithPage(@Param("categoryId") Long categoryId, Pageable pageable);
+
+    @Query(value = "select p from ProductJpaEntity p where p.name like %:keyword%")
+    List<ProductJpaEntity> findAllWithKeyword(@Param("keyword") String keyword, Pageable pageable);
 
 }
