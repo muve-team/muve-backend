@@ -7,8 +7,7 @@ import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
-import kr.muve.common.domain.user.UserJpaEntity;
-import kr.muve.common.service.user.UserJoinDto;
+import kr.muve.common.service.user.UserJoinCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -38,7 +37,7 @@ public class InitDb {
 
         public void dbInit1() {
             // 사용자
-            UserJoinDto dto = new UserJoinDto("userA", "a@naver.com", "1234",
+            UserJoinCommand dto = new UserJoinCommand("userA", "a@naver.com", "1234",
                     "010-1111-1111", "A", "B", "C");
             UserJpaEntity userJpaEntity = createUser(dto);
             em.persist(userJpaEntity);

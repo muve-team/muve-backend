@@ -10,10 +10,9 @@ import kr.muve.common.domain.order.OrderStatus;
 import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
-import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.service.order.OrderDto;
 import kr.muve.common.service.product.ProductDto;
-import kr.muve.common.service.user.UserJoinDto;
+import kr.muve.common.service.user.UserJoinCommand;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -86,7 +85,7 @@ public class OrderJpaEntityServiceTest {
     }
 
     private UserJpaEntity createUser() {
-        UserJoinDto userDto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
+        UserJoinCommand userDto = new UserJoinCommand("a", "a@naver.com", "1234", "010-1111-1111",
                 "a동", "3001호", "2345");
         userService.join(userDto);
         UserJpaEntity userJpaEntity = em.find(UserJpaEntity.class, 1L);

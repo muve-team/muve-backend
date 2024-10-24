@@ -3,7 +3,7 @@ package kr.muve.admin.service.user;
 import jakarta.persistence.EntityManager;
 import kr.muve.admin.service.UserService;
 import kr.muve.common.domain.user.UserJpaEntity;
-import kr.muve.common.service.user.UserJoinDto;
+import kr.muve.common.service.user.UserJoinCommand;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +26,7 @@ class UserJpaEntityServiceTest {
     @Test
     void 회원가입() {
         // 주어진 값들
-        UserJoinDto dto = new UserJoinDto("a", "a@naver.com", "1234", "010-1111-1111",
+        UserJoinCommand dto = new UserJoinCommand("a", "a@naver.com", "1234", "010-1111-1111",
                 "a동", "3001호", "2345");
 
         // 테스트 수행

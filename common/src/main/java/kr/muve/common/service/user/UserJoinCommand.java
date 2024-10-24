@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserJoinDto {
+public class UserJoinCommand {
 
     private String name;
     private String email;
@@ -17,12 +17,6 @@ public class UserJoinDto {
     private String street;
     private String zipcode;
 
-    private UserJoinDto() {}
-
-    public static UserJoinDto from(UserForm form) {
-        return new UserJoinDto(form.getName(), form.getEmail(), form.getPassword(), form.getPhoneNumber(),
-                form.getCity(), form.getStreet(), form.getZipcode());
-    }
-
+    private UserJoinCommand() {}
 }
 
