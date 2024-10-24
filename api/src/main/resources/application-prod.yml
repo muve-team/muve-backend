@@ -33,11 +33,9 @@ cloud:
       auto: false
     region:
       static: ap-northeast-2
-    # credentials 섹션 제거 (Secrets Manager에서 불러옴)
-
-secretsmanager:
-  name: muve-environment-keys-0  # AWS Secrets Manager에서 자격 증명을 가져오는 경로
-  enabled: true
+    credentials:
+      access-key: ${AWS_S3_ACCESS_KEY_ID}
+      secret-key: ${AWS_S3_SECRET_ACCESS_KEY}
 
 logging:
   level:
