@@ -22,7 +22,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
         String token = jwtTokenProvider.resolveToken(request);
 
         if (StringUtils.isEmpty(token) || !jwtTokenProvider.isValidToken(token)) { // fail fast
-            log.info(request.getRequestURI());
+            log.error(request.getRequestURI());
             throw new JwtTokenInvalidException("토큰이 유효하지 않습니다.");
         }
 
