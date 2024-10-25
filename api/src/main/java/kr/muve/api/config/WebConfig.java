@@ -27,6 +27,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtTokenInterceptor)  // JWT 인터셉터 등록
                 .addPathPatterns("/**")  // 모든 경로에 대해 인터셉터 적용
-                .excludePathPatterns("/user/join", "/user/login", "/error", "/actuator/health");  // 특정 경로는 제외
+                .excludePathPatterns("/user/join",
+                        "/user/login", "/error",
+                        "/actuator/health",
+                        "/product/random",
+                        "/product/detail",
+                        "/category",
+                        "/category/products");  // 특정 경로는 제외
     }
 }
