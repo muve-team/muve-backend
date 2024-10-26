@@ -2,6 +2,8 @@ package kr.muve.api.product;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import kr.muve.common.domain.cart.CartJpaEntity;
+import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
@@ -183,6 +185,17 @@ public class InitDb {
             saved1.addSavedProduct(savedProductJpaEntity2);
 
             em.persist(saved1);
+
+            // 장바구니
+            CartJpaEntity cart1 = CartJpaEntity.createCart(userJpaEntity);
+
+            CartProductJpaEntity cartProduct1 = CartProductJpaEntity.createCartProduct(pro1, 10);
+            CartProductJpaEntity cartProduct2 = CartProductJpaEntity.createCartProduct(pro2, 20);
+
+            cart1.addCartProduct(cartProduct1);
+            cart1.addCartProduct(cartProduct2);
+
+            em.persist(cart1);
 
         }
 

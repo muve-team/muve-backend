@@ -2,7 +2,6 @@ package kr.muve.common.domain.cart;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
-import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 
@@ -25,6 +24,23 @@ public class CartJpaEntity {
 
     @OneToMany(mappedBy = "cartJpaEntity", cascade = CascadeType.PERSIST)
     private List<CartProductJpaEntity> cartProductJpaEntities = new ArrayList<>();
+
+    protected CartJpaEntity() {}
+
+    private CartJpaEntity(UserJpaEntity user) {
+        this.userJpaEntity = user;
+    }
+
+    public static CartJpaEntity createCart(UserJpaEntity user) {
+        CartJpaEntity cart = new CartJpaEntity(user);
+        return cart;
+    }
+
+    public void addCartProduct(CartProductJpaEntity cartProduct) {
+        this.cartProductJpaEntities.add(cartProduct);
+        cartProduct.updateCart(this); // cart에도 추가
+    }
+
 
 
     @Override

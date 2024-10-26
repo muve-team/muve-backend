@@ -3,8 +3,6 @@ package kr.muve.common.domain.cartProduct;
 import jakarta.persistence.*;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
-import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
-import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -29,6 +27,27 @@ public class CartProductJpaEntity {
     private ProductJpaEntity productJpaEntity;
 
     private Integer count;
+
+
+    protected CartProductJpaEntity() {}
+
+    private CartProductJpaEntity(ProductJpaEntity product, Integer count) {
+        this.productJpaEntity = product;
+        this.count = count;
+    }
+
+    public static CartProductJpaEntity createCartProduct(ProductJpaEntity product, Integer count) {
+        return new CartProductJpaEntity(product, count);
+    }
+
+    public void updateCart(CartJpaEntity cart) {
+        this.cartJpaEntity = cart;
+    }
+
+    // 장바구니 상품 갯수만 변경하는 로직
+    public void updateCount(Integer count) {
+        this.count = count;
+    }
 
     @Override
     public boolean equals(Object o) {
