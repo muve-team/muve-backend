@@ -33,3 +33,8 @@ cloud:
 logging:
   level:
     org.hibernate.SQL: debug
+
+spring:
+  h2:
+    console:
+      enabled: true
