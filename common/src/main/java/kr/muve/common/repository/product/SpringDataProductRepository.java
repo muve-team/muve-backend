@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SpringDataProductRepository extends JpaRepository<ProductJpaEntity, Long> {
-    @Query(value = "select p from ProductJpaEntity p order by RANDOM()")
+    @Query(value = "select p from ProductJpaEntity p order by RAND()")
     List<ProductJpaEntity> findRandomProducts(Pageable pageable);
 
     @Query(value = "select p from ProductJpaEntity p where p.categoryJpaEntity.id = :categoryId")
