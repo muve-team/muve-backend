@@ -17,10 +17,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // 모든 경로에 대해 CORS 적용
-                .allowedOrigins("http://localhost:3000")  // 허용할 출처(origin)
-                .allowedOrigins("https://muve-frontend.netlify.app")  // 허용할 출처(origin)
-                .allowedOrigins("https://muve.kr")  // 허용할 출처(origin)
-                .allowedOrigins("https://www.muve.kr")  // 허용할 출처(origin)
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "https://muve-frontend.netlify.app",
+                        "https://main.d3kali48oivsz7.amplifyapp.com/",
+                        "https://muve.kr",
+                        "https://www.muve.kr"
+                )  // 허용할 출처들을 배열로 지정
                 .allowedMethods("GET", "POST", "PUT", "DELETE")  // 허용할 HTTP 메소드
                 .allowedHeaders("*")  // 허용할 헤더
                 .allowCredentials(true);  // 인증 정보(Cookie, Authorization 등)를 허용할지 여부
