@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface SpringDataCartRepository extends JpaRepository<CartJpaEntity, Long> {
     @Query(value = "select c from CartJpaEntity c " +
-            "join fetch c.cartProductJpaEntities cp " +
-            "join fetch cp.productJpaEntity p " +
+            "left join fetch c.cartProductJpaEntities cp " +
+            "left join fetch cp.productJpaEntity p " +
             "where c.userJpaEntity.id = :userId")
     CartJpaEntity findByUserId(@Param("userId") Long id);
 }

@@ -8,6 +8,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Getter
@@ -32,13 +35,32 @@ public class CartProductJpaEntity {
 
     protected CartProductJpaEntity() {}
 
-    private CartProductJpaEntity(ProductJpaEntity product, Integer count) {
+    private CartProductJpaEntity(CartJpaEntity cart, ProductJpaEntity product, Integer count) {
+        this.cartJpaEntity = cart;
         this.productJpaEntity = product;
         this.count = count;
     }
 
-    public static CartProductJpaEntity createCartProduct(ProductJpaEntity product, Integer count) {
-        return new CartProductJpaEntity(product, count);
+    public static CartProductJpaEntity createCartProduct(CartJpaEntity cart, ProductJpaEntity product, Integer count) {
+        Optional<CartProductJpaEntity> existCartProduct = getExistProduct(cart, product);
+
+        // 이미 존재 시, update
+        if (existCartProduct.isPresent()) {
+            CartProductJpaEntity cartProduct = existCartProduct.get();
+            cartProduct.updateCount(count);
+            return cartProduct;
+        }
+
+        CartProductJpaEntity cartProduct = new CartProductJpaEntity(cart, product, count);
+        cart.addCartProduct(cartProduct);
+        return cartProduct;
+    }
+
+    private static Optional<CartProductJpaEntity> getExistProduct(CartJpaEntity cart, ProductJpaEntity product) {
+        Optional<CartProductJpaEntity> existCartProduct = cart.getCartProductJpaEntities().stream()
+                .filter(cp -> cp.getProductJpaEntity().getId().equals(product.getId()))
+                .findFirst();
+        return existCartProduct;
     }
 
     public void updateCart(CartJpaEntity cart) {

@@ -32,6 +32,11 @@ public class CartJpaEntity {
         this.userJpaEntity = user;
     }
 
+    private CartJpaEntity(CartProductJpaEntity cartProduct) {
+        this.cartProductJpaEntities.add(cartProduct);
+        cartProduct.updateCart(this);
+    }
+
     public static CartJpaEntity createCart(UserJpaEntity user) {
         CartJpaEntity cart = new CartJpaEntity(user);
         return cart;
@@ -39,7 +44,6 @@ public class CartJpaEntity {
 
     public void addCartProduct(CartProductJpaEntity cartProduct) {
         this.cartProductJpaEntities.add(cartProduct);
-        cartProduct.updateCart(this); // cart에도 추가
     }
 
 

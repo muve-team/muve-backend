@@ -22,6 +22,7 @@ public class UserCommandService implements JoinUser, LoginUser {
 
     @Override
     public Long join(UserJoinCommand command) {
+        // todo : cart 생성하는 로직 만들기
         UserJpaEntity user = UserJpaEntity.createUser(command);
         userRepository.save(user);
         return user.getId();

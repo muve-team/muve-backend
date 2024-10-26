@@ -186,16 +186,15 @@ public class InitDb {
 
             em.persist(saved1);
 
-            // 장바구니
-            CartJpaEntity cart1 = CartJpaEntity.createCart(userJpaEntity);
-
-            CartProductJpaEntity cartProduct1 = CartProductJpaEntity.createCartProduct(pro1, 10);
-            CartProductJpaEntity cartProduct2 = CartProductJpaEntity.createCartProduct(pro2, 20);
-
-            cart1.addCartProduct(cartProduct1);
-            cart1.addCartProduct(cartProduct2);
-
-            em.persist(cart1);
+            // 장바구니 생성
+            CartJpaEntity cart = CartJpaEntity.createCart(userJpaEntity);
+            em.persist(cart);
+//
+//            CartJpaEntity cartAddProduct1 = CartProductJpaEntity.createCartProduct(cart1, pro1, 10);
+//            CartJpaEntity cartAddProduct2 = CartProductJpaEntity.createCartProduct(cart1, pro2, 20);
+//
+//            em.persist(cartAddProduct1);
+//            em.persist(cartAddProduct2);
 
         }
 

@@ -3,8 +3,7 @@ package kr.muve.api.cart.service;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
-import kr.muve.common.service.cart.CartProducts;
-import kr.muve.common.service.cart.ProductsCart;
+import kr.muve.common.service.cart.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class CartQueryService implements ProductsCart {
+public class CartQueryService implements ProductsCart{
 
     private final SpringDataCartRepository cartRepsitory;
 
