@@ -36,3 +36,4 @@ public class ProductQueryService implements RandomProducts, DetailProduct {
         return ProductDetailRes.from(product);
     }
 }
+
