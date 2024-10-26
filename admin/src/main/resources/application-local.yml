@@ -1,10 +1,6 @@
 server:
   port: 8081
 
-spring:
-  profiles:
-    active: local
-
   jpa:
     hibernate:
       ddl-auto: create-drop # 실무에서 조심 > db 날라갈 수 있음
