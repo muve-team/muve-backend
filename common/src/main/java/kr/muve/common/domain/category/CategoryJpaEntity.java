@@ -11,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "category")
 public class CategoryJpaEntity {
 
     @Id

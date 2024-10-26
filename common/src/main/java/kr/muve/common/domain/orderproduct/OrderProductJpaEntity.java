@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "order_product")
 public class OrderProductJpaEntity {
 
     @Id

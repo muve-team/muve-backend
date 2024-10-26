@@ -11,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "cart_product")
 public class CartProductJpaEntity {
 
     @Id

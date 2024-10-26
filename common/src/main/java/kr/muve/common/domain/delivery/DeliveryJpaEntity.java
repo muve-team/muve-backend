@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "delivery")
 public class DeliveryJpaEntity {
 
     @Id

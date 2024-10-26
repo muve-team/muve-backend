@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
-@Table(name = "Orders")
+@Table(name = "orders")
 public class OrderJpaEntity {
 
     @Id

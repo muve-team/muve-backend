@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "saved")
 public class SavedJpaEntity {
 
     @Id

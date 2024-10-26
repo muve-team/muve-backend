@@ -12,6 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "saved_product")
 public class SavedProductJpaEntity {
 
     @Id

@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "product")
 public class ProductJpaEntity {
 
     @Id
