@@ -12,4 +12,6 @@ public class CartProductsDeleteCommand {
 
     List<Long> ids;
 
+    public CartProductsDeleteCommand() {
+    }
 }

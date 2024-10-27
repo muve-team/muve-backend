@@ -42,15 +42,23 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
 
     @Override
     public Long update(CartProductUpdateCountCommand command) {
-        CartProductJpaEntity cartProduct = cartProductRepository.findById(command.getCartProductId())
-                .orElseThrow(() -> new CartProductNotFoundException("카트에 해당 상품이 담겨있지 않습니다."));
+        CartProductJpaEntity cartProduct = getCartProduct(command.getCartProductId());
         cartProduct.updateCount(command.getCount());
         return cartProduct.getId();
     }
 
     @Override
-    public String delete(CartProductsDeleteCommand command) {
-        return null;
+    public Long delete(CartProductsDeleteCommand command) {
+        CartProductJpaEntity cartProductJpaEntity = getCartProduct(command.getIds().get(0));
+        Long cartId = cartProductJpaEntity.getCartJpaEntity().getId();
+        cartProductRepository.deleteAllById(command.getIds());
+        return cartId;
+    }
+
+    private CartProductJpaEntity getCartProduct(Long cartProductId) {
+        CartProductJpaEntity cartProduct = cartProductRepository.findById(cartProductId)
+                .orElseThrow(() -> new CartProductNotFoundException("카트에 해당 상품이 담겨있지 않습니다."));
+        return cartProduct;
     }
 
 }

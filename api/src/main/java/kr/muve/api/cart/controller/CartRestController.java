@@ -34,7 +34,7 @@ public class CartRestController {
     }
 
     @DeleteMapping
-    public String deleteCartProducts(@RequestBody CartProductsDeleteCommand command) {
+    public Long deleteCartProducts(@RequestBody CartProductsDeleteCommand command) {
         return deleteCartProducts.delete(command);
     }
 
