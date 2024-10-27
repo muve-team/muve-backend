@@ -29,7 +29,7 @@ public class CartRestController {
     }
 
     @PutMapping
-    public String updateCartProductCount(@RequestBody CartProductUpdateCountCommand command) {
+    public Long updateCartProductCount(@RequestBody CartProductUpdateCountCommand command) {
         return updateCartProductCount.update(command);
     }
 

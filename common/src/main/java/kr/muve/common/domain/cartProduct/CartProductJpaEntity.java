@@ -44,7 +44,7 @@ public class CartProductJpaEntity {
     public static CartProductJpaEntity createCartProduct(CartJpaEntity cart, ProductJpaEntity product, Integer count) {
         Optional<CartProductJpaEntity> existCartProduct = getExistProduct(cart, product);
 
-        // 이미 존재 시, update
+        // cartproduct에 같은 상품 존재 시, update
         if (existCartProduct.isPresent()) {
             CartProductJpaEntity cartProduct = existCartProduct.get();
             cartProduct.updateCount(count);

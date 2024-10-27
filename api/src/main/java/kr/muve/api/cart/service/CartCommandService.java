@@ -4,6 +4,7 @@ import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.exception.CartProductNotFoundException;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
@@ -32,8 +33,6 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
         CartJpaEntity cart = cartRepository.findByUserId(user.getId());
         ProductJpaEntity foundProduct = productRepository.findById(command.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException("상품 정보를 찾을 수 없습니다."));
-        // todo:  cart안에 cartProuct들 중 foundProduct가 존재 하면 count만 update해주기
-
 
         // cartProduct
         CartProductJpaEntity cartProductJpaEntity = CartProductJpaEntity.createCartProduct(cart, foundProduct, command.getCount());
@@ -42,8 +41,11 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
     }
 
     @Override
-    public String update(CartProductUpdateCountCommand command) {
-        return null;
+    public Long update(CartProductUpdateCountCommand command) {
+        CartProductJpaEntity cartProduct = cartProductRepository.findById(command.getCartProductId())
+                .orElseThrow(() -> new CartProductNotFoundException("카트에 해당 상품이 담겨있지 않습니다."));
+        cartProduct.updateCount(command.getCount());
+        return cartProduct.getId();
     }
 
     @Override
