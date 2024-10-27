@@ -8,11 +8,6 @@ server:
       hibernate:
         format_sql: true # 실무에서 사용하지 않기
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
 cloud:
   aws:
     s3:
@@ -28,3 +23,9 @@ cloud:
 logging:
   level:
     org.hibernate.SQL: debug
+
+
+spring:
+  h2:
+    console:
+      enabled: true
