@@ -7,6 +7,7 @@ import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;
 import lombok.Getter;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,11 +61,15 @@ public class ProductJpaEntity {
         return new ProductJpaEntity(name, price, stockQuantity, imageUrl, categoryJpaEntity);
     }
 
-    public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity) {
+    public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity, String imageUrl) {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
         this.categoryJpaEntity = categoryJpaEntity;
+
+        if (!ObjectUtils.isEmpty(imageUrl)) {
+            this.imageUrl = imageUrl;
+        }
     }
 
     public void removeStock(Integer count) {

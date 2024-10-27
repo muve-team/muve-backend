@@ -31,13 +31,14 @@ public class ProductForm {
     private String categorySlug;
 
     // MultipartFile은 엔티티에는 없지만 파일 업로드를 위해 폼에서만 처리
-    @NotNull(message = "이미지를 업로드해주세요")
     private MultipartFile image;
+
+    private String imageUrl;
 
     // 기본 생성자
     public ProductForm() {}
 
-    public ProductForm(Long id, String name, Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug) {
+    public ProductForm(Long id, String name, Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug, String imageUrl) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -45,6 +46,7 @@ public class ProductForm {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categorySlug = categorySlug;
+        this.imageUrl = imageUrl;
     }
 
     // 엔티티에서 ProductForm으로 변환하는 메소드
@@ -56,7 +58,8 @@ public class ProductForm {
                 productJpaEntity.getStockQuantity(),
                 productJpaEntity.getCategoryJpaEntity().getId(),
                 productJpaEntity.getCategoryJpaEntity().getName(),
-                productJpaEntity.getCategoryJpaEntity().getSlug()
+                productJpaEntity.getCategoryJpaEntity().getSlug(),
+                productJpaEntity.getImageUrl()
         );
     }
 }

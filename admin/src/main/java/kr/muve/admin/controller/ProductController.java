@@ -42,9 +42,9 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products/new", consumes = { "multipart/form-data" })
-    public String create(@Valid ProductForm form, BindingResult result, @RequestParam("image") MultipartFile image, Errors errors, Model model) {
+    public String create(@Valid ProductForm form, BindingResult result, Errors errors, Model model) {
         // 이미지 검증
-        imageFileValidator.validate(image, errors);
+        imageFileValidator.validate(form.getImage(), result);
 
         if (result.hasErrors() || errors.hasErrors()) {
             model.addAttribute("categories", findCategories.findCategories());

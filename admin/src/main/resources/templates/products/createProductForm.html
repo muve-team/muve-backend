@@ -38,12 +38,12 @@
                         th:value="${category.id}"
                         th:text="|${category.name} (${category.slug})|" />
             </select>
+            <p th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">Incorrect category</p>
         </div>
         <div class="form-group">
             <label th:for="image">상품 이미지</label>
-            <input type="file" name="image" class="form-control"
-                   th:class="${#fields.hasErrors('slug')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Incorrect image</p>
+            <input type="file" name="image" class="form-control" />
+            <p th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Incorrect date</p>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -26,7 +26,7 @@
                 <td th:text="${productJpaEntity.price}"></td>
                 <td th:text="${productJpaEntity.stockQuantity}"></td>
                 <td>
-                    <a th:href="${productJpaEntity.imageUrl}" th:text="이미지" />
+                    <img th:src="${productJpaEntity.imageUrl}" alt="image" width="50" height="50"/>
                 </td>
                 <td th:text="|${productJpaEntity.categoryJpaEntity.name} (${productJpaEntity.categoryJpaEntity.slug})|"></td>
                 <td>

@@ -68,8 +68,19 @@ public class ProductService implements CreateProduct, UpdateProduct, FindProduct
     @Override
     @Transactional
     public void update(ProductDto dto) {
+        MultipartFile image = dto.getImage();
+
+        String imageUrl = uploadImageWhenImageExist(image);
+
         ProductJpaEntity productJpaEntity = findById(dto.getId());
         CategoryJpaEntity categoryJpaEntity = categoryService.findById(dto.getCategoryId());
-        productJpaEntity.update(dto, categoryJpaEntity);
+        productJpaEntity.update(dto, categoryJpaEntity, imageUrl);
+    }
+
+    private String uploadImageWhenImageExist(MultipartFile image) {
+        if (!ObjectUtils.isEmpty(image) && !image.isEmpty()) {
+            return s3Service.uploadFile(image);
+        }
+        return null;
     }
 }
