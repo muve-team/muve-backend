@@ -13,6 +13,7 @@
                 <th>#</th>
                 <th>카테고리 한글명</th>
                 <th>카테고리 영어명</th>
+                <th>카테고리 아이콘 주소</th>
                 <th></th>
             </tr>
             </thead>
@@ -21,6 +22,7 @@
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
                 <td th:text="${category.slug}"></td>
+                <td th:text="${category.imageUrl}"></td>
                 <td>
                     <a href="#" th:href="@{/category/{id}/edit (id=${category.id})}" class="btn btn-primary" role="button">수정</a>
                 </td>

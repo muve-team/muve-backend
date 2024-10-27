@@ -2,7 +2,7 @@ package kr.muve.admin.controller;
 
 import jakarta.validation.Valid;
 import kr.muve.common.controller.CategoryForm;
-import kr.muve.common.domain.category.CategoryJpaEntity;
+import kr.muve.common.controller.ImageFileValidator;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.service.category.CreateCategory;
 import kr.muve.common.service.category.FindCategories;
@@ -23,6 +23,7 @@ public class CategoryController {
     private final CreateCategory createCategory;
     private final FindCategories findCategories;
     private final UpdateCategory updateCategory;
+    private final ImageFileValidator imageFileValidator;
 
 
     @GetMapping(value = "/category/new")
@@ -32,11 +33,12 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/category/new")
-    public String create(@Valid CategoryForm categoryForm, BindingResult result) {
+    public String create(@Valid CategoryForm form, BindingResult result) {
+
         if (result.hasErrors()) {
             return "categories/createCategoryForm";
         }
-        createCategory.create(categoryForm.getName(), categoryForm.getSlug(), categoryForm.getImageUrl());
+        createCategory.create(form.getName(), form.getSlug(), form.getImageUrl());
         return "redirect:/";
     }
 

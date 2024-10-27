@@ -42,9 +42,10 @@ public class CategoryJpaEntity {
         return new CategoryJpaEntity(name,slug,imageUrl);
     }
 
-    public void update(String name, String slug) {
+    public void update(String name, String slug, String imageUrl) {
         this.name = name;
         this.slug = slug;
+        this.imageUrl = imageUrl;
     }
 
     @Override

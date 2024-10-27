@@ -27,6 +27,12 @@
                    th:class="${#fields.hasErrors('slug')}? 'form-control fieldError' : 'form-control'">
             <p th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}">Incorrect date</p>
         </div>
+        <div class="form-group">
+            <label th:for="slug">카테고리 아이콘 주소</label>
+            <input type="text" th:field="*{imageUrl}" class="form-control" placeholder="아이콘 주소를 입력하세요"
+                   th:class="${#fields.hasErrors('imageUrl')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}">Incorrect date</p>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

@@ -45,7 +45,7 @@ public class CategoryService implements CreateCategory, FindCategories, UpdateCa
     @Transactional
     public void update(CategoryForm form) {
         CategoryJpaEntity categoryJpaEntity = findById(form.getId());
-        categoryJpaEntity.update(form.getName(), form.getSlug());
+        categoryJpaEntity.update(form.getName(), form.getSlug(), form.getImageUrl());
     }
 
 }
