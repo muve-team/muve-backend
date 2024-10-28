@@ -13,7 +13,7 @@ import java.util.Objects;
 public class DeliveryJpaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delivery_id")
     private Long id;
 

@@ -18,7 +18,7 @@ import java.util.Objects;
 public class OrderJpaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
 

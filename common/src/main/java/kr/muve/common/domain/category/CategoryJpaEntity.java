@@ -15,7 +15,7 @@ import java.util.Objects;
 public class CategoryJpaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
 

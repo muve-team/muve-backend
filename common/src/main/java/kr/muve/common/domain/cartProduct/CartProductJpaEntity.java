@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class CartProductJpaEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_product_id")
     private Long id;
 
