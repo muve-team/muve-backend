@@ -1,5 +1,6 @@
 package kr.muve.api.user.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import kr.muve.api.security.JwtTokenProvider;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.UserNotFoundException;
@@ -8,6 +9,7 @@ import kr.muve.common.service.user.JoinUser;
 import kr.muve.common.service.user.LoginUser;
 import kr.muve.common.service.user.UserJoinCommand;
 import kr.muve.common.service.user.UserLoginCommand;
+import kr.muve.common.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class UserCommandService implements JoinUser, LoginUser {
 
     private final SpringDataUserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CookieUtil cookieUtil;
 
     @Override
     public Long join(UserJoinCommand command) {
@@ -30,7 +33,7 @@ public class UserCommandService implements JoinUser, LoginUser {
 
 
     @Override
-    public String login(UserLoginCommand command) {
+    public String login(UserLoginCommand command, HttpServletResponse response) {
         String email = command.getEmail();
         String password = command.getPassword();
 
@@ -41,6 +44,9 @@ public class UserCommandService implements JoinUser, LoginUser {
             throw new UserNotFoundException("회원 정보가 올바르지 않습니다.");
         }
 
-        return jwtTokenProvider.createToken(email);
+        String token = jwtTokenProvider.createToken(email);
+//        cookieUtil.addCookie(response, "authToken", token, 7 * 24 * 60 * 60);
+
+        return token;
     }
 }

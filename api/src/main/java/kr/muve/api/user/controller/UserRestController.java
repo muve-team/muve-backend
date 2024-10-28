@@ -1,5 +1,7 @@
 package kr.muve.api.user.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import kr.muve.common.service.user.JoinUser;
 import kr.muve.common.service.user.LoginUser;
 import kr.muve.common.service.user.UserJoinCommand;
@@ -24,8 +26,8 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody UserLoginCommand command) {
-        return loginUser.login(command);
+    public String loginUser(@RequestBody @Valid UserLoginCommand command, HttpServletResponse response) {
+        return loginUser.login(command, response);
     }
 
     // TODO: 회원정보 수정

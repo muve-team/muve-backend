@@ -3,6 +3,7 @@ package kr.muve.api.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -24,12 +25,12 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(payload);
         Date now = new Date();
         Date expiration = new Date(now.getTime() + expirationInMilliseconds);
-        return String.format("Bearer %s", Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .signWith(signingKey)
-                .compact());
+                .compact();
     }
 
     public String getSubject(String token) {
@@ -53,13 +54,6 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        // Authorization 헤더에서 Bearer 토큰 추출
-        String bearerToken = request.getHeader("Authorization");
-
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // "Bearer " 부분 제거
-        }
-
-        return null;
+        return request.getHeader("Authorization");
     }
 }

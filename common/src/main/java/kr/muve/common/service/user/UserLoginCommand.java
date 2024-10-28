@@ -1,5 +1,6 @@
 package kr.muve.common.service.user;
 
+import jakarta.validation.constraints.NotEmpty;
 import kr.muve.common.controller.UserForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +9,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserLoginCommand {
+    @NotEmpty(message = "이메일을 포함해야 합니다.")
     private String email;
-    private String password;
 
-    private UserLoginCommand() {}
+    @NotEmpty(message = "비밀번호를 포함해야 합니다.")
+    private String password;
 }
 
