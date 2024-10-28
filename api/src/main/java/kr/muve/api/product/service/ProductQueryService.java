@@ -1,6 +1,8 @@
 package kr.muve.api.product.service;
 
 import kr.muve.common.domain.product.ProductJpaEntity;
+import kr.muve.common.exception.BaseException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.product.DetailProduct;
@@ -31,7 +33,7 @@ public class ProductQueryService implements RandomProducts, DetailProduct {
     @Override
     public ProductDetailRes getProductDetail(Long id) {
         ProductJpaEntity product = productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("상품을 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.PRODUCT_NOT_FOUND));
 
         return ProductDetailRes.from(product);
     }

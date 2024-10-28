@@ -1,6 +1,8 @@
 package kr.muve.api.order.service;
 
 import kr.muve.common.domain.order.OrderJpaEntity;
+import kr.muve.common.exception.BaseException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.OrderNotFoundException;
 import kr.muve.common.repository.order.OrderRepositoryCustom;
 import kr.muve.common.repository.order.OrderRepositoryCustomImpl;
@@ -21,6 +23,6 @@ public class OrderQueryService implements DetailOrder {
     @Override
     public OrderDetailRes getOrderDetail(Long orderId) {
         return OrderDetailRes.from(orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("주문 내역이 없습니다.")));
+                .orElseThrow(() -> new BaseException(ErrorCode.ORDER_NOT_FOUND)));
     }
 }

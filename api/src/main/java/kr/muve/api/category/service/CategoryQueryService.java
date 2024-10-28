@@ -2,7 +2,9 @@ package kr.muve.api.category.service;
 
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
+import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.CategoryNotFoundException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.repository.category.SpringDataCategoryRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.category.AllCategory;
@@ -35,7 +37,7 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
     public CategoryProductsRes getCategoryProducts(Long id, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         CategoryJpaEntity category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.CATEGORY_NOT_FOUND));
 
         List<ProductJpaEntity> products = productRepository.findByCategoryIdWithPage(id, pageable);
         List<ProductRes> productList = ProductRes.from(products);

@@ -4,7 +4,8 @@ import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
-import kr.muve.common.exception.CartProductNotFoundException;
+import kr.muve.common.exception.BaseException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
@@ -29,10 +30,10 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
     @Override
     public Long add(CartProductAddCommand command) {
         UserJpaEntity user = userRepository.findById(command.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("사용자 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
         CartJpaEntity cart = cartRepository.findByUserId(user.getId());
         ProductJpaEntity foundProduct = productRepository.findById(command.getProductId())
-                .orElseThrow(() -> new ProductNotFoundException("상품 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.PRODUCT_NOT_FOUND));
 
         // cartProduct
         CartProductJpaEntity cartProductJpaEntity = CartProductJpaEntity.createCartProduct(cart, foundProduct, command.getCount());
@@ -57,7 +58,7 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
 
     private CartProductJpaEntity getCartProduct(Long cartProductId) {
         CartProductJpaEntity cartProduct = cartProductRepository.findById(cartProductId)
-                .orElseThrow(() -> new CartProductNotFoundException("카트에 해당 상품이 담겨있지 않습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.CART_PRODUCT_NOT_FOUND));
         return cartProduct;
     }
 

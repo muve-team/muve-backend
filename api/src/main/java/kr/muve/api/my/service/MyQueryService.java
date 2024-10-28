@@ -4,6 +4,8 @@ import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.saved.SavedJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.exception.BaseException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.order.SpringDataOrderRepository;
 import kr.muve.common.repository.saved.SpringDataSavedRepository;
@@ -30,7 +32,7 @@ public class MyQueryService implements FindMyProfiles, FindMyOrders, FindMySaved
     @Override
     public MyProfileRes findMyProfile(Long id) {
         return MyProfileRes.from(userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다.")));
+                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND)));
     }
 
     @Override

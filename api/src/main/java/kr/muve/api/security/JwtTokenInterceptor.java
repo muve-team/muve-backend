@@ -3,6 +3,8 @@ package kr.muve.api.security;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.muve.common.exception.BaseException;
+import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.JwtTokenInvalidException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
         if (StringUtils.isEmpty(token) || !jwtTokenProvider.isValidToken(token)) { // fail fast
             log.error(request.getRequestURI());
-            throw new JwtTokenInvalidException("토큰이 유효하지 않습니다.");
+            throw new BaseException(ErrorCode.JWT_TOKEN_INVALID);
         }
 
         return true;
