@@ -21,7 +21,7 @@ public class UserRestController {
     private final LoginUser loginUser;
 
     @PostMapping("/join")
-    public CommonResponse<Long> joinUser(@RequestBody UserJoinCommand command) {
+    public CommonResponse<JoinUserRes> joinUser(@RequestBody UserJoinCommand command) {
         log.info("[POST] /user/join, name: {}, email: {}, phoneNumber: {}, " +
                         "city: {}, street: {}, zipcode: {}",
                 command.getName(), command.getEmail(), command.getPhoneNumber(),
