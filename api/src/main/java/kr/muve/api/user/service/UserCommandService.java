@@ -26,8 +26,16 @@ public class UserCommandService implements JoinUser, LoginUser {
     public JoinUserRes join(UserJoinCommand command) {
         // todo : cart 생성하는 로직 만들기
         UserJpaEntity user = UserJpaEntity.createUser(command);
+        validateUserExists(command);
+
         userRepository.save(user);
         return JoinUserRes.from(user);
+    }
+
+    private void validateUserExists(UserJoinCommand command) {
+        if (userRepository.existsByEmail(command.getEmail())) {
+            throw new BaseException(ErrorCode.USER_ALREADY_EXIST);
+        }
     }
 
 

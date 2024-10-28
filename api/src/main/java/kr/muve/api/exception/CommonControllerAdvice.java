@@ -15,17 +15,14 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class CommonControllerAdvice {
 
@@ -38,7 +35,6 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public CommonResponse onException(Exception e) {
@@ -54,7 +50,6 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = {ClientAbortException.class})
     public CommonResponse skipException(Exception e) {
@@ -70,7 +65,6 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public CommonResponse handleArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -114,7 +108,6 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BaseException.class)
     public CommonResponse onBaseException(BaseException e) {

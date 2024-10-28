@@ -17,7 +17,8 @@ public enum ErrorCode {
     USER_NOT_FOUND("사용자 정보를 찾을 수 없습니다."),
     PRODUCT_NOT_FOUND("상품 정보를 찾을 수 없습니다."),
     CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다."),
-    ORDER_NOT_FOUND("주문 내역이 없습니다.");
+    ORDER_NOT_FOUND("주문 내역이 없습니다."),
+    USER_ALREADY_EXIST("사용자가 이미 존재합니다.");
 
 
     private final String errorMsg;
