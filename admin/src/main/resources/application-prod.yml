@@ -11,7 +11,6 @@ spring:
     properties:
       hibernate:
         format_sql: false
-        dialect: org.hibernate.dialect.MySQLDialect
 
   datasource:
     url: ${DB_URL}           # Secrets Manager에서 데이터베이스 URL을 가져옴
