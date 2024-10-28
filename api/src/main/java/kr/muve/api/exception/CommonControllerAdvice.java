@@ -35,6 +35,7 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public CommonResponse onException(Exception e) {
@@ -50,6 +51,7 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = {ClientAbortException.class})
     public CommonResponse skipException(Exception e) {
@@ -65,6 +67,7 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public CommonResponse handleArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -88,6 +91,7 @@ public class CommonControllerAdvice {
      * @param request
      * @return
      */
+    @ResponseBody
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleHttpMessageNotReadableException(
             HttpMessageNotReadableException ex, WebRequest request) {
@@ -108,6 +112,7 @@ public class CommonControllerAdvice {
      * @param e
      * @return
      */
+    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BaseException.class)
     public CommonResponse onBaseException(BaseException e) {
