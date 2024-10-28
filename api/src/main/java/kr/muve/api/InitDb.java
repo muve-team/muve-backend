@@ -1,9 +1,8 @@
-package kr.muve.api.product;
+package kr.muve.api;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import kr.muve.common.domain.cart.CartJpaEntity;
-import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
