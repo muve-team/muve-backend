@@ -52,14 +52,13 @@ public class CartCommandService implements AddCartProduct, UpdateCartProductCoun
     public Long delete(CartProductsDeleteCommand command) {
         CartProductJpaEntity cartProductJpaEntity = getCartProduct(command.getIds().get(0));
         Long cartId = cartProductJpaEntity.getCartJpaEntity().getId();
-        cartProductRepository.deleteAllById(command.getIds());
+        cartProductRepository.delete(cartProductJpaEntity);
         return cartId;
     }
 
     private CartProductJpaEntity getCartProduct(Long cartProductId) {
-        CartProductJpaEntity cartProduct = cartProductRepository.findById(cartProductId)
+        return cartProductRepository.findById(cartProductId)
                 .orElseThrow(() -> new BaseException(ErrorCode.CART_PRODUCT_NOT_FOUND));
-        return cartProduct;
     }
 
 }
