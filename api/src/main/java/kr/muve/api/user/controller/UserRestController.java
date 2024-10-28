@@ -3,10 +3,7 @@ package kr.muve.api.user.controller;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import kr.muve.common.exception.CommonResponse;
-import kr.muve.common.service.user.JoinUser;
-import kr.muve.common.service.user.LoginUser;
-import kr.muve.common.service.user.UserJoinCommand;
-import kr.muve.common.service.user.UserLoginCommand;
+import kr.muve.common.service.user.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +31,7 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public CommonResponse<String> loginUser(@RequestBody @Valid UserLoginCommand command, HttpServletResponse response) {
+    public CommonResponse<LoginUserRes> loginUser(@RequestBody @Valid UserLoginCommand command, HttpServletResponse response) {
 
         log.info("[POST] /user/login, email: {}, password: {}", command.getEmail(), command.getPassword());
 

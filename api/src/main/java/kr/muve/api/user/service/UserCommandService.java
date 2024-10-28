@@ -7,10 +7,7 @@ import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.user.SpringDataUserRepository;
-import kr.muve.common.service.user.JoinUser;
-import kr.muve.common.service.user.LoginUser;
-import kr.muve.common.service.user.UserJoinCommand;
-import kr.muve.common.service.user.UserLoginCommand;
+import kr.muve.common.service.user.*;
 import kr.muve.common.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +32,7 @@ public class UserCommandService implements JoinUser, LoginUser {
 
 
     @Override
-    public String login(UserLoginCommand command, HttpServletResponse response) {
+    public LoginUserRes login(UserLoginCommand command, HttpServletResponse response) {
         String email = command.getEmail();
         String password = command.getPassword();
 
@@ -49,6 +46,6 @@ public class UserCommandService implements JoinUser, LoginUser {
         String token = jwtTokenProvider.createToken(email);
         cookieUtil.addCookie(response, "authToken", token, 7 * 24 * 60 * 60);
 
-        return token;
+        return LoginUserRes.from(foundUser);
     }
 }
