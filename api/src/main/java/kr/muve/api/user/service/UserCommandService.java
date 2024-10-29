@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static kr.muve.api.security.JwtTokenProvider.AUTH_TOKEN;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -52,8 +54,8 @@ public class UserCommandService implements JoinUser, LoginUser {
         }
 
         String token = jwtTokenProvider.createToken(email);
-        cookieUtil.addCookie(response, "authToken", token, 7 * 24 * 60 * 60);
+        cookieUtil.addCookie(response, AUTH_TOKEN, token, 7 * 24 * 60 * 60);
 
-        return LoginUserRes.from(foundUser);
+        return LoginUserRes.from(token, foundUser);
     }
 }

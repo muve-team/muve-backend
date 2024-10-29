@@ -3,7 +3,6 @@ package kr.muve.api.security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -15,6 +14,7 @@ public class JwtTokenProvider {
     private static final long TWELVE_HOURS_IN_MILLISECONDS = 1000 * 60 * 60 * 12;
     private final SecretKey signingKey;
     private final long expirationInMilliseconds;
+    public static final String AUTH_TOKEN = "authToken";
 
     public JwtTokenProvider() {
         this.signingKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -34,7 +34,9 @@ public class JwtTokenProvider {
     }
 
     public String getSubject(String token) {
-        return getClaimsJws(token).getBody().getSubject();
+        return getClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     public boolean isValidToken(String token) {

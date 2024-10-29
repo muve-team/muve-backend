@@ -40,7 +40,7 @@ public class InitDb {
 
         public void dbInit1() {
             // 사용자
-            UserJoinCommand dto = new UserJoinCommand("userA", "a@naver.com", "1234",
+            UserJoinCommand dto = new UserJoinCommand("userA", "test@test.com", "123456",
                     "010-1111-1111", "A", "B", "C");
             UserJpaEntity userJpaEntity = createUser(dto);
             em.persist(userJpaEntity);

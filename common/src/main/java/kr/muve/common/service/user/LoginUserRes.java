@@ -9,10 +9,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginUserRes {
 
-    private String name;
-    private String email;
+    private String token;
+    private LoginUserProfileRes user;
 
-    public static LoginUserRes from(UserJpaEntity foundUser) {
-        return new LoginUserRes(foundUser.getName(), foundUser.getEmail());
+    public static LoginUserRes from(String token, UserJpaEntity foundUser) {
+        return new LoginUserRes(token, new LoginUserProfileRes(foundUser.getName(), foundUser.getEmail()));
     }
 }
