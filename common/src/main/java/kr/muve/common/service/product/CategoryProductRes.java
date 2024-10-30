@@ -8,16 +8,17 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ProductRes {
+public class CategoryProductRes {
     private Long productId;
-    private String name;
+    private String title;
     private Long price;
-    private Integer stockQuantity;
     private String imageUrl;
+    private Long categoryId;
 
-    public static List<ProductRes> from(List<ProductJpaEntity> product) {
+    public static List<CategoryProductRes> from(List<ProductJpaEntity> product) {
         return product.stream()
-                .map(p -> new ProductRes(p.getId(), p.getName(), p.getPrice(), p.getStockQuantity(), p.getImageUrl()))
+                .map(p -> new CategoryProductRes(p.getId(), p.getName(), p.getPrice(),
+                        p.getImageUrl(), p.getCategoryJpaEntity().getId()))
                 .toList();
 
     }

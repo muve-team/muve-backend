@@ -1,9 +1,9 @@
 package kr.muve.api.category.service;
 
+import com.google.common.base.Preconditions;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.BaseException;
-import kr.muve.common.exception.CategoryNotFoundException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.repository.category.SpringDataCategoryRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
@@ -11,8 +11,9 @@ import kr.muve.common.service.category.AllCategory;
 import kr.muve.common.service.category.CategoryAllRes;
 import kr.muve.common.service.category.CategoryProductsRes;
 import kr.muve.common.service.category.ProductsCategory;
-import kr.muve.common.service.product.ProductRes;
+import kr.muve.common.service.product.CategoryProductRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,13 +37,10 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
     @Override
     public CategoryProductsRes getCategoryProducts(Long id, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        CategoryJpaEntity category = categoryRepository.findById(id)
-                .orElseThrow(() -> new BaseException(ErrorCode.CATEGORY_NOT_FOUND));
+        Preconditions.checkArgument(categoryRepository.existsById(id), new BaseException(ErrorCode.CATEGORY_NOT_FOUND));
 
-        List<ProductJpaEntity> products = productRepository.findByCategoryIdWithPage(id, pageable);
-        List<ProductRes> productList = ProductRes.from(products);
-
-        return CategoryProductsRes.from(category, productList);
+        Page<ProductJpaEntity> productPage = productRepository.findByCategoryIdWithPage(id, pageable);
+        return CategoryProductsRes.from(productPage);
 
     }
 }

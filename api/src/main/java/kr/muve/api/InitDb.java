@@ -46,66 +46,73 @@ public class InitDb {
             em.persist(userJpaEntity);
 
             // 카테고리
-// 카테고리 엔티티 생성 및 데이터 저장
+            // 카테고리 엔티티 생성 및 데이터 저장
             CategoryJpaEntity categoryJpaEntity1 = CategoryJpaEntity.createCategory(
                     "의류",
                     "clothing",
-                    "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2xvdGhpbmd8ZW58MHx8MHx8fDA%3D"
+                    "fluent:clothes-hanger-24-regular"
             );
             em.persist(categoryJpaEntity1);
 
+            // 전자기기
             CategoryJpaEntity categoryJpaEntity2 = CategoryJpaEntity.createCategory(
                     "전자기기",
                     "electronics",
-                    "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D"
+                    "f7:device-laptop"
             );
             em.persist(categoryJpaEntity2);
 
+            // 식품
             CategoryJpaEntity categoryJpaEntity3 = CategoryJpaEntity.createCategory(
                     "식품",
                     "food",
-                    "https://images.unsplash.com/photo-1506617420156-8e4536971650?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvY2VyaWVzfGVufDB8fDB8fHww"
+                    "ep:food"
             );
             em.persist(categoryJpaEntity3);
 
+            // 가구
             CategoryJpaEntity categoryJpaEntity4 = CategoryJpaEntity.createCategory(
                     "가구",
                     "furniture",
-                    "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlfGVufDB8fDB8fHww"
+                    "mdi:table-furniture"
             );
             em.persist(categoryJpaEntity4);
 
+            // 도서
             CategoryJpaEntity categoryJpaEntity5 = CategoryJpaEntity.createCategory(
                     "도서",
                     "books",
-                    "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ym9va3N8ZW58MHx8MHx8fDA%3D"
+                    "fluent:book-24-regular"
             );
             em.persist(categoryJpaEntity5);
 
+            // 스포츠
             CategoryJpaEntity categoryJpaEntity6 = CategoryJpaEntity.createCategory(
                     "스포츠",
                     "sports",
-                    "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BvcnRzfGVufDB8fDB8fHww"
+                    "fluent:sport-24-regular"
             );
             em.persist(categoryJpaEntity6);
 
+            // 뷰티
             CategoryJpaEntity categoryJpaEntity7 = CategoryJpaEntity.createCategory(
                     "뷰티",
                     "beauty",
-                    "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXR5JTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D"
+                    "solar:cosmetic-linear"
             );
             em.persist(categoryJpaEntity7);
 
+            // 자동차
             CategoryJpaEntity categoryJpaEntity8 = CategoryJpaEntity.createCategory(
                     "자동차",
                     "automotive",
-                    "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y2FyfGVufDB8fDB8fHww"
+                    "pepicons-pencil:car"
             );
             em.persist(categoryJpaEntity8);
 
 
             // 상품
-            ProductJpaEntity pro1 = createProduct("JPA1 BOOK", 10000L, 100, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
+            ProductJpaEntity pro1 = createProduct("김수환무두루미와거북이김수환무두루미와거북이1", 10000L, 100, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
             em.persist(pro1);
 
             ProductJpaEntity pro2 = createProduct("JPA2 BOOK", 20000L, 200, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
@@ -126,7 +133,7 @@ public class InitDb {
             ProductJpaEntity pro7 = createProduct("JPA7 BOOK", 70000L, 700, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
             em.persist(pro7);
 
-            ProductJpaEntity pro8 = createProduct("JPA8 BOOK", 80000L, 800, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
+            ProductJpaEntity pro8 = createProduct("김수환무두루미와거북이김수환무두루미와거북이2", 80000L, 800, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
             em.persist(pro8);
 
             ProductJpaEntity pro9 = createProduct("JPA9 BOOK", 90000L, 900, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);

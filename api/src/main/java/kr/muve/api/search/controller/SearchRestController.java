@@ -20,7 +20,7 @@ public class SearchRestController {
 
     private final ProductsSearch productsSearch;
 
-    @GetMapping()
+    @GetMapping
     public CommonResponse<List<SearchProducts>> getSearchProducts(@RequestParam("keyword") String keyword,
                                                                  @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                                  @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {

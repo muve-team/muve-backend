@@ -20,7 +20,7 @@ public class CategoryRestController {
     private final AllCategory allCategory;
     private final ProductsCategory productsCategory;
 
-    @GetMapping()
+    @GetMapping
     public CommonResponse<List<CategoryAllRes>> getCategoryList() {
         return CommonResponse.success(allCategory.getCategoryList());
     }
