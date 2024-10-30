@@ -10,6 +10,7 @@ public class ProductDetailRes {
     private Long productId;
     private String name;
     private Long price;
+    private String imageUrl;
     private Integer stockQuantity;
     private String categoryName;
     private String categorySlug;
@@ -19,6 +20,7 @@ public class ProductDetailRes {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
+                product.getImageUrl(),
                 product.getStockQuantity(),
                 product.getCategoryJpaEntity().getName(),
                 product.getCategoryJpaEntity().getSlug()
