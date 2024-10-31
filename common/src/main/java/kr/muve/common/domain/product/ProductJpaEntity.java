@@ -7,6 +7,9 @@ import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
@@ -16,6 +19,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Table(name = "product")
+@EntityListeners(AuditingEntityListener.class)
 public class ProductJpaEntity {
 
     @Id
@@ -31,8 +35,10 @@ public class ProductJpaEntity {
 
     private String imageUrl;
 
+    @CreatedDate
     private LocalDateTime createdDate;
 
+    @LastModifiedDate
     private LocalDateTime updatedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

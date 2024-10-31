@@ -18,5 +18,4 @@ public interface SpringDataProductRepository extends JpaRepository<ProductJpaEnt
 
     @Query(value = "select p from ProductJpaEntity p where p.name like %:keyword%")
     List<ProductJpaEntity> findAllWithKeyword(@Param("keyword") String keyword, Pageable pageable);
-
 }

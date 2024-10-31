@@ -1,15 +1,15 @@
 package kr.muve.api.product.service;
 
+import com.google.common.base.Preconditions;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.repository.product.SpringDataProductRepository;
-import kr.muve.common.service.product.DetailProduct;
-import kr.muve.common.service.product.ProductDetailRes;
-import kr.muve.common.service.product.RandomProducts;
-import kr.muve.common.service.product.ProductsRandomRes;
+import kr.muve.common.service.category.CategoryProductsRes;
+import kr.muve.common.service.product.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ProductQueryService implements RandomProducts, DetailProduct {
+public class ProductQueryService implements RandomProducts, DetailProduct, NewestProducts {
 
     private final SpringDataProductRepository productRepository;
 
@@ -36,6 +36,14 @@ public class ProductQueryService implements RandomProducts, DetailProduct {
                 .orElseThrow(() -> new BaseException(ErrorCode.PRODUCT_NOT_FOUND));
 
         return ProductDetailRes.from(product);
+    }
+
+    @Override
+    public NewestProductsRes getNewestProducts(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<ProductJpaEntity> productPage = productRepository.findAll(pageable);
+        return NewestProductsRes.from(productPage);
     }
 }
 
