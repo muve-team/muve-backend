@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
-//    @Override
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtTokenInterceptor)  // JWT 인터셉터 등록
                 .addPathPatterns("/**")  // 모든 경로에 대해 인터셉터 적용
@@ -40,8 +40,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/",
                         "/user/join",
                         "/user/login", "/error",
+                        "/user/valid",
+                        "/products/newest",
                         "/actuator/health",
-                        "/product/random",
+                        "/products/random",
                         "/product/detail",
                         "/category",
                         "/category/products");  // 특정 경로는 제외
