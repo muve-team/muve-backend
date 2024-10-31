@@ -14,12 +14,6 @@ public class ProfileConfig {
     }
 
     @Bean
-    @Profile("local")
-    public Boolean isNotLocalProfile() {
-        return false;
-    }
-
-    @Bean
     @Profile("dev")
     public Boolean isDevProfile() {
         return true;
