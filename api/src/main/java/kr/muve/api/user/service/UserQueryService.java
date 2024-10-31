@@ -2,7 +2,7 @@ package kr.muve.api.user.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.muve.api.security.JwtTokenProvider;
+import kr.muve.common.security.JwtTokenProvider;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
@@ -10,13 +10,11 @@ import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.user.*;
 import kr.muve.common.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import static kr.muve.api.security.JwtTokenProvider.AUTH_TOKEN;
+import static kr.muve.common.security.JwtTokenProvider.AUTH_TOKEN;
 
 @Service
 @RequiredArgsConstructor

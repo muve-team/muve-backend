@@ -1,11 +1,10 @@
-package kr.muve.api.security;
+package kr.muve.common.security;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
-import kr.muve.common.exception.JwtTokenInvalidException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

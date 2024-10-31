@@ -1,4 +1,4 @@
-package kr.muve.api.security;
+package kr.muve.common.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
