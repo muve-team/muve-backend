@@ -14,6 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,9 +47,8 @@ public class ProductJpaEntity {
     @JoinColumn(name = "category_id")
     private CategoryJpaEntity categoryJpaEntity;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "saved_id")
-    private List<SavedProductJpaEntity> savedProductJpaEntities;
+    @OneToMany(mappedBy = "savedJpaEntity", cascade = CascadeType.PERSIST)
+    private List<SavedProductJpaEntity> savedProductJpaEntities = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cart_id")
