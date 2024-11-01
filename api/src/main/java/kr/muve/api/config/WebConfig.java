@@ -43,6 +43,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/products/newest",
                         "/actuator/health",
                         "/products/random",
+                        "/products/timedeal",
                         "/product/detail",
                         "/category",
                         "/category/products");  // 특정 경로는 제외
