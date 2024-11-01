@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
+import kr.muve.common.exception.JweException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,18 +14,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class JwtTokenInterceptor implements HandlerInterceptor {
+public class JweTokenInterceptor implements HandlerInterceptor {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JweTokenProvider jweTokenProvider;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        String token = jwtTokenProvider.resolveToken(request);
+        String token = jweTokenProvider.resolveToken(request);
 
-        if (StringUtils.isEmpty(token) || !jwtTokenProvider.isValidToken(token)) { // fail fast
+        if (StringUtils.isEmpty(token) || !jweTokenProvider.validToken(token)) { // fail fast
             log.error(request.getRequestURI());
-            throw new BaseException(ErrorCode.JWT_TOKEN_INVALID);
+            throw new JweException(ErrorCode.JWE_TOKEN_INVALID);
         }
 
         return true;

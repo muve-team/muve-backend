@@ -12,7 +12,9 @@ public enum ErrorCode {
     COMMON_ILLEGAL_STATUS("잘못된 상태값입니다."),
 
     // API
-    JWT_TOKEN_INVALID("토큰이 유효하지 않습니다."),
+    JWE_TOKEN_INVALID("토큰이 유효하지 않습니다."),
+    JWE_CYPHER_FAIL("토큰 암복호화에 실패하였습니다."),
+    JWE_EXPIRED("토큰이 만료되었습니다."),
     CART_PRODUCT_NOT_FOUND("카트에 해당 상품이 담겨있지 않습니다."),
     USER_NOT_FOUND("사용자 정보를 찾을 수 없습니다."),
     PRODUCT_NOT_FOUND("상품 정보를 찾을 수 없습니다."),

@@ -1,10 +1,15 @@
 package kr.muve.api.exception;
 
 import com.google.common.collect.Lists;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.muve.api.interceptor.CommonHttpRequestInterceptor;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.CommonResponse;
 import kr.muve.common.exception.ErrorCode;
+import kr.muve.common.exception.JweException;
+import kr.muve.common.util.CookieUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.MDC;
@@ -24,9 +29,11 @@ import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
+@RequiredArgsConstructor
 public class CommonControllerAdvice {
 
     private static final List<ErrorCode> SPECIFIC_ALERT_TARGET_ERROR_CODE_LIST = Lists.newArrayList();
+    private final CookieUtil cookieUtil;
 
     /**
      * http status: 500 AND result: FAIL
@@ -81,6 +88,25 @@ public class CommonControllerAdvice {
         } else {
             return CommonResponse.fail(ErrorCode.COMMON_INVALID_PARAMETER.getErrorMsg(), ErrorCode.COMMON_INVALID_PARAMETER.name());
         }
+    }
+
+    /**
+     * HttpMessageNotReadableException 처리
+     *
+     * @param ex
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(JweException.class)
+    public CommonResponse handleJweException(JweException ex,
+                                             HttpServletRequest request,
+                                             HttpServletResponse response) {
+        String eventId = MDC.get(CommonHttpRequestInterceptor.HEADER_REQUEST_UUID_KEY);
+        log.warn("[jweException] eventId = {}, cause = {}, errorMsg = {}", eventId, NestedExceptionUtils.getMostSpecificCause(ex), NestedExceptionUtils.getMostSpecificCause(ex).getMessage());
+
+        cookieUtil.removeCookie("authToken", request, response);
+
+        return CommonResponse.fail(ex.getErrorCode());
     }
 
 
