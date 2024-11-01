@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ProductQueryService implements RandomProducts, DetailProduct, NewestProducts {
+public class ProductQueryService implements RandomProducts, TimeDealProducts, DetailProduct, NewestProducts {
 
     private final SpringDataProductRepository productRepository;
 
@@ -28,6 +28,11 @@ public class ProductQueryService implements RandomProducts, DetailProduct, Newes
     public List<ProductsRandomRes> random() {
         Pageable pageable = PageRequest.of(0, 10);
         return ProductsRandomRes.from(productRepository.findRandomProducts(pageable));
+    }
+
+    @Override
+    public List<TimeDealProductsRes> getTimeDealProducts() {
+        return TimeDealProductsRes.from(productRepository.findAllTimeDealsBetweenStartAndEnd());
     }
 
     @Override
@@ -42,7 +47,7 @@ public class ProductQueryService implements RandomProducts, DetailProduct, Newes
     public NewestProductsRes getNewestProducts(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        Page<ProductJpaEntity> productPage = productRepository.findAll(pageable);
+        Page<ProductJpaEntity> productPage = productRepository.findAllByCreatedDateDesc(pageable);
         return NewestProductsRes.from(productPage);
     }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.order.OrderJpaEntity;
-import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
+import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.saved.SavedJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;

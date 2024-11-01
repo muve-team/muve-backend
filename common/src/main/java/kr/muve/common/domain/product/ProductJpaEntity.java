@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.timedeal.TimeDealJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;
 import lombok.Getter;
@@ -52,6 +53,9 @@ public class ProductJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cart_id")
     private CartJpaEntity cartJpaEntity;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private TimeDealJpaEntity timeDealJpaEntity;
 
     protected ProductJpaEntity() {}
 

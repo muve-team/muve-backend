@@ -1,4 +1,4 @@
-package kr.muve.common.domain.orderproduct;
+package kr.muve.common.domain.orderProduct;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.order.OrderJpaEntity;

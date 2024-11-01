@@ -1,14 +1,11 @@
 package kr.muve.common.domain.saved;
 
 import jakarta.persistence.*;
-import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
-import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 

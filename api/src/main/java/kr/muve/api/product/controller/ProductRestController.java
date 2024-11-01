@@ -14,6 +14,7 @@ import java.util.List;
 public class ProductRestController {
 
     private final RandomProducts randomProducts;
+    private final TimeDealProducts timeDealProducts;
     private final DetailProduct detailProduct;
     private final NewestProducts newestProducts;
 
@@ -24,6 +25,15 @@ public class ProductRestController {
 
         return CommonResponse.success(randomProducts.random());
     }
+
+    @GetMapping("/products/timedeal")
+    public CommonResponse<List<TimeDealProductsRes>> getTimeDealProducts() {
+
+        log.info("[GET] /products/timedeal");
+
+        return CommonResponse.success(timeDealProducts.getTimeDealProducts());
+    }
+
 
     @GetMapping("/product/detail")
     public CommonResponse<ProductDetailRes> getProductDetail(@RequestParam("productId") Long productId) {

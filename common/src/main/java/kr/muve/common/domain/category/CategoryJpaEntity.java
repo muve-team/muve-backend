@@ -27,6 +27,13 @@ public class CategoryJpaEntity {
 
     private LocalDateTime createdDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private CategoryJpaEntity parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<CategoryJpaEntity> child = new ArrayList<>();
+
     @OneToMany(mappedBy = "categoryJpaEntity")
     private List<ProductJpaEntity> productJpaEntities = new ArrayList<>();
 

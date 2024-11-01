@@ -1,7 +1,7 @@
 package kr.muve.admin.service;
 
 import kr.muve.common.domain.order.OrderJpaEntity;
-import kr.muve.common.domain.orderproduct.OrderProductJpaEntity;
+import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.OrderNotFoundException;
