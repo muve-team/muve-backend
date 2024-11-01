@@ -28,7 +28,7 @@ public class CategoryRestController {
     @GetMapping("/products")
     public CommonResponse<CategoryProductsRes> getCategoryProducts(@RequestParam("categoryId") Long categoryId,
                                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                   @RequestParam(name = "size",required = false, defaultValue = "10") Integer size) {
+                                                   @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
 
         log.info("[GET] /category/products, categoryId: {}, page: {}, size: {}", categoryId, page, size);
 
