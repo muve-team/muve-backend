@@ -1,18 +1,14 @@
 package kr.muve.api.my.service;
 
-import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.saved.SavedJpaEntity;
 import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
-import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
-import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.order.SpringDataOrderRepository;
 import kr.muve.common.repository.saved.SpringDataSavedRepository;
 import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.my.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,7 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MyQueryService implements FindMyProfiles, FindMyOrders, FindMySaved {
+public class MyQueryService implements FindMyProfile, FindMyOrders, FindMySaved {
 
     private final SpringDataUserRepository userRepository;
     private final SpringDataOrderRepository orderRepository;

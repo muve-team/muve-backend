@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/my")
 public class MyRestController {
 
-    private final FindMyProfiles findMyProfiles;
+    private final FindMyProfile findMyProfile;
     private final FindMyOrders findMyOrders;
     private final FindMySaved findMySaved;
 
@@ -24,7 +24,7 @@ public class MyRestController {
 
         log.info("[GET] /my/profile, userId: {}", userId);
 
-        return CommonResponse.success(findMyProfiles.findMyProfile(userId));
+        return CommonResponse.success(findMyProfile.findMyProfile(userId));
     }
 
     // 주문 전체 조회 (주문, 취소, 환불 나눌 예정)

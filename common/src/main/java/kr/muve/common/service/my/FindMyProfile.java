@@ -1,6 +1,6 @@
 package kr.muve.common.service.my;
 
-public interface FindMyProfiles {
+public interface FindMyProfile {
 
     MyProfileRes findMyProfile(Long id);
 }
