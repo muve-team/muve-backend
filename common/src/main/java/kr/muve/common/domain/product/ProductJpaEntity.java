@@ -47,7 +47,7 @@ public class ProductJpaEntity {
     @JoinColumn(name = "category_id")
     private CategoryJpaEntity categoryJpaEntity;
 
-    @OneToMany(mappedBy = "savedJpaEntity", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "productJpaEntity", cascade = CascadeType.PERSIST)
     private List<SavedProductJpaEntity> savedProductJpaEntities = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
