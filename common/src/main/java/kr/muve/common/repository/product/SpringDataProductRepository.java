@@ -22,6 +22,9 @@ public interface SpringDataProductRepository extends JpaRepository<ProductJpaEnt
     @Query(value = "select p from ProductJpaEntity p order by p.createdDate desc")
     Page<ProductJpaEntity> findAllByCreatedDateDesc(Pageable pageable);
 
-    @Query(value = "select p from ProductJpaEntity p join fetch p.timeDealJpaEntity tp where tp.startAt <= CURRENT_TIMESTAMP and tp.endAt >= CURRENT_TIMESTAMP")
+    @Query(value = "select p from ProductJpaEntity p " +
+            "join fetch p.timeDealJpaEntity tp " +
+            "join fetch p.categoryJpaEntity c " +
+            "where tp.startAt <= CURRENT_TIMESTAMP and tp.endAt >= CURRENT_TIMESTAMP ")
     List<ProductJpaEntity> findAllTimeDealsBetweenStartAndEnd();
 }
