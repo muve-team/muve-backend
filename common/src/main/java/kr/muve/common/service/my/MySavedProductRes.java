@@ -17,7 +17,11 @@ public class MySavedProductRes {
 
     public static List<MySavedProductRes> from(List<SavedProductJpaEntity> savedProductJpaEntities) {
         return savedProductJpaEntities.stream()
-                .map(sp-> new MySavedProductRes(sp.getId(), sp.getProductJpaEntity().getName(), sp.getProductJpaEntity().getImageUrl()))
+                .map(sp-> new MySavedProductRes(
+                        sp.getId(),
+                        sp.getProductJpaEntity().getName(),
+                        sp.getProductJpaEntity().getImageUrl()
+                ))
                 .toList();
     }
 }
