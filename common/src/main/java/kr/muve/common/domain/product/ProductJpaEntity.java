@@ -54,7 +54,7 @@ public class ProductJpaEntity {
     @JoinColumn(name = "cart_id")
     private CartJpaEntity cartJpaEntity;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "productJpaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TimeDealJpaEntity timeDealJpaEntity;
 
     protected ProductJpaEntity() {}
