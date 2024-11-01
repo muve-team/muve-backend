@@ -10,9 +10,9 @@ import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.user.*;
 import kr.muve.common.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import static kr.muve.common.security.JwtTokenProvider.AUTH_TOKEN;
 
@@ -29,7 +29,7 @@ public class UserQueryService implements ValidUser, LogoutUser {
     public ValidUserRes valid(HttpServletRequest request) {
         String token = cookieUtil.getCookie(AUTH_TOKEN, request);
 
-        if (!StringUtils.hasText(token)) {
+        if (StringUtils.isBlank(token)) {
             return ValidUserRes.from(null, null);
         }
 
