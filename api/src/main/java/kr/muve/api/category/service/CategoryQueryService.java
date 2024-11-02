@@ -1,17 +1,15 @@
 package kr.muve.api.category.service;
 
 import com.google.common.base.Preconditions;
-import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.repository.category.SpringDataCategoryRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.category.AllCategory;
-import kr.muve.common.service.category.CategoryAllRes;
+import kr.muve.common.service.category.CategoryRes;
 import kr.muve.common.service.category.CategoryProductsRes;
 import kr.muve.common.service.category.ProductsCategory;
-import kr.muve.common.service.product.CategoryProductRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +28,8 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
     private final SpringDataProductRepository productRepository;
 
     @Override
-    public List<CategoryAllRes> getCategoryList() {
-        return CategoryAllRes.from(categoryRepository.findAll());
+    public List<CategoryRes> getCategoryList() {
+        return CategoryRes.from(categoryRepository.findAll());
     }
 
     @Override

@@ -2,7 +2,7 @@ package kr.muve.api.category.controller;
 
 import kr.muve.common.exception.CommonResponse;
 import kr.muve.common.service.category.AllCategory;
-import kr.muve.common.service.category.CategoryAllRes;
+import kr.muve.common.service.category.CategoryRes;
 import kr.muve.common.service.category.CategoryProductsRes;
 import kr.muve.common.service.category.ProductsCategory;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class CategoryRestController {
     private final ProductsCategory productsCategory;
 
     @GetMapping
-    public CommonResponse<List<CategoryAllRes>> getCategoryList() {
+    public CommonResponse<List<CategoryRes>> getCategoryList() {
         return CommonResponse.success(allCategory.getCategoryList());
     }
 
