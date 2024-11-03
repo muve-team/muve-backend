@@ -29,7 +29,7 @@ public class CategoryQueryService implements AllCategory, ProductsCategory {
 
     @Override
     public List<CategoryRes> getCategoryList() {
-        return CategoryRes.from(categoryRepository.findAll());
+        return CategoryRes.from(categoryRepository.findParentCategories());
     }
 
     @Override
