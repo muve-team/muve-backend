@@ -49,7 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/products/random",
                         "/products/timedeal",
                         "/product/detail",
-                        "/category",
+                        "/categories",
                         "/category/products",
                         "/**/*.html",     // 정적 리소스 제외
                         "/**/*.css",

@@ -14,18 +14,17 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/category")
 public class CategoryRestController {
 
     private final AllCategory allCategory;
     private final ProductsCategory productsCategory;
 
-    @GetMapping
+    @GetMapping("/categories")
     public CommonResponse<List<CategoryRes>> getCategoryList() {
         return CommonResponse.success(allCategory.getCategoryList());
     }
 
-    @GetMapping("/products")
+    @GetMapping("/category/products")
     public CommonResponse<CategoryProductsRes> getCategoryProducts(@RequestParam("categoryId") Long categoryId,
                                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                    @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
