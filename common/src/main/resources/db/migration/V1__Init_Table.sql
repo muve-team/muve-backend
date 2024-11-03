@@ -4,7 +4,6 @@ CREATE TABLE category (
                           slug VARCHAR(255) NOT NULL,
                           image_url VARCHAR(255),
                           created_date DATETIME,
-                          UNIQUE KEY unique_slug (slug)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE delivery (

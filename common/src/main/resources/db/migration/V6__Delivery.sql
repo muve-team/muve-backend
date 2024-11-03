@@ -1,0 +1,1 @@
+ALTER TABLE delivery ADD COLUMN order_id BIGINT NOT NULL AFTER devlivery_id;

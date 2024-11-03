@@ -1,6 +1,7 @@
 package kr.muve.common.domain.order;
 
 import jakarta.persistence.*;
+import kr.muve.common.domain.delivery.DeliveryJpaEntity;
 import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class OrderJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserJpaEntity userJpaEntity;
+
+    @OneToOne(mappedBy = "orderJpaEntity", fetch = FetchType.LAZY)
+    private DeliveryJpaEntity deliveryJpaEntity;
 
     protected OrderJpaEntity() {
 

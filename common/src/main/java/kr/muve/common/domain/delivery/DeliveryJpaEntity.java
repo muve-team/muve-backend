@@ -1,7 +1,9 @@
 package kr.muve.common.domain.delivery;
 
 import jakarta.persistence.*;
+import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.user.Address;
+import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,10 @@ public class DeliveryJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "delivery_id")
     private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private OrderJpaEntity orderJpaEntity;
 
     @Embedded
     private Address address;
