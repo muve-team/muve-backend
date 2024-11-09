@@ -58,7 +58,7 @@ public class ProductJpaEntity {
     @OneToOne(mappedBy = "productJpaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private TimeDealJpaEntity timeDealJpaEntity;
 
-    protected ProductJpaEntity() {}
+    public ProductJpaEntity() {}
 
     private ProductJpaEntity(String name, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
         this.name = name;

@@ -102,6 +102,35 @@ project(":admin") {
     }
 }
 
+project(":mall") {
+    tasks.withType(BootJar).configureEach { bootJarTask ->
+        bootJarTask.archiveFileName = "muve-mall.jar"
+    }
+
+    tasks.register('zip', Zip) {
+        dependsOn bootJar
+        archiveFileName = "muve-.zip"
+
+        from("build/libs/muve-mall.jar") {
+            into ""
+        }
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+        runtimeOnly 'com.mysql:mysql-connector-j'
+        runtimeOnly 'com.h2database:h2'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+        implementation project(":common")
+    }
+}
+
 project(":api") {
     tasks.withType(BootJar).configureEach { bootJarTask ->
         bootJarTask.archiveFileName = "muve-api.jar"

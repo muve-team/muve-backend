@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title th:text="${product.id == null ? '상품 등록' : '상품 수정'}">상품 폼</title>
+</head>
+<body>
+<th:block th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="${product.id == null ? '상품 등록' : '상품 수정'}">상품 폼</h2>
+        <a th:href="@{/products}" class="btn btn-outline-secondary">
+            <i class='bx bx-arrow-back'></i> 목록으로
+        </a>
+    </div>
+
+    <div class="content-card">
+        <form th:action="${product.id == null ? '/products/new' : '/products/' + product.id + '/edit'}"
+              th:object="${product}" method="post" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="name" class="form-label">상품명</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                <div class="invalid-feedback">상품명을 입력해주세요.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">가격</label>
+                <div class="input-group">
+                    <span class="input-group-text">₩</span>
+                    <input type="number" class="form-control" id="price" th:field="*{price}"
+                           min="0" step="100" required>
+                    <div class="invalid-feedback">유효한 가격을 입력해주세요.</div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-between">
+                <a th:href="@{/products}" class="btn btn-outline-secondary">취소</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class='bx bx-save'></i>
+                    <span th:text="${product.id == null ? '등록' : '수정'}">저장</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+</th:block>
+</body>
+</html>

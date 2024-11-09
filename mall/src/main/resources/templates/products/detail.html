@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>상품 상세</title>
+</head>
+<body>
+<th:block th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>상품 상세</h2>
+        <div>
+            <a th:href="@{/products}" class="btn btn-outline-secondary me-2">
+                <i class='bx bx-arrow-back'></i> 목록으로
+            </a>
+            <a th:href="@{/products/{id}/edit(id=${product.id})}" class="btn btn-primary">
+                <i class='bx bx-edit'></i> 수정
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${message}">메시지</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="content-card">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="h4 mb-3">기본 정보</h3>
+                <table class="table">
+                    <tr>
+                        <th style="width: 150px">상품 ID</th>
+                        <td th:text="${product.id}">1</td>
+                    </tr>
+                    <tr>
+                        <th>상품명</th>
+                        <td th:text="${product.name}">상품명</td>
+                    </tr>
+                    <tr>
+                        <th>가격</th>
+                        <td th:text="${#numbers.formatCurrency(product.price)}">₩0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-between">
+            <a th:href="@{/products}" class="btn btn-outline-secondary">
+                <i class='bx bx-arrow-back'></i> 목록으로
+            </a>
+            <div>
+                <a th:href="@{/products/{id}/edit(id=${product.id})}"
+                   class="btn btn-primary me-2">
+                    <i class='bx bx-edit'></i> 수정
+                </a>
+                <form th:action="@{/products/{id}/delete(id=${product.id})}"
+                      method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('정말 삭제하시겠습니까?')">
+                        <i class='bx bx-trash'></i> 삭제
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

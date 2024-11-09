@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>상품 목록</title>
+</head>
+<body>
+<th:block th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>상품 목록</h2>
+        <a th:href="@{/products/new}" class="btn btn-primary">
+            <i class='bx bx-plus'></i> 상품 등록
+        </a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${message}">메시지</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="content-card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}">1</td>
+                    <td>
+                        <a th:href="@{/products/{id}(id=${product.id})}"
+                           class="text-decoration-none text-dark"
+                           th:text="${product.name}">상품명</a>
+                    </td>
+                    <td th:text="${#numbers.formatCurrency(product.price)}">₩0</td>
+                    <td>
+                        <a th:href="@{/products/{id}(id=${product.id})}"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            <i class='bx bx-show'></i> 상세
+                        </a>
+                        <a th:href="@{/products/{id}/edit(id=${product.id})}"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            <i class='bx bx-edit'></i> 수정
+                        </a>
+                        <form th:action="@{/products/{id}/delete(id=${product.id})}"
+                              method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('정말 삭제하시겠습니까?')">
+                                <i class='bx bx-trash'></i> 삭제
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${products.empty}">
+                    <td colspan="4" class="text-center py-4 text-muted">
+                        등록된 상품이 없습니다.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav th:if="${products.totalPages > 1}" aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${products.first ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{/products(page=${products.number - 1})}">&laquo;</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
+                    th:classappend="${products.number == i ? 'active' : ''}">
+                    <a class="page-link" th:href="@{/products(page=${i})}" th:text="${i + 1}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${products.last ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{/products(page=${products.number + 1})}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</th:block>
+</body>
+</html>
