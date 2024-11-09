@@ -1,6 +1,6 @@
 package kr.muve.admin.config;
 
-import kr.muve.common.security.JweTokenInterceptor;
+import kr.muve.admin.interceptor.JweTokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

@@ -1,7 +1,7 @@
 package kr.muve.api.config;
 
 import kr.muve.api.interceptor.CommonHttpRequestInterceptor;
-import kr.muve.common.security.JweTokenInterceptor;
+import kr.muve.api.security.JweTokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
