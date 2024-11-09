@@ -109,7 +109,7 @@ project(":mall") {
 
     tasks.register('zip', Zip) {
         dependsOn bootJar
-        archiveFileName = "muve-.zip"
+        archiveFileName = "muve-mall.zip"
 
         from("build/libs/muve-mall.jar") {
             into ""

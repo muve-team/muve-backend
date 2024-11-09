@@ -1,7 +1,7 @@
 # Base image: Amazon Corretto 17
 FROM amazoncorretto:17
 
-# admin JAR 파일 복사
+# mall JAR 파일 복사
 COPY build/libs/muve-mall.jar /app.jar
 
 # 포트 설정
