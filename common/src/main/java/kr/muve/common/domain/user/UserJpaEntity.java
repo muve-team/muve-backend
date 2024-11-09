@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import kr.muve.common.domain.user.password.Password;
 import kr.muve.common.service.user.UserJoinCommand;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -20,7 +22,6 @@ public class UserJpaEntity {
 
     private String name;
 
-    @Column(unique = true)
     private String email;
 
     @AttributeOverride(name = "value", column = @Column(name = "password", nullable = false))
@@ -29,8 +30,11 @@ public class UserJpaEntity {
 
     private String phoneNumber;
 
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
+    @LastModifiedDate
     private LocalDateTime updatedDate;
 
     @Embedded

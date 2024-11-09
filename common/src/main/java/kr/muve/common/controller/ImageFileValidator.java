@@ -11,8 +11,10 @@ import java.util.List;
 @Component
 public class ImageFileValidator implements Validator {
 
-    private static final List<String> ALLOWED_CONTENT_TYPES = Arrays.asList("image/jpeg", "image/png", "image/gif");
-    private static final long MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+    private static final List<String> ALLOWED_CONTENT_TYPES = Arrays.asList(
+            "image/jpeg", "image/png", "image/gif", "image/jpg", "image/webp"
+    );
+    private static final long MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 5MB
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -31,7 +33,7 @@ public class ImageFileValidator implements Validator {
 
         // 파일 크기 검증
         if (image.getSize() > MAX_IMAGE_SIZE) {
-            errors.rejectValue("image", "image.size", "파일 크기는 5MB를 초과할 수 없습니다.");
+            errors.rejectValue("image", "image.size", "파일 크기는 10MB를 초과할 수 없습니다.");
         }
 
         // 파일 형식 검증

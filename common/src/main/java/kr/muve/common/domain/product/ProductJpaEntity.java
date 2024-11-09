@@ -38,6 +38,7 @@ public class ProductJpaEntity {
     private String imageUrl;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
