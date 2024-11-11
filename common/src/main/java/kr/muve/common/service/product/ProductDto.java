@@ -11,6 +11,7 @@ public class ProductDto {
 
     private Long id;
     private String name;
+    private String brandName;
     private Long price;
     private Integer stockQuantity;
     private Long categoryId;
@@ -21,7 +22,7 @@ public class ProductDto {
     private ProductDto() {}
 
     public static ProductDto from(ProductForm productForm) {
-        return new ProductDto(productForm.getId(), productForm.getName(),
+        return new ProductDto(productForm.getId(), productForm.getName(), productForm.getBrandName(),
                 productForm.getPrice(), productForm.getStockQuantity(),
                 productForm.getCategoryId(), productForm.getCategoryName(),
                 productForm.getCategorySlug(), productForm.getImage());

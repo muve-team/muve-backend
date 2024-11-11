@@ -33,6 +33,8 @@ public class ProductJpaEntity {
 
     private Long price;
 
+    private String brandName;
+
     private Integer stockQuantity;
 
     private String imageUrl;
@@ -74,6 +76,7 @@ public class ProductJpaEntity {
 
     public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity, String imageUrl) {
         this.name = dto.getName();
+        this.brandName = dto.getBrandName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
         this.categoryJpaEntity = categoryJpaEntity;

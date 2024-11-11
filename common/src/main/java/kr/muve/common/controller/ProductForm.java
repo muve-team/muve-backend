@@ -16,6 +16,9 @@ public class ProductForm {
     @NotBlank(message = "상품명을 작성해주세요")
     private String name;
 
+    @NotBlank(message = "브랜드명을 작성해주세요")
+    private String brandName;
+
     @NotNull(message = "상품 가격을 작성해주세요")
     @Positive(message = "가격은 0일 수 없습니다")
     private Long price;
@@ -38,9 +41,10 @@ public class ProductForm {
     // 기본 생성자
     public ProductForm() {}
 
-    public ProductForm(Long id, String name, Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug, String imageUrl) {
+    public ProductForm(Long id, String name, String brandName, Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug, String imageUrl) {
         this.id = id;
         this.name = name;
+        this.brandName = brandName;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.categoryId = categoryId;
@@ -54,6 +58,7 @@ public class ProductForm {
         return new ProductForm(
                 productJpaEntity.getId(),
                 productJpaEntity.getName(),
+                productJpaEntity.getBrandName(),
                 productJpaEntity.getPrice(),
                 productJpaEntity.getStockQuantity(),
                 productJpaEntity.getCategoryJpaEntity().getId(),

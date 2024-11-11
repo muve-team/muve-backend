@@ -11,13 +11,14 @@ import java.util.List;
 public class NewestProductRes {
     private Long productId;
     private String name;
+    private String brandName;
     private Long price;
     private String imageUrl;
     private Long categoryId;
 
     public static List<NewestProductRes> from(List<ProductJpaEntity> product) {
         return product.stream()
-                .map(p -> new NewestProductRes(p.getId(), p.getName(), p.getPrice(),
+                .map(p -> new NewestProductRes(p.getId(), p.getName(), p.getBrandName(), p.getPrice(),
                         p.getImageUrl(), p.getCategoryJpaEntity().getId()))
                 .toList();
     }

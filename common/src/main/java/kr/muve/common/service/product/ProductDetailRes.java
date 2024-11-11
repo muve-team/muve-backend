@@ -9,6 +9,7 @@ import lombok.Data;
 public class ProductDetailRes {
     private Long productId;
     private String name;
+    private String brandName;
     private Long price;
     private String imageUrl;
     private Integer stockQuantity;
@@ -19,6 +20,7 @@ public class ProductDetailRes {
         return new ProductDetailRes(
                 product.getId(),
                 product.getName(),
+                product.getBrandName(),
                 product.getPrice(),
                 product.getImageUrl(),
                 product.getStockQuantity(),

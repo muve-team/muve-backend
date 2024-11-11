@@ -24,7 +24,6 @@ public interface SpringDataProductRepository extends JpaRepository<ProductJpaEnt
 
     @Query(value = "select p from ProductJpaEntity p " +
             "join fetch p.timeDealJpaEntity tp " +
-            "join fetch p.categoryJpaEntity c " +
             "where tp.startAt <= CURRENT_TIMESTAMP and tp.endAt >= CURRENT_TIMESTAMP ")
     List<ProductJpaEntity> findAllTimeDealsBetweenStartAndEnd();
 }
