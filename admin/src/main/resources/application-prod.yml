@@ -18,6 +18,12 @@ spring:
     password: ${DB_PASSWORD}  # 데이터베이스 비밀번호 환경 변수로 설정
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  elasticsearch:
+    rest:
+      uris: ${ELASTIC_SEARCH_URL}
+      username: ${ELASTIC_SEARCH_USERNAME}
+      password: ${ELASTIC_SEARCH_PASSWORD}
+
 cloud:
   aws:
     s3:

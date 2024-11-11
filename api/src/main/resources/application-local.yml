@@ -38,3 +38,5 @@ spring:
   h2:
     console:
       enabled: true
+  elasticsearch:
+    uris: ${ELASTICSEARCH_URI:http://localhost:9200}

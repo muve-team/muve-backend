@@ -24,6 +24,12 @@ spring:
     password: ${DB_PASSWORD}  # Secrets Manager에서 가져옴
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  elasticsearch:
+    rest:
+      uris: ${ELASTIC_SEARCH_URL}
+      username: ${ELASTIC_SEARCH_USERNAME}
+      password: ${ELASTIC_SEARCH_PASSWORD}
+
 cloud:
   aws:
     s3:
