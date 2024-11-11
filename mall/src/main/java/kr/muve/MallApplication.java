@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
 @EntityScan(basePackages = "kr.muve.common.domain")
 @SpringBootApplication(scanBasePackages = "kr.muve")
+@EnableElasticsearchRepositories(basePackages = "kr.muve.common.repository",
+        includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Elastic.*"))
 public class MallApplication {
     public static void main(String[] args) {
         SpringApplication.run(MallApplication.class, args);

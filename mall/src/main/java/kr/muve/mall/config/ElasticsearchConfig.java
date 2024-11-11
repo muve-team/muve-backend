@@ -17,7 +17,6 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 @Configuration
 @Profile("local")
-@EnableElasticsearchRepositories(basePackages = "kr.muve.common.repository")
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
 
     private static final String ELASTICSEARCH_IMAGE = "docker.elastic.co/elasticsearch/elasticsearch:8.5.1";
