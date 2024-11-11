@@ -47,7 +47,7 @@ public class ProductService implements CreateProduct, UpdateProduct, FindProduct
 
         String imageUrl = s3Service.uploadFile(image);
 
-        ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct(dto.getName(), dto.getPrice(),
+        ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct(dto.getName(), dto.getBrandName(), dto.getPrice(),
                 dto.getStockQuantity(), imageUrl, categoryJpaEntity);
         productRepository.saveAndFlush(productJpaEntity);
 

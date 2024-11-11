@@ -62,16 +62,17 @@ public class ProductJpaEntity {
 
     public ProductJpaEntity() {}
 
-    private ProductJpaEntity(String name, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
+    private ProductJpaEntity(String name, String brandName, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
         this.name = name;
+        this.brandName = brandName;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.imageUrl = imageUrl;
         this.categoryJpaEntity = categoryJpaEntity;
     }
 
-    public static ProductJpaEntity createProduct(String name, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
-        return new ProductJpaEntity(name, price, stockQuantity, imageUrl, categoryJpaEntity);
+    public static ProductJpaEntity createProduct(String name, String brandName, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
+        return new ProductJpaEntity(name, brandName, price, stockQuantity, imageUrl, categoryJpaEntity);
     }
 
     public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity, String imageUrl) {
