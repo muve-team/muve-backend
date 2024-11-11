@@ -1,10 +1,12 @@
 package kr.muve.admin.service;
 
 import kr.muve.common.domain.category.CategoryJpaEntity;
+import kr.muve.common.domain.product.ProductElasticsearchEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.exception.CategoryNotFoundException;
 import kr.muve.common.exception.ProductNotFoundException;
 import kr.muve.common.repository.category.SpringDataCategoryRepository;
+import kr.muve.common.repository.product.ElasticsearchProductRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.product.CreateProduct;
 import kr.muve.common.service.product.FindProducts;
@@ -28,6 +30,7 @@ public class ProductService implements CreateProduct, UpdateProduct, FindProduct
     private final SpringDataProductRepository productRepository;
     private final CategoryService categoryService;
     private final S3Service s3Service;
+    private final ElasticsearchProductRepository elasticsearchProductRepository;
 
     // 상품 등록
     @Override
@@ -46,7 +49,10 @@ public class ProductService implements CreateProduct, UpdateProduct, FindProduct
 
         ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct(dto.getName(), dto.getPrice(),
                 dto.getStockQuantity(), imageUrl, categoryJpaEntity);
-        productRepository.save(productJpaEntity);
+        productRepository.saveAndFlush(productJpaEntity);
+
+        ProductElasticsearchEntity elasticsearchEntity = ProductElasticsearchEntity.from(productJpaEntity);
+        elasticsearchProductRepository.save(elasticsearchEntity);
 
         return productJpaEntity.getId();
     }
