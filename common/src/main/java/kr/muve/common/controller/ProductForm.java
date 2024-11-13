@@ -13,11 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductForm {
     private Long id;
 
-    @NotBlank(message = "상품명을 작성해주세요")
-    private String name;
+    @NotBlank(message = "한글 상품명을 작성해주세요")
+    private String koreanName;
 
-    @NotBlank(message = "브랜드명을 작성해주세요")
-    private String brandName;
+    @NotBlank(message = "영어 상품명을 작성해주세요")
+    private String englishName;
+
+    @NotBlank(message = "한글 브랜드명을 작성해주세요")
+    private String brandKoreanName;
+
+    @NotBlank(message = "영어 브랜드명을 작성해주세요")
+    private String brandEnglishName;
 
     @NotNull(message = "상품 가격을 작성해주세요")
     @Positive(message = "가격은 0일 수 없습니다")
@@ -41,10 +47,13 @@ public class ProductForm {
     // 기본 생성자
     public ProductForm() {}
 
-    public ProductForm(Long id, String name, String brandName, Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug, String imageUrl) {
+    public ProductForm(Long id, String koreanName, String englishName, String brandKoreanName, String brandEnglishName,
+                       Long price, Integer stockQuantity, Long categoryId, String categoryName, String categorySlug, String imageUrl) {
         this.id = id;
-        this.name = name;
-        this.brandName = brandName;
+        this.koreanName = koreanName;
+        this.englishName = englishName;
+        this.brandKoreanName = brandKoreanName;
+        this.brandEnglishName = brandEnglishName;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.categoryId = categoryId;
@@ -57,8 +66,10 @@ public class ProductForm {
     public static ProductForm from(ProductJpaEntity productJpaEntity) {
         return new ProductForm(
                 productJpaEntity.getId(),
-                productJpaEntity.getName(),
-                productJpaEntity.getBrandName(),
+                productJpaEntity.getKoreanName(),
+                productJpaEntity.getEnglishName(),
+                productJpaEntity.getBrandKoreanName(),
+                productJpaEntity.getBrandEnglishName(),
                 productJpaEntity.getPrice(),
                 productJpaEntity.getStockQuantity(),
                 productJpaEntity.getCategoryJpaEntity().getId(),

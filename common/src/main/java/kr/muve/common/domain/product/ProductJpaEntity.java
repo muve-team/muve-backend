@@ -29,11 +29,13 @@ public class ProductJpaEntity {
     @Column(name = "product_id")
     private Long id;
 
-    private String name;
+    private String koreanName;
+    private String englishName;
 
     private Long price;
 
-    private String brandName;
+    private String brandKoreanName;
+    private String brandEnglishName;
 
     private Integer stockQuantity;
 
@@ -62,22 +64,28 @@ public class ProductJpaEntity {
 
     public ProductJpaEntity() {}
 
-    private ProductJpaEntity(String name, String brandName, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
-        this.name = name;
-        this.brandName = brandName;
+    private ProductJpaEntity(String koreanName, String englishName, String brandKoreanName, String brandEnglishName,
+                             Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
+        this.koreanName = koreanName;
+        this.englishName = englishName;
+        this.brandKoreanName = brandKoreanName;
+        this.brandEnglishName = brandEnglishName;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.imageUrl = imageUrl;
         this.categoryJpaEntity = categoryJpaEntity;
     }
 
-    public static ProductJpaEntity createProduct(String name, String brandName, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
-        return new ProductJpaEntity(name, brandName, price, stockQuantity, imageUrl, categoryJpaEntity);
+    public static ProductJpaEntity createProduct(String koreanName, String englishName, String brandKoreanName,
+                                                 String brandEnglishName, Long price, Integer stockQuantity, String imageUrl, CategoryJpaEntity categoryJpaEntity) {
+        return new ProductJpaEntity(koreanName, englishName, brandKoreanName, brandEnglishName, price, stockQuantity, imageUrl, categoryJpaEntity);
     }
 
     public void update(ProductDto dto, CategoryJpaEntity categoryJpaEntity, String imageUrl) {
-        this.name = dto.getName();
-        this.brandName = dto.getBrandName();
+        this.koreanName = dto.getKoreanName();
+        this.englishName = dto.getEnglishName();
+        this.brandKoreanName = dto.getBrandKoreanName();
+        this.brandEnglishName = dto.getBrandEnglishName();
         this.price = dto.getPrice();
         this.stockQuantity = dto.getStockQuantity();
         this.categoryJpaEntity = categoryJpaEntity;

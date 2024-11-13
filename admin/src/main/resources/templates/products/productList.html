@@ -11,8 +11,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>상품명</th>
-                <th>브랜드명</th>
+                <th>한글 상품명</th>
+                <th>영어 상품명</th>
+                <th>한글 브랜드명</th>
+                <th>영어 브랜드명</th>
                 <th>가격</th>
                 <th>재고수량</th>
                 <th>이미지 경로</th>
@@ -23,8 +25,10 @@
             <tbody>
             <tr th:each="productJpaEntity : ${products}">
                 <td th:text="${productJpaEntity.id}"></td>
-                <td th:text="${productJpaEntity.name}"></td>
-                <td th:text="${productJpaEntity.brandName}"></td>
+                <td th:text="${productJpaEntity.koreanName}"></td>
+                <td th:text="${productJpaEntity.englishName}"></td>
+                <td th:text="${productJpaEntity.brandKoreanName}"></td>
+                <td th:text="${productJpaEntity.brandEnglishName}"></td>
                 <td th:text="${productJpaEntity.price}"></td>
                 <td th:text="${productJpaEntity.stockQuantity}"></td>
                 <td>

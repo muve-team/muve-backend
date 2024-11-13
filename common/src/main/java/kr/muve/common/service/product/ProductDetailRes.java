@@ -8,8 +8,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProductDetailRes {
     private Long productId;
-    private String name;
-    private String brandName;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private String imageUrl;
     private Integer stockQuantity;
@@ -19,8 +21,10 @@ public class ProductDetailRes {
     public static ProductDetailRes from(ProductJpaEntity product) {
         return new ProductDetailRes(
                 product.getId(),
-                product.getName(),
-                product.getBrandName(),
+                product.getKoreanName(),
+                product.getEnglishName(),
+                product.getBrandKoreanName(),
+                product.getBrandEnglishName(),
                 product.getPrice(),
                 product.getImageUrl(),
                 product.getStockQuantity(),

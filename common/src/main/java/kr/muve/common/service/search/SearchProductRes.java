@@ -7,7 +7,10 @@ import java.util.List;
 
 public record SearchProductRes(
         Long productId,
-        String name,
+        String koreanName,
+        String englishName,
+        String brandKoreanName,
+        String brandEnglishName,
         Long price,
         Integer stockQuantity,
         String imageUrl,
@@ -15,7 +18,8 @@ public record SearchProductRes(
 ) {
     public static List<SearchProductRes> from(List<ProductElasticsearchEntity> product) {
         return product.stream()
-                .map(p -> new SearchProductRes(p.getId(), p.getName(), p.getPrice(), p.getStockQuantity(),
+                .map(p -> new SearchProductRes(p.getId(), p.getKoreanName(), p.getEnglishName(),
+                        p.getBrandKoreanName(), p.getBrandEnglishName(), p.getPrice(), p.getStockQuantity(),
                         p.getImageUrl(), p.getCategoryName()))
                 .toList();
     }

@@ -3,10 +3,8 @@ package kr.muve.admin.service;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.product.ProductElasticsearchEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
-import kr.muve.common.exception.CategoryNotFoundException;
 import kr.muve.common.exception.ProductNotFoundException;
-import kr.muve.common.repository.category.SpringDataCategoryRepository;
-import kr.muve.common.repository.product.ElasticsearchProductRepository;
+import kr.muve.common.repository.search.ElasticsearchProductRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.service.product.CreateProduct;
 import kr.muve.common.service.product.FindProducts;
@@ -14,7 +12,6 @@ import kr.muve.common.service.product.ProductDto;
 import kr.muve.common.service.product.UpdateProduct;
 import kr.muve.common.service.s3.S3Service;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -47,7 +44,8 @@ public class ProductService implements CreateProduct, UpdateProduct, FindProduct
 
         String imageUrl = s3Service.uploadFile(image);
 
-        ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct(dto.getName(), dto.getBrandName(), dto.getPrice(),
+        ProductJpaEntity productJpaEntity = ProductJpaEntity.createProduct(dto.getKoreanName(), dto.getEnglishName(),
+                dto.getBrandKoreanName(), dto.getBrandEnglishName(), dto.getPrice(),
                 dto.getStockQuantity(), imageUrl, categoryJpaEntity);
         productRepository.saveAndFlush(productJpaEntity);
 

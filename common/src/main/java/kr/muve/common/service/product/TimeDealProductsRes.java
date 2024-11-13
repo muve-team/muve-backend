@@ -11,8 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 public class TimeDealProductsRes {
     private Long productId;
-    private String name;
-    private String brandName;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private String imageUrl;
     private Long categoryId;
@@ -21,7 +23,8 @@ public class TimeDealProductsRes {
 
     public static List<TimeDealProductsRes> from(List<ProductJpaEntity> products) {
         return products.stream()
-                .map(p -> new TimeDealProductsRes(p.getId(), p.getName(), p.getBrandName(), p.getPrice(), p.getImageUrl(),
+                .map(p -> new TimeDealProductsRes(p.getId(), p.getKoreanName(), p.getEnglishName(),
+                        p.getBrandKoreanName(), p.getBrandEnglishName(), p.getPrice(), p.getImageUrl(),
                         p.getCategoryJpaEntity().getId(), p.getTimeDealJpaEntity().getStartAt(), p.getTimeDealJpaEntity().getEndAt()))
                 .toList();
     }

@@ -1,4 +1,4 @@
-package kr.muve.common.repository.product;
+package kr.muve.common.repository.search;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -29,14 +29,32 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
             return Page.empty(pageable);
         }
 
-        // 검색 쿼리 생성
-        Query nameQuery = QueryBuilders.match()
-                .field("name")
+        // 각 필드에 대한 검색 쿼리 생성
+        Query koreanNameQuery = QueryBuilders.match()
+                .field("koreanName")
                 .query(keyword)
                 .boost(2.0f)
                 .build()._toQuery();
 
-        Query categoryQuery = QueryBuilders.match()
+        Query englishNameQuery = QueryBuilders.match()
+                .field("englishName")
+                .query(keyword)
+                .boost(2.0f)
+                .build()._toQuery();
+
+        Query brandKoreanNameQuery = QueryBuilders.match()
+                .field("brandKoreanName")
+                .query(keyword)
+                .boost(1.5f)
+                .build()._toQuery();
+
+        Query brandEnglishNameQuery = QueryBuilders.match()
+                .field("brandEnglishName")
+                .query(keyword)
+                .boost(1.5f)
+                .build()._toQuery();
+
+        Query categoryNameQuery = QueryBuilders.match()
                 .field("categoryName")
                 .query(keyword)
                 .boost(1.0f)
@@ -44,8 +62,11 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
 
         // Bool 쿼리 생성
         BoolQuery boolQuery = QueryBuilders.bool()
-                .should(nameQuery)
-                .should(categoryQuery)
+                .should(koreanNameQuery)
+                .should(englishNameQuery)
+                .should(brandKoreanNameQuery)
+                .should(brandEnglishNameQuery)
+                .should(categoryNameQuery)
                 .minimumShouldMatch("1")
                 .build();
 
@@ -69,5 +90,4 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
         // 페이징 처리된 결과 반환
         return new PageImpl<>(products, pageable, searchHits.getTotalHits());
     }
-
 }

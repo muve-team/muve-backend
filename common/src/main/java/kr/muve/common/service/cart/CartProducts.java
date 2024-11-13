@@ -11,7 +11,10 @@ import java.util.List;
 public class CartProducts {
 
     private Long cartProductId;
-    private String name;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private Integer count;
     private String imageUrl;
@@ -19,8 +22,8 @@ public class CartProducts {
 
     public static List<CartProducts> from(List<CartProductJpaEntity> cartProducts) {
         return cartProducts.stream()
-                .map(p -> new CartProducts(p.getId(), p.getProductJpaEntity().getName(),
-                        p.getProductJpaEntity().getPrice(),
+                .map(p -> new CartProducts(p.getId(), p.getProductJpaEntity().getKoreanName(),  p.getProductJpaEntity().getEnglishName(),
+                        p.getProductJpaEntity().getBrandKoreanName(), p.getProductJpaEntity().getBrandEnglishName(),  p.getProductJpaEntity().getPrice(),
                         p.getCount(), p.getProductJpaEntity().getImageUrl(),
                         p.getProductJpaEntity().getCategoryJpaEntity().getName()))
                 .toList();

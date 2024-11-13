@@ -112,65 +112,17 @@ public class InitDb {
 
 
             // 상품
-            ProductJpaEntity pro1 = createProduct("김수환무두루미와거북이김수환무두루미와거북이1", "JPA", 10000L, 100, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
+            ProductJpaEntity pro1 = createProduct("김수환무두루미와거북이김수환무두루미와거북이1", "JPA", "Kim Suhwanmu Turtle", "JPA", 10000L, 100, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
             em.persist(pro1);
 
-            ProductJpaEntity pro2 = createProduct("JPA2 BOOK", "JPA", 20000L, 200, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
+            ProductJpaEntity pro2 = createProduct("JPA2 책", "JPA", "JPA2 BOOK", "JPA", 20000L, 200, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
             em.persist(pro2);
 
-            ProductJpaEntity pro3 = createProduct("JPA3 BOOK", "JPA", 30000L, 300, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
+            ProductJpaEntity pro3 = createProduct("JPA3 책", "JPA", "JPA3 BOOK", "JPA", 30000L, 300, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
             em.persist(pro3);
 
-            ProductJpaEntity pro4 = createProduct("JPA4 BOOK", "JPA", 40000L, 400, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
+            ProductJpaEntity pro4 = createProduct("JPA4 책", "JPA", "JPA4 BOOK", "JPA", 40000L, 400, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
             em.persist(pro4);
-
-            ProductJpaEntity pro5 = createProduct("JPA5 BOOK", "JPA", 50000L, 500, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro5);
-
-            ProductJpaEntity pro6 = createProduct("JPA6 BOOK", "JPA", 60000L, 600, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro6);
-
-            ProductJpaEntity pro7 = createProduct("JPA7 BOOK", "JPA", 70000L, 700, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro7);
-
-            ProductJpaEntity pro8 = createProduct("김수환무두루미와거북이김수환무두루미와거북이2", "JPA", 80000L, 800, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro8);
-
-            ProductJpaEntity pro9 = createProduct("JPA9 BOOK", "JPA", 90000L, 900, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro9);
-
-            ProductJpaEntity pro10 = createProduct("JPA10 BOOK", "JPA", 100000L, 1000, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro10);
-
-            ProductJpaEntity pro11 = createProduct("JPA11 BOOK", "JPA", 110000L, 1100, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro11);
-
-            ProductJpaEntity pro12 = createProduct("JPA12 BOOK", "JPA", 120000L, 1200, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro12);
-
-            ProductJpaEntity pro13 = createProduct("JPA13 BOOK", "JPA", 130000L, 1300, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro13);
-
-            ProductJpaEntity pro14 = createProduct("JPA14 BOOK", "JPA", 140000L, 1400, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro14);
-
-            ProductJpaEntity pro15 = createProduct("JPA15 BOOK", "JPA", 150000L, 1500, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro15);
-
-            ProductJpaEntity pro16 = createProduct("JPA16 BOOK", "JPA", 160000L, 1600, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro16);
-
-            ProductJpaEntity pro17 = createProduct("JPA17 BOOK", "JPA", 170000L, 1700, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro17);
-
-            ProductJpaEntity pro18 = createProduct("JPA18 BOOK", "JPA", 180000L, 1800, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro18);
-
-            ProductJpaEntity pro19 = createProduct("JPA19 BOOK", "JPA", 190000L, 1900, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity1);
-            em.persist(pro19);
-
-            ProductJpaEntity pro20 = createProduct("JPA20 BOOK", "JPA", 200000L, 2000, "https://muve-bucket.s3.ap-northeast-2.amazonaws.com/f67247c2-56fa-4378-aeee-56103b557aed.gif", categoryJpaEntity2);
-            em.persist(pro20);
 
 
             // 주문 상품

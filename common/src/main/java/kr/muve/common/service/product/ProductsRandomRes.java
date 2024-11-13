@@ -10,14 +10,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductsRandomRes {
     private Long productId;
-    private String name;
-    private String brandName;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private String imageUrl;
 
     public static List<ProductsRandomRes> from(List<ProductJpaEntity> products) {
         return products.stream()
-                .map(p -> new ProductsRandomRes(p.getId(), p.getName(), p.getBrandName(), p.getPrice(), p.getImageUrl()))
+                .map(p -> new ProductsRandomRes(p.getId(), p.getKoreanName(), p.getEnglishName(),
+                        p.getBrandKoreanName(), p.getBrandEnglishName(), p.getPrice(), p.getImageUrl()))
                 .toList();
     }
 }

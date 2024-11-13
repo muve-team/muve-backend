@@ -18,7 +18,16 @@ public class ProductElasticsearchEntity {
     private Long id;
 
     @Field(type = FieldType.Text, analyzer = "default_analyzer")
-    private String name;
+    private String koreanName;
+
+    @Field(type = FieldType.Text, analyzer = "default_analyzer")
+    private String englishName;
+
+    @Field(type = FieldType.Text, analyzer = "default_analyzer")
+    private String brandKoreanName;
+
+    @Field(type = FieldType.Text, analyzer = "default_analyzer")
+    private String brandEnglishName;
 
     @Field(type = FieldType.Text, analyzer = "default_analyzer")
     private String categoryName;
@@ -41,10 +50,14 @@ public class ProductElasticsearchEntity {
     protected ProductElasticsearchEntity() {
     }
 
-    public ProductElasticsearchEntity(Long id, String name, String categoryName, Long price, Integer stockQuantity,
+    public ProductElasticsearchEntity(Long id, String koreanName, String englishName, String brandKoreanName, String brandEnglishName,
+                                      String categoryName, Long price, Integer stockQuantity,
                                       String imageUrl, LocalDateTime createdDate, LocalDateTime updatedDate) {
         this.id = id;
-        this.name = name;
+        this.koreanName = koreanName;
+        this.englishName = englishName;
+        this.brandKoreanName = brandKoreanName;
+        this.brandEnglishName = brandEnglishName;
         this.categoryName = categoryName;
         this.price = price;
         this.stockQuantity = stockQuantity;
@@ -56,7 +69,10 @@ public class ProductElasticsearchEntity {
     public static ProductElasticsearchEntity from(ProductJpaEntity entity) {
         return new ProductElasticsearchEntity(
                 entity.getId(),
-                entity.getName(),
+                entity.getKoreanName(),
+                entity.getEnglishName(),
+                entity.getBrandKoreanName(),
+                entity.getBrandEnglishName(),
                 entity.getCategoryJpaEntity().getName(),
                 entity.getPrice(),
                 entity.getStockQuantity(),

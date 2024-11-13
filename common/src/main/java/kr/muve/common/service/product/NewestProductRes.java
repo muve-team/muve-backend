@@ -10,15 +10,18 @@ import java.util.List;
 @AllArgsConstructor
 public class NewestProductRes {
     private Long productId;
-    private String name;
-    private String brandName;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private String imageUrl;
     private Long categoryId;
 
     public static List<NewestProductRes> from(List<ProductJpaEntity> product) {
         return product.stream()
-                .map(p -> new NewestProductRes(p.getId(), p.getName(), p.getBrandName(), p.getPrice(),
+                .map(p -> new NewestProductRes(p.getId(), p.getKoreanName(), p.getEnglishName(),
+                        p.getBrandKoreanName(), p.getBrandEnglishName(), p.getPrice(),
                         p.getImageUrl(), p.getCategoryJpaEntity().getId()))
                 .toList();
     }

@@ -10,8 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductDto {
 
     private Long id;
-    private String name;
-    private String brandName;
+    private String koreanName;
+    private String englishName;
+    private String brandKoreanName;
+    private String brandEnglishName;
     private Long price;
     private Integer stockQuantity;
     private Long categoryId;
@@ -22,7 +24,8 @@ public class ProductDto {
     private ProductDto() {}
 
     public static ProductDto from(ProductForm productForm) {
-        return new ProductDto(productForm.getId(), productForm.getName(), productForm.getBrandName(),
+        return new ProductDto(productForm.getId(), productForm.getKoreanName(), productForm.getEnglishName(),
+                productForm.getBrandKoreanName(), productForm.getBrandEnglishName(),
                 productForm.getPrice(), productForm.getStockQuantity(),
                 productForm.getCategoryId(), productForm.getCategoryName(),
                 productForm.getCategorySlug(), productForm.getImage());
