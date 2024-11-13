@@ -4,8 +4,12 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 import kr.muve.common.domain.product.ProductElasticsearchEntity;
+import kr.muve.common.repository.search.ElasticsearchProductCustomRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -21,49 +25,99 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
 
     @Override
     public Page<ProductElasticsearchEntity> searchByKeyword(String keyword, Pageable pageable) {
-        // 검색어가 비어있는 경우 처리
         if (!StringUtils.hasText(keyword)) {
             return Page.empty(pageable);
         }
 
-        // 각 필드에 대한 검색 쿼리 생성
-        Query koreanNameQuery = QueryBuilders.match()
+        // 정확한 매칭 쿼리
+        Query koreanNameMatchQuery = QueryBuilders.match()
                 .field("koreanName")
                 .query(keyword)
                 .boost(2.0f)
                 .build()._toQuery();
 
-        Query englishNameQuery = QueryBuilders.match()
+        Query englishNameMatchQuery = QueryBuilders.match()
                 .field("englishName")
                 .query(keyword)
                 .boost(2.0f)
                 .build()._toQuery();
 
-        Query brandKoreanNameQuery = QueryBuilders.match()
+        Query brandKoreanNameMatchQuery = QueryBuilders.match()
                 .field("brandKoreanName")
                 .query(keyword)
                 .boost(1.5f)
                 .build()._toQuery();
 
-        Query brandEnglishNameQuery = QueryBuilders.match()
+        Query brandEnglishNameMatchQuery = QueryBuilders.match()
                 .field("brandEnglishName")
                 .query(keyword)
                 .boost(1.5f)
                 .build()._toQuery();
 
-        Query categoryNameQuery = QueryBuilders.match()
+        Query categoryNameMatchQuery = QueryBuilders.match()
                 .field("categoryName")
                 .query(keyword)
                 .boost(1.0f)
                 .build()._toQuery();
 
-        // Bool 쿼리 생성
+        // Fuzzy 매칭 쿼리 (오타 허용)
+        Query koreanNameFuzzyQuery = QueryBuilders.fuzzy()
+                .field("koreanName")
+                .value(keyword)
+                .fuzziness("AUTO")
+                .boost(1.5f)
+                .build()._toQuery();
+
+        Query englishNameFuzzyQuery = QueryBuilders.fuzzy()
+                .field("englishName")
+                .value(keyword)
+                .fuzziness("AUTO")
+                .boost(1.5f)
+                .build()._toQuery();
+
+        // Prefix 매칭 쿼리 (시작 부분 일치)
+        Query koreanNamePrefixQuery = QueryBuilders.prefix()
+                .field("koreanName")
+                .value(keyword)
+                .boost(1.8f)
+                .build()._toQuery();
+
+        Query englishNamePrefixQuery = QueryBuilders.prefix()
+                .field("englishName")
+                .value(keyword)
+                .boost(1.8f)
+                .build()._toQuery();
+
+        // Phrase 매칭 쿼리 (구문 일치)
+        Query koreanNamePhraseQuery = QueryBuilders.matchPhrase()
+                .field("koreanName")
+                .query(keyword)
+                .boost(2.5f)
+                .build()._toQuery();
+
+        Query englishNamePhraseQuery = QueryBuilders.matchPhrase()
+                .field("englishName")
+                .query(keyword)
+                .boost(2.5f)
+                .build()._toQuery();
+
+        // Bool 쿼리 조합
         BoolQuery boolQuery = QueryBuilders.bool()
-                .should(koreanNameQuery)
-                .should(englishNameQuery)
-                .should(brandKoreanNameQuery)
-                .should(brandEnglishNameQuery)
-                .should(categoryNameQuery)
+                // 정확한 매칭
+                .should(koreanNameMatchQuery)
+                .should(englishNameMatchQuery)
+                .should(brandKoreanNameMatchQuery)
+                .should(brandEnglishNameMatchQuery)
+                .should(categoryNameMatchQuery)
+                // Fuzzy 매칭
+                .should(koreanNameFuzzyQuery)
+                .should(englishNameFuzzyQuery)
+                // Prefix 매칭
+                .should(koreanNamePrefixQuery)
+                .should(englishNamePrefixQuery)
+                // Phrase 매칭
+                .should(koreanNamePhraseQuery)
+                .should(englishNamePhraseQuery)
                 .minimumShouldMatch("1")
                 .build();
 
@@ -71,6 +125,7 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
         NativeQuery searchQuery = NativeQuery.builder()
                 .withQuery(boolQuery._toQuery())
                 .withPageable(pageable)
+                .withSort(Sort.by(Sort.Direction.DESC, "_score")) // 검색 정확도로 정렬
                 .build();
 
         // 검색 실행
@@ -79,98 +134,11 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
                 ProductElasticsearchEntity.class
         );
 
-        // 결과 변환
-        List<ProductElasticsearchEntity> products = searchHits.stream()
+        List<ProductElasticsearchEntity> products = searchHits.getSearchHits().stream()
                 .map(SearchHit::getContent)
                 .toList();
 
         // 페이징 처리된 결과 반환
         return new PageImpl<>(products, pageable, searchHits.getTotalHits());
-    }
-
-    @Override
-    public List<ProductElasticsearchEntity> findSimilarKeywords(String keyword, int size) {
-        if (!StringUtils.hasText(keyword)) {
-            return List.of();
-        }
-
-        // 각 필드별 퍼지 매칭 쿼리 생성
-        Query koreanNameQuery = QueryBuilders.fuzzy()
-                .field("koreanName")
-                .value(keyword)
-                .fuzziness("AUTO")
-                .boost(2.0f)
-                .build()._toQuery();
-
-        Query englishNameQuery = QueryBuilders.fuzzy()
-                .field("englishName")
-                .value(keyword)
-                .fuzziness("AUTO")
-                .boost(2.0f)
-                .build()._toQuery();
-
-        Query brandKoreanNameQuery = QueryBuilders.fuzzy()
-                .field("brandKoreanName")
-                .value(keyword)
-                .fuzziness("AUTO")
-                .boost(1.5f)
-                .build()._toQuery();
-
-        Query brandEnglishNameQuery = QueryBuilders.fuzzy()
-                .field("brandEnglishName")
-                .value(keyword)
-                .fuzziness("AUTO")
-                .boost(1.5f)
-                .build()._toQuery();
-
-        Query categoryNameQuery = QueryBuilders.fuzzy()
-                .field("categoryName")
-                .value(keyword)
-                .fuzziness("AUTO")
-                .boost(1.0f)
-                .build()._toQuery();
-
-        // 각 필드별 prefix 매칭 쿼리 생성
-        Query koreanNamePrefixQuery = QueryBuilders.prefix()
-                .field("koreanName")
-                .value(keyword)
-                .boost(2.0f)
-                .build()._toQuery();
-
-        Query englishNamePrefixQuery = QueryBuilders.prefix()
-                .field("englishName")
-                .value(keyword)
-                .boost(2.0f)
-                .build()._toQuery();
-
-        // Bool 쿼리로 조합
-        BoolQuery boolQuery = QueryBuilders.bool()
-                .should(koreanNameQuery)
-                .should(englishNameQuery)
-                .should(brandKoreanNameQuery)
-                .should(brandEnglishNameQuery)
-                .should(categoryNameQuery)
-                .should(koreanNamePrefixQuery)
-                .should(englishNamePrefixQuery)
-                .minimumShouldMatch("1")
-                .build();
-
-        // Native 쿼리 생성
-        NativeQuery searchQuery = NativeQuery.builder()
-                .withQuery(boolQuery._toQuery())
-                .withSort(Sort.by(Sort.Direction.DESC, "_score"))
-                .withPageable(PageRequest.of(0, size))
-                .build();
-
-        // 검색 실행
-        SearchHits<ProductElasticsearchEntity> searchHits = elasticsearchOperations.search(
-                searchQuery,
-                ProductElasticsearchEntity.class
-        );
-
-        // 결과 변환 및 반환
-        return searchHits.stream()
-                .map(SearchHit::getContent)
-                .toList();
     }
 }

@@ -34,22 +34,21 @@ public class SearchRestController {
     }
 
     @GetMapping("/hottest")
-    public CommonResponse<SearchHistoriesRes> getHottestSearchTerms(@RequestParam("keyword") String keyword,
-                                                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+    public CommonResponse<SearchHistoriesRes> getHottestSearchTerms(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                                     @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
 
-        log.info("[GET] /search/hottest, keyword: {}, page: {}, size: {}", keyword, page, size);
+        log.info("[GET] /search/hottest, page: {}, size: {}", page, size);
 
         return CommonResponse.success(searchHistoryService.getHottest(size));
     }
 
-    @GetMapping("/similar")
-    public CommonResponse<List<String>> getSimilarKeywords(
+    @GetMapping("/autocomplete")
+    public CommonResponse<List<String>> getAutoComplete(
             @RequestParam("keyword") String keyword,
             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size
     ) {
-        log.info("[GET] /search/similar, keyword: {}, size: {}", keyword, size);
+        log.info("[GET] /search/autocomplete, keyword: {}, size: {}", keyword, size);
 
-        return CommonResponse.success(searchHistoryService.getSimilarKeywords(keyword));
+        return CommonResponse.success(searchHistoryService.getAutoComplete(keyword, size));
     }
 }
