@@ -33,6 +33,8 @@ spring:
     mongodb:
       host: mongodb-0.mongodb-headless.mongodb.svc.cluster.local
       port: 27017
+      username: admin
+      password: kang199801!
       database: muve
 
 
