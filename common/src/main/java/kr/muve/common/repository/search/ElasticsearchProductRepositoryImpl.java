@@ -85,7 +85,7 @@ public class ElasticsearchProductRepositoryImpl implements ElasticsearchProductC
         // 결과 변환
         List<ProductElasticsearchEntity> products = searchHits.stream()
                 .map(SearchHit::getContent)
-                .collect(Collectors.toList());
+                .toList();
 
         // 페이징 처리된 결과 반환
         return new PageImpl<>(products, pageable, searchHits.getTotalHits());

@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface MongoSearchHistoryRepository extends MongoRepository<SearchHistoryMongoEntity, String> {
-    List<SearchHistoryMongoEntity> findByUserIdOrderBySearchedAtDesc(String userId, Pageable pageable);
-    void deleteByUserIdAndKeyword(String userId, String keyword);
-    boolean existsByUserIdAndKeyword(String userId, String keyword);
+    SearchHistoryMongoEntity findByKeyword(String keyword);
+    List<SearchHistoryMongoEntity> findAllByOrderByCountDesc(Pageable pageable);
+    void deleteByKeyword(String keyword);
+    boolean existsByKeyword(String keyword);
 }

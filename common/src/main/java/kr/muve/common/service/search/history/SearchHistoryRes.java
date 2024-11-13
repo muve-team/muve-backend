@@ -10,7 +10,6 @@ import java.util.List;
 
 public record SearchHistoryRes(
         String id,
-        String userId,
         String keyword,
-        LocalDateTime searchedAt
+        int count
 ) {}

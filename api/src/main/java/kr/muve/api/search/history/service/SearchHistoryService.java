@@ -2,66 +2,62 @@ package kr.muve.api.search.history.service;
 
 import kr.muve.common.domain.search.history.SearchHistoryMongoEntity;
 import kr.muve.common.repository.search.history.MongoSearchHistoryRepository;
-import kr.muve.common.service.search.history.*;
-import org.springframework.stereotype.Service;
-import org.springframework.data.domain.PageRequest;
+import kr.muve.common.service.search.history.SearchHistoriesRes;
 import lombok.RequiredArgsConstructor;
-import java.util.List;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SearchHistoryService implements SearchHistoryAdd, SearchHistoryGet, SearchHistoryRemove, SearchHistoryClear {
+public class SearchHistoryService {
 
     private final MongoSearchHistoryRepository searchHistoryRepository;
-    private static final int MAX_SEARCH_HISTORY = 5;
 
     /**
-     * 검색어 저장
+     * 검색어 저장 및 카운트 증가
      */
-    @Override
-    public void add(String userId, String keyword) {
-        // 중복 검색어 처리
-        if (searchHistoryRepository.existsByUserIdAndKeyword(userId, keyword)) {
-            searchHistoryRepository.deleteByUserIdAndKeyword(userId, keyword);
-        }
+    public void add(String keyword) {
+        SearchHistoryMongoEntity existingHistory = searchHistoryRepository.findByKeyword(keyword);
 
-        // 새 검색어 추가
-        searchHistoryRepository.save(new SearchHistoryMongoEntity(userId, keyword));
-
-        // 최대 개수 초과시 가장 오래된 검색어 삭제
-        List<SearchHistoryMongoEntity> histories = searchHistoryRepository
-                .findByUserIdOrderBySearchedAtDesc(userId, PageRequest.of(0, MAX_SEARCH_HISTORY + 1));
-
-        if (histories.size() > MAX_SEARCH_HISTORY) {
-            SearchHistoryMongoEntity oldest = histories.get(histories.size() - 1);
-            searchHistoryRepository.delete(oldest);
+        if (existingHistory != null) {
+            // 기존 검색어가 있으면 카운트 증가
+            existingHistory.increaseCount();
+            searchHistoryRepository.save(existingHistory);
+        } else {
+            // 새 검색어 추가
+            searchHistoryRepository.save(new SearchHistoryMongoEntity(keyword));
         }
     }
 
     /**
-     * 최근 검색어 조회
+     * 인기 검색어 조회 (count 기준 정렬)
      */
-    @Override
-    public SearchHistoriesRes get(String userId) {
+    public SearchHistoriesRes get(int limit) {
         return SearchHistoriesRes.from(searchHistoryRepository
-                .findByUserIdOrderBySearchedAtDesc(userId, PageRequest.of(0, MAX_SEARCH_HISTORY)));
+                .findAllByOrderByCountDesc(PageRequest.of(0, limit)));
     }
 
     /**
      * 특정 검색어 삭제
      */
-    @Override
-    public void remove(String userId, String keyword) {
-        searchHistoryRepository.deleteByUserIdAndKeyword(userId, keyword);
+    public void remove(String keyword) {
+        SearchHistoryMongoEntity history = searchHistoryRepository.findByKeyword(keyword);
+        if (history != null) {
+            if (history.getCount() > 1) {
+                // 카운트가 1보다 크면 카운트만 감소
+                history.decreaseCount();
+                searchHistoryRepository.save(history);
+            } else {
+                // 카운트가 1이면 검색어 삭제
+                searchHistoryRepository.delete(history);
+            }
+        }
     }
 
     /**
-     * 사용자의 모든 검색어 삭제
+     * 모든 검색어 삭제
      */
-    @Override
-    public void clear(String userId) {
-        List<SearchHistoryMongoEntity> histories = searchHistoryRepository
-                .findByUserIdOrderBySearchedAtDesc(userId, PageRequest.of(0, Integer.MAX_VALUE));
-        searchHistoryRepository.deleteAll(histories);
+    public void clear() {
+        searchHistoryRepository.deleteAll();
     }
 }

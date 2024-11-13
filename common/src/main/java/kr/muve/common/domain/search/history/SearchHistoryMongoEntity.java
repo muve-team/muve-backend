@@ -11,15 +11,21 @@ import java.time.LocalDateTime;
 public class SearchHistoryMongoEntity {
     @Id
     private String id;
-    private String userId;      // 사용자 ID
-    private String keyword;     // 검색어
-    private LocalDateTime searchedAt; // 검색 시간
+    private String keyword;
+    private int count;
 
-    public SearchHistoryMongoEntity(String userId, String keyword) {
-        this.userId = userId;
+    public SearchHistoryMongoEntity(String keyword) {
         this.keyword = keyword;
-        this.searchedAt = LocalDateTime.now();
+        this.count = 1;
     }
 
-    // getter, setter
+    public void increaseCount() {
+        this.count++;
+    }
+
+    public void decreaseCount() {
+        if (this.count > 0) {
+            this.count--;
+        }
+    }
 }

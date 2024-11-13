@@ -7,11 +7,15 @@ import lombok.Data;
 import java.util.List;
 
 public record SearchHistoriesRes(
-    List<SearchHistoryRes> histories
+        List<SearchHistoryRes> histories
 ) {
     public static SearchHistoriesRes from(List<SearchHistoryMongoEntity> histories) {
         return new SearchHistoriesRes(histories.stream()
-                .map(h -> new SearchHistoryRes(h.getId(), h.getUserId(), h.getKeyword(), h.getSearchedAt()))
+                .map(h -> new SearchHistoryRes(
+                        h.getId(),
+                        h.getKeyword(),
+                        h.getCount()
+                ))
                 .toList());
     }
 }
