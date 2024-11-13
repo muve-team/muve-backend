@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ProductsSearch {
 
-    List<SearchProducts> getSearchProducts(String keyword, Integer page, Integer size);
+    SearchProductsRes getSearchProducts(String keyword, Integer page, Integer size);
 }

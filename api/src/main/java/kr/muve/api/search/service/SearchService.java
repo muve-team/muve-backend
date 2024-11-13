@@ -1,8 +1,10 @@
 package kr.muve.api.search.service;
 
+import kr.muve.common.repository.product.ElasticsearchProductRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
+import kr.muve.common.repository.search.history.MongoSearchHistoryRepository;
 import kr.muve.common.service.search.ProductsSearch;
-import kr.muve.common.service.search.SearchProducts;
+import kr.muve.common.service.search.SearchProductsRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,14 +15,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class SearchQueryService implements ProductsSearch {
+public class SearchService implements ProductsSearch {
 
-    private final SpringDataProductRepository productRepository;
+    private final ElasticsearchProductRepository productRepository;
 
     @Override
-    public List<SearchProducts> getSearchProducts(String keyword, Integer page, Integer size) {
+    public SearchProductsRes getSearchProducts(String keyword, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return SearchProducts.from(productRepository.findAllWithKeyword(keyword, pageable));
+        return SearchProductsRes.from(productRepository.searchByKeyword(keyword, pageable));
     }
 }
