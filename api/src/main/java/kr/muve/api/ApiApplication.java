@@ -8,6 +8,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @EnableJpaRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
@@ -16,6 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = "kr.muve")
 @EnableElasticsearchRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Elastic.*"))
+@EnableMongoRepositories(basePackages = "kr.muve.common.repository",
+        includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Mongo.*"))
 public class ApiApplication {
 
     public static void main(String[] args) {
