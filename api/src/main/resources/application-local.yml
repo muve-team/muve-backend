@@ -51,6 +51,8 @@ spring:
     uris: ${ELASTICSEARCH_URI:http://localhost:9200}
   data:
     mongodb:
+      embedded:
+        enabled: true
       host: localhost
       port: 27017
       database: localdb
