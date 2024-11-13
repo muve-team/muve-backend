@@ -1,4 +1,4 @@
-package kr.muve.common.domain.savedProduct;
+package kr.muve.common.domain.saved.product;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.product.ProductJpaEntity;

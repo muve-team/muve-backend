@@ -1,7 +1,6 @@
 package kr.muve.common.service.my;
 
-import kr.muve.common.domain.saved.SavedJpaEntity;
-import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.saved.product.SavedProductJpaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

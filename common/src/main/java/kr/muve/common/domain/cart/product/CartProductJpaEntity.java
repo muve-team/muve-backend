@@ -1,16 +1,12 @@
-package kr.muve.common.domain.cartProduct;
+package kr.muve.common.domain.cart.product;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Getter

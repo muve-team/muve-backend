@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import kr.muve.common.domain.category.CategoryJpaEntity;
 import kr.muve.common.domain.order.OrderJpaEntity;
-import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
+import kr.muve.common.domain.order.product.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.service.user.UserJoinCommand;

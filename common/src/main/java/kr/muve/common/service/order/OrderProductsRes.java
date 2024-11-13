@@ -1,6 +1,6 @@
 package kr.muve.common.service.order;
 
-import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
+import kr.muve.common.domain.order.product.OrderProductJpaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

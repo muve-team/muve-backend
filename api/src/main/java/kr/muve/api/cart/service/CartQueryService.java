@@ -1,7 +1,7 @@
 package kr.muve.api.cart.service;
 
 import kr.muve.common.domain.cart.CartJpaEntity;
-import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
+import kr.muve.common.domain.cart.product.CartProductJpaEntity;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
 import kr.muve.common.service.cart.*;
 import lombok.RequiredArgsConstructor;

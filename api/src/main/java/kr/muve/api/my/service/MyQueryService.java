@@ -1,7 +1,7 @@
 package kr.muve.api.my.service;
 
 import kr.muve.common.domain.saved.SavedJpaEntity;
-import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.saved.product.SavedProductJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.repository.order.SpringDataOrderRepository;

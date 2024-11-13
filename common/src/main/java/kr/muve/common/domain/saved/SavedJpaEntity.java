@@ -1,7 +1,7 @@
 package kr.muve.common.domain.saved;
 
 import jakarta.persistence.*;
-import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.saved.product.SavedProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 

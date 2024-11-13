@@ -2,7 +2,7 @@ package kr.muve.common.domain.order;
 
 import jakarta.persistence.*;
 import kr.muve.common.domain.delivery.DeliveryJpaEntity;
-import kr.muve.common.domain.orderProduct.OrderProductJpaEntity;
+import kr.muve.common.domain.order.product.OrderProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import lombok.Getter;
 

@@ -3,7 +3,7 @@ package kr.muve.common.domain.product;
 import jakarta.persistence.*;
 import kr.muve.common.domain.cart.CartJpaEntity;
 import kr.muve.common.domain.category.CategoryJpaEntity;
-import kr.muve.common.domain.savedProduct.SavedProductJpaEntity;
+import kr.muve.common.domain.saved.product.SavedProductJpaEntity;
 import kr.muve.common.domain.timedeal.TimeDealJpaEntity;
 import kr.muve.common.exception.NotEnoughStockException;
 import kr.muve.common.service.product.ProductDto;

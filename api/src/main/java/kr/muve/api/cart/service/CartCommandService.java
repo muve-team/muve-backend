@@ -1,13 +1,11 @@
 package kr.muve.api.cart.service;
 
 import kr.muve.common.domain.cart.CartJpaEntity;
-import kr.muve.common.domain.cartProduct.CartProductJpaEntity;
+import kr.muve.common.domain.cart.product.CartProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
-import kr.muve.common.exception.ProductNotFoundException;
-import kr.muve.common.exception.UserNotFoundException;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
 import kr.muve.common.repository.cartProduct.SpringDataCartProductRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;

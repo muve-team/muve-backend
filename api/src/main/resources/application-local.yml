@@ -34,9 +34,23 @@ logging:
   level:
     org.hibernate.SQL: debug
 
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 8.0.0-rc9
+        storage:
+          database-dir: target/embedded-mongo
+          repl-set-name: rs0
+
 spring:
   h2:
     console:
       enabled: true
   elasticsearch:
     uris: ${ELASTICSEARCH_URI:http://localhost:9200}
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: localdb
