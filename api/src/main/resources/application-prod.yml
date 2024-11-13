@@ -29,6 +29,10 @@ spring:
     username: ${ELASTIC_SEARCH_USERNAME}
     password: ${ELASTIC_SEARCH_PASSWORD}
 
+  mongodb:
+    embedded:
+      enabled: false
+
   data:
     mongodb:
       host: mongodb-0.mongodb-headless.mongodb.svc.cluster.local
