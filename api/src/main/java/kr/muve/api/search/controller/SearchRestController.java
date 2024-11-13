@@ -40,7 +40,16 @@ public class SearchRestController {
 
         log.info("[GET] /search/hottest, keyword: {}, page: {}, size: {}", keyword, page, size);
 
-        return CommonResponse.success(searchHistoryService.get(size));
+        return CommonResponse.success(searchHistoryService.getHottest(size));
     }
 
+    @GetMapping("/similar")
+    public CommonResponse<List<String>> getSimilarKeywords(
+            @RequestParam("keyword") String keyword,
+            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size
+    ) {
+        log.info("[GET] /search/similar, keyword: {}, size: {}", keyword, size);
+
+        return CommonResponse.success(searchHistoryService.getSimilarKeywords(keyword));
+    }
 }

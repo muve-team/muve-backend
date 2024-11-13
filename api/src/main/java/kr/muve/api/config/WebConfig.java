@@ -41,6 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/",
                         "/search",
                         "/search/hottest",
+                        "/search/similar",
                         "/user/join",
                         "/user/login",
                         "/user/logout",
