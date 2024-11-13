@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@ConditionalOnProperty(name = "spring.mongodb.embedded.enabled", havingValue = "true", matchIfMissing = false)
+@Profile("local")
 @Import(EmbeddedMongoAutoConfiguration.class)
 public class EmbeddedMongoConfig {
 }

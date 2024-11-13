@@ -1,5 +1,6 @@
 package kr.muve.api;
 
+import de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration;
 import kr.muve.common.repository.product.ElasticsearchProductRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.data.mongo.MongoHealthContributorAutoConfiguration;
@@ -20,7 +21,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableJpaAuditing
 @SpringBootApplication(scanBasePackages = { "kr.muve.common", "kr.muve.api"}, exclude = {
         MongoHealthContributorAutoConfiguration.class,
-        ElasticsearchRestHealthContributorAutoConfiguration.class
+        ElasticsearchRestHealthContributorAutoConfiguration.class,
+        EmbeddedMongoAutoConfiguration.class
 })
 @EnableJpaRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {JpaRepository.class}))
