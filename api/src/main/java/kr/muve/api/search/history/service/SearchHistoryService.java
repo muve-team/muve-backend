@@ -1,6 +1,7 @@
 package kr.muve.api.search.history.service;
 
 import kr.muve.common.repository.search.history.ElasticsearchSearchHistoryCustomRepository;
+import kr.muve.common.repository.search.history.ElasticsearchSearchHistoryRepository;
 import kr.muve.common.service.search.history.SearchHistoriesRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchHistoryService {
 
-    private final ElasticsearchSearchHistoryCustomRepository searchHistoryRepository;
+    private final ElasticsearchSearchHistoryRepository searchHistoryRepository;
 
     /**
      * 검색어 저장 및 카운트 증가
