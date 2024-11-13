@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
 @EntityScan(basePackages = "kr.muve.common.domain")
-@SpringBootApplication(scanBasePackages = "kr.muve", exclude = {
+@SpringBootApplication(scanBasePackages = { "kr.muve.common", "kr.muve.mall"}, exclude = {
         MongoHealthContributorAutoConfiguration.class,
         ElasticsearchRestHealthContributorAutoConfiguration.class
 })

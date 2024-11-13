@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
 @EntityScan(basePackages = "kr.muve.common.domain")
 @EnableJpaAuditing
-@SpringBootApplication(scanBasePackages = "kr.muve", exclude = {
+@SpringBootApplication(scanBasePackages = { "kr.muve.common", "kr.muve.api"}, exclude = {
         MongoHealthContributorAutoConfiguration.class,
         ElasticsearchRestHealthContributorAutoConfiguration.class
 })
