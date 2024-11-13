@@ -7,7 +7,7 @@ import kr.muve.common.domain.user.UserJpaEntity;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.repository.cart.SpringDataCartRepository;
-import kr.muve.common.repository.cartProduct.SpringDataCartProductRepository;
+import kr.muve.common.repository.cart.product.SpringDataCartProductRepository;
 import kr.muve.common.repository.product.SpringDataProductRepository;
 import kr.muve.common.repository.user.SpringDataUserRepository;
 import kr.muve.common.service.cart.*;
