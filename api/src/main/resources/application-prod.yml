@@ -29,6 +29,12 @@ spring:
     username: ${ELASTIC_SEARCH_USERNAME}
     password: ${ELASTIC_SEARCH_PASSWORD}
 
+  data:
+    mongodb:
+      host: mongodb-0.mongodb-headless.mongodb.svc.cluster.local
+      port: 27017
+      database: muve
+
 cloud:
   aws:
     s3:
