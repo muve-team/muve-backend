@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
 @EntityScan(basePackages = "kr.muve.common.domain")
 @EnableJpaAuditing
-@SpringBootApplication(scanBasePackages = "kr.muve")
+@SpringBootApplication(scanBasePackages = "kr.muve.api")
 @EnableElasticsearchRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Elastic.*"))
 @EnableMongoRepositories(basePackages = "kr.muve.common.repository",
