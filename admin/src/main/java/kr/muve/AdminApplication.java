@@ -15,7 +15,10 @@ import org.springframework.stereotype.Component;
 @EnableJpaRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Data.*"))
 @EntityScan(basePackages = "kr.muve.common.domain")
-@SpringBootApplication(scanBasePackages = "kr.muve.admin")
+@SpringBootApplication(scanBasePackages = "kr.muve", exclude = {
+        MongoHealthContributorAutoConfiguration.class,
+        ElasticsearchRestHealthContributorAutoConfiguration.class
+})
 @EnableElasticsearchRepositories(basePackages = "kr.muve.common.repository",
         includeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*Elastic.*"))
 public class AdminApplication {
