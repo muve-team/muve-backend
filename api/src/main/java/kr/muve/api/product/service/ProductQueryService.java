@@ -37,8 +37,7 @@ public class ProductQueryService implements RandomProducts, TimeDealProducts, De
 
     @Override
     public ProductDetailRes getProductDetail(Long id) {
-        ProductJpaEntity product = productRepository.findById(id)
-                .orElseThrow(() -> new BaseException(ErrorCode.PRODUCT_NOT_FOUND));
+        ProductJpaEntity product = getProductById(id);
 
         return ProductDetailRes.from(product);
     }
@@ -49,6 +48,11 @@ public class ProductQueryService implements RandomProducts, TimeDealProducts, De
 
         Page<ProductJpaEntity> productPage = productRepository.findAllByCreatedDateDesc(pageable);
         return NewestProductsRes.from(productPage);
+    }
+
+    public ProductJpaEntity getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new BaseException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 }
 

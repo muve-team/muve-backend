@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.muve.common.domain.delivery.DeliveryJpaEntity;
 import kr.muve.common.domain.order.product.OrderProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.service.order.OrderCreateCommand;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,10 @@ public class OrderJpaEntity {
 
     private LocalDateTime orderDate;
 
+    private String ordererName;
+    private String ordererPhoneNumber;
+    private String ordererEmail;
+
     @OneToMany(mappedBy = "orderJpaEntity", cascade = CascadeType.ALL)
     private List<OrderProductJpaEntity> orderProductJpaEntities = new ArrayList<>();
 
@@ -41,15 +46,21 @@ public class OrderJpaEntity {
 
     }
 
-    private OrderJpaEntity(UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
+    private OrderJpaEntity(OrderCreateCommand command, DeliveryJpaEntity deliveryJpaEntity,
+                           UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
         Arrays.stream(orderProductJpaEntities).forEach(this::addOrderProduct);
         this.userJpaEntity = userJpaEntity;
+        this.ordererName = command.ordererName();
+        this.ordererPhoneNumber = command.ordererPhoneNumber();
+        this.ordererEmail = command.ordererEmail();
+        this.deliveryJpaEntity = deliveryJpaEntity;
         this.status = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
     }
 
-    public static OrderJpaEntity createOrder(UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
-        return new OrderJpaEntity(userJpaEntity, orderProductJpaEntities);
+    public static OrderJpaEntity createOrder(OrderCreateCommand command, DeliveryJpaEntity deliveryJpaEntity,
+                                             UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
+        return new OrderJpaEntity(command, deliveryJpaEntity, userJpaEntity, orderProductJpaEntities);
     }
 
     public void addOrderProduct(OrderProductJpaEntity orderProductJpaEntity) {

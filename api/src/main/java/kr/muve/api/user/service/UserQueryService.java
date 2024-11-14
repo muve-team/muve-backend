@@ -38,8 +38,8 @@ public class UserQueryService implements ValidUser, LogoutUser {
 
         String email = jweTokenProvider.getEmail(token);
 
-        UserJpaEntity foundUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
+        UserJpaEntity foundUser = getUserByEmail(email);
+
 
         return ValidUserRes.from(token, foundUser);
     }
@@ -47,5 +47,10 @@ public class UserQueryService implements ValidUser, LogoutUser {
     @Override
     public boolean logout(HttpServletRequest request, HttpServletResponse response) {
         return cookieUtil.removeCookie(AUTH_TOKEN, request, response);
+    }
+
+    public UserJpaEntity getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
     }
 }

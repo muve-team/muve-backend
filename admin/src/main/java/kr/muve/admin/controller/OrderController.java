@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final CreateOrder createOrder;
+//    private final CreateOrder createOrder;
 
     private final FindOrders findOrders;
 
@@ -40,16 +40,16 @@ public class OrderController {
         return "order/createOrderForm";
     }
 
-    @PostMapping(value = "/order")
-    public String createOrderForm(@Valid OrderForm form, BindingResult result) {
-        if (result.hasErrors()) {
-            return "order/createOrderForm";
-        }
-        OrderDto dto = OrderDto.from(form);
-        createOrder.create(dto);
-
-        return "redirect:/";
-    }
+//    @PostMapping(value = "/order")
+//    public String createOrderForm(@Valid OrderForm form, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "order/createOrderForm";
+//        }
+//        OrderDto dto = OrderDto.from(form);
+//        createOrder.create(dto);
+//
+//        return "redirect:/";
+//    }
 
     @GetMapping(value = "/orders")
     public String getOrders(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {

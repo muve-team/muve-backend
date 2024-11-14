@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.user.Address;
 import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.service.order.OrderCreateCommand;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -34,6 +35,23 @@ public class DeliveryJpaEntity {
     private DeliveryStatus status;
 
     private LocalDateTime deliveryDate;
+
+    public DeliveryJpaEntity(Address address) {
+        this.address = address;
+        this.company = "대한통운";
+        this.trackingNumber = "123456789";
+        this.status = DeliveryStatus.READY;
+        this.deliveryDate = LocalDateTime.now();
+    }
+
+    protected DeliveryJpaEntity() {
+
+    }
+
+    public static DeliveryJpaEntity createDelivery(OrderCreateCommand command) {
+        Address address = new Address(command.city(), command.street(), command.zipcode());
+        return new DeliveryJpaEntity(address);
+    }
 
     @Override
     public boolean equals(Object o) {

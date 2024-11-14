@@ -96,11 +96,7 @@ public class ProductJpaEntity {
     }
 
     public void removeStock(Integer count) {
-        Integer restStock = this.stockQuantity - count;
-        if (restStock < 0) {
-            throw new NotEnoughStockException("재고가 부족합니다");
-        }
-        this.stockQuantity = restStock;
+        this.stockQuantity = checkPreCondition(count);
     }
 
     public void addStock(Integer count) {
@@ -118,5 +114,14 @@ public class ProductJpaEntity {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public int checkPreCondition(Integer count) {
+        int restStock = this.stockQuantity - count;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("재고가 부족합니다");
+        }
+
+        return restStock;
     }
 }

@@ -20,29 +20,29 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class OrderService implements CreateOrder, CancelOrder, FindOrders {
+public class OrderService implements CancelOrder, FindOrders {
 
     private final SpringDataOrderRepository orderRepository;
     private final UserService userService;
     private final ProductService productService;
 
-    @Override
-    @Transactional
-    public Long create(OrderDto dto) {
-
-        Long userId = dto.getUserId();
-        Long productId = dto.getProductId();
-
-        UserJpaEntity userJpaEntity = userService.findById(userId);
-        ProductJpaEntity productJpaEntity = productService.findById(productId);
-
-        OrderProductJpaEntity orderProductJpaEntity = OrderProductJpaEntity.createOrderProduct(productJpaEntity, dto.getCount());
-
-        OrderJpaEntity orderJpaEntity = OrderJpaEntity.createOrder(userJpaEntity, orderProductJpaEntity);
-        orderRepository.save(orderJpaEntity);
-
-        return orderJpaEntity.getId();
-    }
+//    @Override
+//    @Transactional
+//    public Long create(OrderDto dto) {
+//
+//        Long userId = dto.getUserId();
+//        Long productId = dto.getProductId();
+//
+//        UserJpaEntity userJpaEntity = userService.findById(userId);
+//        ProductJpaEntity productJpaEntity = productService.findById(productId);
+//
+//        OrderProductJpaEntity orderProductJpaEntity = OrderProductJpaEntity.createOrderProduct(productJpaEntity, dto.getCount());
+//
+//        OrderJpaEntity orderJpaEntity = OrderJpaEntity.createOrder(userJpaEntity, orderProductJpaEntity);
+//        orderRepository.save(orderJpaEntity);
+//
+//        return orderJpaEntity.getId();
+//    }
 
     // 주문 목록 조회
     @Override
