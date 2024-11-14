@@ -79,25 +79,36 @@ public class ElasticsearchSearchHistoryRepositoryImpl implements ElasticsearchSe
         Query prefixQuery = QueryBuilders.prefix()
                 .field("keyword")
                 .value(prefix)
-                .boost(2.0f)
+                .boost(2.5f) // prefix 쿼리의 가중치 증가
                 .build()._toQuery();
 
         Query matchPhrasePrefixQuery = QueryBuilders.matchPhrasePrefix()
                 .field("keyword")
                 .query(prefix)
+                .boost(1.5f) // matchPhrasePrefix 쿼리의 가중치 설정
                 .build()._toQuery();
 
         Query fuzzyQuery = QueryBuilders.fuzzy()
                 .field("keyword")
                 .value(prefix)
                 .fuzziness("AUTO")
+                .prefixLength(1) // 모호성 허용 범위 설정
+                .maxExpansions(10) // 검색 확장 수 제한
+                .boost(1.2f) // fuzzy 쿼리의 가중치 설정
+                .build()._toQuery();
+
+        Query wildcardQuery = QueryBuilders.wildcard()
+                .field("keyword")
+                .value("*" + prefix + "*") // 검색어 중간에도 해당하는 단어 포함
+                .boost(0.8f) // wildcard 쿼리의 낮은 가중치
                 .build()._toQuery();
 
         BoolQuery boolQuery = QueryBuilders.bool()
                 .should(prefixQuery)
                 .should(matchPhrasePrefixQuery)
                 .should(fuzzyQuery)
-                .minimumShouldMatch("1")
+                .should(wildcardQuery) // wildcard 쿼리 추가
+                .minimumShouldMatch("1") // 하나 이상의 쿼리가 일치해야 함
                 .build();
 
         NativeQuery searchQuery = NativeQuery.builder()
@@ -116,4 +127,5 @@ public class ElasticsearchSearchHistoryRepositoryImpl implements ElasticsearchSe
                 .map(hit -> hit.getContent().getKeyword())
                 .toList();
     }
+
 }
