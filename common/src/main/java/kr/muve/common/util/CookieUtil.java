@@ -51,14 +51,13 @@ public class CookieUtil {
         if (request.getCookies() != null) {
             Arrays.stream(request.getCookies())
                     .filter(cookie -> key.equals(cookie.getName()))  // 삭제할 쿠키 찾기
-                    .findFirst()
-                    .ifPresent(cookie -> {
+                    .forEach(cookie -> {
                         cookie.setValue("");       // 쿠키 값 초기화
                         cookie.setPath("/");       // 경로 설정 (쿠키가 설정된 경로와 동일해야 함)
                         cookie.setMaxAge(0);       // 만료 시간 0으로 설정하여 삭제
                         cookie.setHttpOnly(true);  // HttpOnly 설정 유지
                         cookie.setSecure(true);    // Secure 설정 유지 (HTTPS)
-                        response.addCookie(cookie); // 응답에 추가하여 브라우저가 쿠키 삭제하도록 함
+                        response.addCookie(cookie);
                     });
             return true;
         }
