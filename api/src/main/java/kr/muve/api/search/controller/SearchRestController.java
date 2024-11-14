@@ -4,7 +4,7 @@ import kr.muve.api.search.history.service.SearchHistoryService;
 import kr.muve.common.exception.CommonResponse;
 import kr.muve.common.service.search.ProductsSearch;
 import kr.muve.common.service.search.SearchProductsRes;
-import kr.muve.common.service.search.history.SearchHistoriesRes;
+import kr.muve.common.service.search.history.HottestSearchesRes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ public class SearchRestController {
     }
 
     @GetMapping("/hottest")
-    public CommonResponse<SearchHistoriesRes> getHottestSearchTerms(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+    public CommonResponse<HottestSearchesRes> getHottestSearchTerms(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                                     @RequestParam(name = "size", required = false, defaultValue = "10") Integer size) {
 
         log.info("[GET] /search/hottest, page: {}, size: {}", page, size);

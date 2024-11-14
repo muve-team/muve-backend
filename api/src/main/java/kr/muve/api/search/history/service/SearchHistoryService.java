@@ -1,8 +1,7 @@
 package kr.muve.api.search.history.service;
 
-import kr.muve.common.repository.search.history.ElasticsearchSearchHistoryCustomRepository;
 import kr.muve.common.repository.search.history.ElasticsearchSearchHistoryRepository;
-import kr.muve.common.service.search.history.SearchHistoriesRes;
+import kr.muve.common.service.search.history.HottestSearchesRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +23,8 @@ public class SearchHistoryService {
     /**
      * 인기 검색어 조회
      */
-    public SearchHistoriesRes getHottest(int limit) {
-        return SearchHistoriesRes.from(searchHistoryRepository.findHottestSearches(limit));
+    public HottestSearchesRes getHottest(int limit) {
+        return HottestSearchesRes.from(searchHistoryRepository.findHottestSearches(limit));
     }
 
     /**
