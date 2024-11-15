@@ -11,12 +11,14 @@ import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
 import kr.muve.common.exception.JweException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
@@ -100,6 +102,10 @@ public class JweTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
+        return Arrays.stream(request.getCookies())
+                .filter(cookie -> cookie.getName().equals(AUTH_TOKEN) && StringUtils.hasText(cookie.getValue()))
+                .findFirst()
+                .orElseThrow(() -> new JweException(ErrorCode.JWE_TOKEN_INVALID))
+                .getValue();
     }
 }

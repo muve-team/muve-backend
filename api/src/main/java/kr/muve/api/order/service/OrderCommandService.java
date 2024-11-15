@@ -9,6 +9,7 @@ import kr.muve.common.domain.order.OrderJpaEntity;
 import kr.muve.common.domain.order.product.OrderProductJpaEntity;
 import kr.muve.common.domain.product.ProductJpaEntity;
 import kr.muve.common.domain.user.UserJpaEntity;
+import kr.muve.common.repository.delivery.SpringDataDeliveryRepository;
 import kr.muve.common.repository.order.SpringDataOrderRepository;
 import kr.muve.common.security.JweTokenProvider;
 import kr.muve.common.service.order.CreateOrder;
@@ -30,11 +31,11 @@ public class OrderCommandService implements CreateOrder {
     private final ProductQueryService productQueryService;
     private final UserQueryService userQueryService;
     private final JweTokenProvider jweTokenProvider;
-    private final CookieUtil cookieUtil;
+    private final SpringDataDeliveryRepository deliveryRepository;
 
     @Override
     public Long create(OrderCreateCommand command, HttpServletRequest request) {
-        String token = cookieUtil.getCookie(AUTH_TOKEN, request);
+        String token = jweTokenProvider.resolveToken(request);
 
         Preconditions.checkArgument(jweTokenProvider.validToken(token));
 
@@ -50,6 +51,8 @@ public class OrderCommandService implements CreateOrder {
 
         OrderProductJpaEntity orderProduct = OrderProductJpaEntity.createOrderProduct(foundProduct, command.count());
         DeliveryJpaEntity delivery = DeliveryJpaEntity.createDelivery(command);
+        deliveryRepository.save(delivery);
+
 
         OrderJpaEntity orderJpaEntity = OrderJpaEntity.createOrder(command, delivery, foundUser, orderProduct);
         OrderJpaEntity savedOrder = orderRepository.saveAndFlush(orderJpaEntity);
