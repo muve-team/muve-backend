@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.AeadAlgorithm;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.muve.common.exception.BaseException;
 import kr.muve.common.exception.ErrorCode;
@@ -102,6 +103,11 @@ public class JweTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            throw new JweException(ErrorCode.JWE_TOKEN_INVALID);
+        }
+
         return Arrays.stream(request.getCookies())
                 .filter(cookie -> cookie.getName().equals(AUTH_TOKEN) && StringUtils.hasText(cookie.getValue()))
                 .findFirst()
