@@ -28,8 +28,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .exposedHeaders("Set-Cookie")  // 응답 헤더 노출
                 .allowCredentials(true)  // 인증 정보(Cookie, Authorization 등)를 허용할지 여부
                 .exposedHeaders("Referrer-Policy")
-                .exposedHeaders("x-request-id") // 필요한 경우 응답 헤더 추가
-                .maxAge(3600);  // preflight 요청 캐시 시간
+                .exposedHeaders("x-request-id"); // 필요한 경우 응답 헤더 추가
+//                .maxAge(3600);  // preflight 요청 캐시 시간
 
     }
 
@@ -57,8 +57,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/category/products",
                         "/**/*.html",     // 정적 리소스 제외
                         "/**/*.css",
-                        "/**/*.js",
-                        "/**/options/**"  // 모든 OPTIONS 요청 제외
+                        "/**/*.js"
                         );  // 특정 경로는 제외
 
         registry.addInterceptor(commonHttpRequestInterceptor)  // CommonHttpRequestInterceptor 추가

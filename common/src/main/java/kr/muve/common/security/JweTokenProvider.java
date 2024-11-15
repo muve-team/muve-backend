@@ -77,8 +77,7 @@ public class JweTokenProvider {
 
     private AuthJwe exportAuthJwe(String token) throws JsonProcessingException {
         String decrypted = new String(getContent(token));
-        AuthJwe authJwe = objectMapper.readValue(decrypted, AuthJwe.class);
-        return authJwe;
+        return objectMapper.readValue(decrypted, AuthJwe.class);
     }
 
     private static void checkPreConditionExpired(AuthJwe authJwe) {
