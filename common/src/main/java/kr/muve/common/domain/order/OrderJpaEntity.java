@@ -61,6 +61,8 @@ public class OrderJpaEntity {
         this.ordererPhoneNumber = command.ordererPhoneNumber();
         this.ordererEmail = command.ordererEmail();
         this.deliveryJpaEntity = deliveryJpaEntity;
+        this.receiverName = command.receiverName();
+        this.receiverPhoneNumber = command.receiverPhoneNumber();
         deliveryJpaEntity.updateOrder(this);
         this.status = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
