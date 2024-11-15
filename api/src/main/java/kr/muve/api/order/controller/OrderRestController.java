@@ -21,11 +21,11 @@ public class OrderRestController {
     private final CreateOrder createOrder;
 
     @GetMapping(value = "/detail")
-    public CommonResponse<OrderDetailRes> getOrderDetail(@RequestParam("orderId") Long orderId) {
+    public CommonResponse<OrderDetailRes> getOrderDetail(@RequestParam("orderId") Long orderId, HttpServletRequest request) {
 
         log.info("[GET] /order/detail, orderId: {}", orderId);
 
-        return CommonResponse.success(detailOrder.getOrderDetail(orderId));
+        return CommonResponse.success(detailOrder.getOrderDetail(orderId, request));
     }
 
     @PostMapping

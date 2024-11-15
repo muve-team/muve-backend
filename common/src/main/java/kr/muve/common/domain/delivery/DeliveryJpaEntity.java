@@ -36,6 +36,8 @@ public class DeliveryJpaEntity {
 
     private LocalDateTime deliveryDate;
 
+    private String deliveryRequest;
+
     public DeliveryJpaEntity(Address address) {
         this.address = address;
         this.company = "대한통운";

@@ -32,6 +32,11 @@ public class OrderJpaEntity {
     private String ordererPhoneNumber;
     private String ordererEmail;
 
+    private String receiverName;
+    private String receiverPhoneNumber;
+
+    private String paymentMethod;
+
     @OneToMany(mappedBy = "orderJpaEntity", cascade = CascadeType.ALL)
     private List<OrderProductJpaEntity> orderProductJpaEntities = new ArrayList<>();
 
