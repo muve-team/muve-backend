@@ -64,6 +64,7 @@ public class OrderJpaEntity {
         deliveryJpaEntity.updateOrder(this);
         this.status = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
+        this.paymentMethod = "card";
     }
 
     public static OrderJpaEntity createOrder(OrderCreateCommand command, DeliveryJpaEntity deliveryJpaEntity,
