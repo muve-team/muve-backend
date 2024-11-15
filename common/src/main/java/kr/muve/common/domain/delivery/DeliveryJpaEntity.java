@@ -20,7 +20,7 @@ public class DeliveryJpaEntity {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "deliveryJpaEntity")
     private OrderJpaEntity orderJpaEntity;
 
     @Embedded
