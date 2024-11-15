@@ -21,7 +21,6 @@ public class DeliveryJpaEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
     private OrderJpaEntity orderJpaEntity;
 
     @Embedded
