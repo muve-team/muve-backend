@@ -54,6 +54,8 @@ public class OrderJpaEntity {
     private OrderJpaEntity(OrderCreateCommand command, DeliveryJpaEntity deliveryJpaEntity,
                            UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
         Arrays.stream(orderProductJpaEntities).forEach(this::addOrderProduct);
+        deliveryJpaEntity.updateOrder(this);
+
         this.userJpaEntity = userJpaEntity;
         this.ordererName = command.ordererName();
         this.ordererPhoneNumber = command.ordererPhoneNumber();

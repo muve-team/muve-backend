@@ -5,3 +5,8 @@ ALTER TABLE orders
 
 ALTER TABLE delivery
     ADD COLUMN delivery_request VARCHAR(255) NULL;
+
+ALTER TABLE delivery
+    ADD COLUMN city VARCHAR(255) NULL,
+    ADD COLUMN street VARCHAR(255) NULL,
+    ADD COLUMN zipcode VARCHAR(20) NULL;

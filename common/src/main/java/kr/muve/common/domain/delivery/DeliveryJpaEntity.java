@@ -67,4 +67,8 @@ public class DeliveryJpaEntity {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public void updateOrder(OrderJpaEntity orderJpaEntity) {
+        this.orderJpaEntity = orderJpaEntity;
+    }
 }
