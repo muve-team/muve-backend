@@ -44,7 +44,7 @@ public class OrderJpaEntity {
     @JoinColumn(name = "user_id")
     private UserJpaEntity userJpaEntity;
 
-    @OneToOne(mappedBy = "orderJpaEntity", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private DeliveryJpaEntity deliveryJpaEntity;
 
