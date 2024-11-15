@@ -54,13 +54,13 @@ public class OrderJpaEntity {
     private OrderJpaEntity(OrderCreateCommand command, DeliveryJpaEntity deliveryJpaEntity,
                            UserJpaEntity userJpaEntity, OrderProductJpaEntity... orderProductJpaEntities) {
         Arrays.stream(orderProductJpaEntities).forEach(this::addOrderProduct);
-        deliveryJpaEntity.updateOrder(this);
 
         this.userJpaEntity = userJpaEntity;
         this.ordererName = command.ordererName();
         this.ordererPhoneNumber = command.ordererPhoneNumber();
         this.ordererEmail = command.ordererEmail();
         this.deliveryJpaEntity = deliveryJpaEntity;
+        deliveryJpaEntity.updateOrder(this);
         this.status = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
     }
