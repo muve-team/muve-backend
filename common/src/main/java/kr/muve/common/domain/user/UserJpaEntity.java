@@ -38,6 +38,11 @@ public class UserJpaEntity {
     private LocalDateTime updatedDate;
 
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "city")),
+            @AttributeOverride(name = "street", column = @Column(name = "street")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "zipcode"))
+    })
     private Address address;
     
     protected UserJpaEntity() {}
