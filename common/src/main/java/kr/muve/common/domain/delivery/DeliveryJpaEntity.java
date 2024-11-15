@@ -23,9 +23,6 @@ public class DeliveryJpaEntity {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "deliveryJpaEntity")
     private OrderJpaEntity orderJpaEntity;
 
-    @Embedded
-    private Address address;
-
     private String company;
 
     private String trackingNumber;
@@ -37,12 +34,17 @@ public class DeliveryJpaEntity {
 
     private String deliveryRequest;
 
+    @Embedded
+    private Address address;
+
+
     public DeliveryJpaEntity(Address address) {
         this.address = address;
         this.company = "대한통운";
         this.trackingNumber = "123456789";
         this.status = DeliveryStatus.READY;
         this.deliveryDate = LocalDateTime.now();
+        this.deliveryRequest = "DOOR";
     }
 
     protected DeliveryJpaEntity() {
